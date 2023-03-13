@@ -1,2 +1,0 @@
-# MiniShell
-niquel !
