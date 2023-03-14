@@ -1,19 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: axcallet <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: arforgea <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/14 15:30:39 by axcallet          #+#    #+#             */
-/*   Updated: 2023/03/14 15:38:02 by axcallet         ###   ########.fr       */
+/*   Created: 2023/03/13 14:22:32 by arforgea          #+#    #+#             */
+/*   Updated: 2023/03/14 15:28:07 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "../inc/minishell.h"
-#include <stdio.h>
-int main(int argc, char **argv, char **envp)
-{
-	(void)argc;
-	printf("%s\n", get_abs_path(argv[1], envp));
-	return (0);
-}
+#ifndef MINISHELL_H
+# define MINISHELL_H
+# include "../src/libft/libft.h"
+
+char	*get_abs_path(char *cmd, char **envp);
+void	free_tab(char **tab);
+
+#endif
