@@ -6,7 +6,7 @@
 /*   By: axcallet <axcallet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 09:40:28 by axcallet          #+#    #+#             */
-/*   Updated: 2023/03/14 11:48:44 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/03/14 13:14:21 by arforgea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,14 @@ void	ft_lstadd_front(t_list **lst, t_list *new_lst)
 {
 	t_list	*temp;
 
-	if (new == NULL)
+	if (new_lst == NULL)
 		return ;
 	if (!*lst)
-		*lst = new;
+		*lst = new_lst;
 	else
 	{
 		temp = *lst;
-		*lst = new;
-		new->next = temp;
+		*lst = new_lst;
+		new_lst->next = temp;
 	}
 }
