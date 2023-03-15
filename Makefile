@@ -6,7 +6,7 @@
 #    By: axcallet <axcallet@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/13 13:47:21 by axcallet          #+#    #+#              #
-#    Updated: 2023/03/14 17:31:04 by arforgea         ###   ########.fr        #
+#    Updated: 2023/03/15 14:59:04 by axcallet         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,14 +45,14 @@ $(NAME): $(OBJ_DIR) $(OBJ)
 	@echo $(_GREEN)Compiling $(OBJ)...$(END)
 	@echo $(_GREEN)Compiling libft
 	@$(MAKE) bonus -C $(LIBFT)
-	@$(CXX) $(CXXFLAGS) -L $(LIBFT) -o $(NAME) $(OBJ) -l:libft.a
+	@$(CXX) $(CXXFLAGS) -L $(LIBFT) -o $(NAME) $(OBJ) -lreadline -l:libft.a
 
 $(OBJ_DIR):
 	@mkdir -p $@
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 	@echo $(_CYAN)Compiling $<...$(END)
-	@$(CXX) -o $@ -c $< $(CXXFLAGS) $(INC)
+	@$(CXX) -o $@ -c $< $(CXXFLAGS)
 
 clean:
 	@echo $(_YELLOW)Cleaning $(OBJ)...$(END)
