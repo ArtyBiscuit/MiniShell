@@ -6,7 +6,7 @@
 /*   By: arforgea <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 14:22:32 by arforgea          #+#    #+#             */
-/*   Updated: 2023/03/16 15:34:54 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/03/16 15:51:53 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@
 
 //	########## STRCTURE ##########
 
-typedef struct	s_main
+typedef struct	s_cmd
 {
 	char	**cmd;
 	char	*abs_path;
@@ -43,14 +43,14 @@ typedef struct	s_main
 	char	*rlt_file;
 	t_main	*next;
 	t_main	*back;
-}				t_main;
+}				t_cmd;
 
 typedef struct	s_data
 {
 	char	**av;
 	char	**env;
 	int		ac;
-	t_main	*lst_head;
+	int		nb_pipe;
 }				t_data;
 
 //	########## FONCTIONS ##########
