@@ -6,7 +6,7 @@
 /*   By: arforgea <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 14:22:32 by arforgea          #+#    #+#             */
-/*   Updated: 2023/03/16 15:51:53 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/03/16 15:58:42 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,8 @@ typedef struct	s_cmd
 	char	*abs_path;
 	char	*spe;
 	char	*rlt_file;
-	t_main	*next;
-	t_main	*back;
+	t_cmd	*next;
+	t_cmd	*back;
 }				t_cmd;
 
 typedef struct	s_data
