@@ -6,26 +6,27 @@
 /*   By: axcallet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 15:30:39 by axcallet          #+#    #+#             */
-/*   Updated: 2023/03/15 15:49:17 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/03/16 13:50:28 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../inc/minishell.h"
+
 int main(int argc, char **argv, char **envp)
 {
 	(void)argc;
 	(void)argv;
 	(void)envp;
-	char	*str;
+	char	*input;
 
 	while (1)
 	{
-		str = readline(">");
-		if (str)
-			printf("%s\n", str);
+		input = readline("B==>");
+		add_history(input);
+		if (input[0] == '\0')
+			printf("%s", input);
 		else
-			exit(1);
+			printf("%s\n", input);
+		free(input);
 	}
-//	printf("%s\n", get_abs_path(argv[1], envp));
-//	echo("Lorem Ipsum", "n");
 	return (0);
 }
