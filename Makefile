@@ -6,7 +6,7 @@
 #    By: axcallet <axcallet@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/13 13:47:21 by axcallet          #+#    #+#              #
-#    Updated: 2023/03/15 14:59:04 by axcallet         ###   ########.fr        #
+#    Updated: 2023/03/17 13:38:59 by axcallet         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,7 +32,7 @@ OBJ_DIR		= obj
 BIN_DIR		= bin
 
 MAKEFLAGS	+= --no-print-directory
-SRC			= src/main.c src/get_abs_path.c src/free.c src/echo.c
+SRC			= src/main.c src/get_abs_path.c src/free.c src/echo.c src/parsing.c
 OBJ			= $(SRC:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 LIBFT		= src/libft
 INC			= -Iinc

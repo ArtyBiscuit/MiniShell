@@ -6,7 +6,7 @@
 /*   By: arforgea <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 14:22:32 by arforgea          #+#    #+#             */
-/*   Updated: 2023/03/16 15:58:42 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/03/17 13:46:05 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,12 +37,12 @@
 
 typedef struct	s_cmd
 {
-	char	**cmd;
-	char	*abs_path;
-	char	*spe;
-	char	*rlt_file;
-	t_cmd	*next;
-	t_cmd	*back;
+	char			**cmd;
+	char			*abs_path;
+	char			*spe;
+	char			*rlt_file;
+	struct s_cmd	*next;
+	struct s_cmd	*back;
 }				t_cmd;
 
 typedef struct	s_data
@@ -61,6 +61,7 @@ char	*get_abs_path(char *cmd, char **envp);
 
 void	free_tab(char **tab);
 void	echo(char *str, char *flags);
+void	parsing(char *input, t_data *data);
 
 //	########## END ##########
 

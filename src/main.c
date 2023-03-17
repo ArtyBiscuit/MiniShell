@@ -6,18 +6,20 @@
 /*   By: axcallet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 15:30:39 by axcallet          #+#    #+#             */
-/*   Updated: 2023/03/16 13:50:28 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/03/17 13:44:41 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../inc/minishell.h"
 
 int main(int argc, char **argv, char **envp)
 {
-	(void)argc;
-	(void)argv;
-	(void)envp;
+	t_data	*data;	
 	char	*input;
 
+	data = malloc(sizeof(t_data));
+	data->ac = argc;
+	data->av = argv;
+	data->env = envp;
 	while (1)
 	{
 		input = readline("B==>");
@@ -25,7 +27,7 @@ int main(int argc, char **argv, char **envp)
 		if (input[0] == '\0')
 			printf("%s", input);
 		else
-			printf("%s\n", input);
+			parsing(input, data);
 		free(input);
 	}
 	return (0);
