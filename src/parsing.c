@@ -6,15 +6,132 @@
 /*   By: axcallet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 15:15:24 by axcallet          #+#    #+#             */
-/*   Updated: 2023/03/17 15:45:48 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/03/23 11:53:33 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../inc/minishell.h"
 #include "libft/libft.h"
+#include <strings.h>
 
-void	parsing(char *input, t_data *data)
+static char	*search_rlt_file(char *cmd)
+{
+	int		i;
+	int		j;
+	char	*file;
+	
+	i = 0;
+	j = 0;
+	while (cmd[i])
+	{
+		while (cmd[i] && (cmd[i] == '<' || cmd[i] == '>'))
+			i++;
+		while (cmd[i] && (cmd[i] == ' ' || cmd[i] == '\t'))
+			i++;
+		file = malloc(sizeof(char) * strlen_word(&cmd[i]));
+		while (cmd[i] && (cmd[i] != ' ' && cmd[i] != '\t'))
+			file[j++] = cmd[i++];
+		return (file);
+	}
+	return (NULL);
+}
+
+static	int	nb_chevrons(char *cmd)
+{
+	int	i;
+	int	nb;
+
+	i = 0;
+	nb = 0;
+	while (cmd[i])
+	{
+		if (cmd[i] && ((cmd[i] == '<' || cmd[i] == '>')
+					&& (cmd[i+1] != '<' && cmd[i+1] != '>')))
+		{
+			i++;
+			nb++;
+		}
+		else if (cmd[i] && (cmd[i] == '<' && cmd[i+1] == '<'))
+		{
+			i += 2;
+			nb++;
+		}
+		else if (cmd[i] && (cmd[i] == '>' && cmd[i+1] == '>'))
+		{
+			i += 2;
+			nb++;
+		}
+		i++;
+	}
+	return (nb);
+}
+
+static char	*refile_chevrons(char *cmd)
+{
+	if (cmd[0] == '<')
+	{
+		if (cmd[1] == '<')
+			return ("<<");
+		return ("<");
+	}
+	else if (cmd[0] == '>')
+	{
+		if (cmd[1] == '>')
+			return (">>");
+		return (">");
+	}
+	return (NULL);
+}
+
+static t_cmd	*get_chevron(char *cmd)
+{
+	int		i;
+	int		index;
+	t_cmd	*tmp;
+
+	i = 0;
+	index = 0;
+	tmp = malloc(sizeof(t_cmd));
+	tmp->spe = malloc(sizeof(char*) * nb_chevrons(cmd));
+	while (cmd[i])
+	{
+		if (cmd[i] && (cmd[i] == '<' || cmd[i] == '>'))
+		{
+			tmp->spe[index++] = refile_chevrons(&cmd[i]);
+			if (cmd[i+1] == '<')
+				tmp->in = "le truc avec le heredoc";
+			else if (cmd[i] == '>')
+				tmp->out = search_rlt_file(&cmd[i]);
+			else if (cmd[i] == '<')
+				tmp->in = search_rlt_file(&cmd[i]);
+		}
+		i++;
+	}
+	return (tmp);
+}
+
+int	parsing(char *input, t_data *data)
 {
 	(void)data;
-	printf("%s\n", input);
-	return ;
+	char	**tab;
+	int		i;
+
+	i = 0;
+	tab = ft_split(input, '|');
+	while (tab[i])
+	{
+		if (get_chevron(tab[i]) == NULL)
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
+int	strlen_word(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i] && str[i] != ' ' && str[i] != '\t')
+		i++;
+	return (i);
 }

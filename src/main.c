@@ -6,10 +6,11 @@
 /*   By: axcallet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 15:30:39 by axcallet          #+#    #+#             */
-/*   Updated: 2023/03/17 13:44:41 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/03/22 11:55:37 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../inc/minishell.h"
+#include "libft/libft.h"
 
 int main(int argc, char **argv, char **envp)
 {
@@ -27,7 +28,13 @@ int main(int argc, char **argv, char **envp)
 		if (input[0] == '\0')
 			printf("%s", input);
 		else
-			parsing(input, data);
+		{
+			if (parsing(input, data) == 1)
+			{
+				ft_putstr_fd("Error parsing", 2);
+				return (1);
+			}
+		}
 		free(input);
 	}
 	return (0);
