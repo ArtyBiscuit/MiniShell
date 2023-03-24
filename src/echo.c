@@ -6,7 +6,7 @@
 /*   By: arforgea <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 16:17:37 by arforgea          #+#    #+#             */
-/*   Updated: 2023/03/14 17:53:21 by arforgea         ###   ########.fr       */
+/*   Updated: 2023/03/24 09:50:03 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../inc/minishell.h"
@@ -64,21 +64,21 @@ struct typedef	s_arg
 
 void	echo(char *str, char *flags)
 {
-	int i;
-	int str_size;
-	int f;
+	int	i;
+	int	str_size;
+	int	f;
 
 	i = 0;
 	f = 0;
 	str_size = ft_strlen(str);
 	while (flags && flags[i])
 	{
-		if(flags[i] == 'n')
+		if (flags[i] == 'n')
 			f = 1;
 		i++;
 	}
 	ft_putstr_fd(str, 1);
-	if(f)
-		return;
+	if (f)
+		return ;
 	write(1, "\n", 1);
 }

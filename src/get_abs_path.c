@@ -6,7 +6,7 @@
 /*   By: axcallet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 15:24:03 by axcallet          #+#    #+#             */
-/*   Updated: 2023/03/14 15:43:57 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/03/24 10:25:12 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../inc/minishell.h"
@@ -17,10 +17,10 @@ static char	*get_good_path(char *cmd, char **envp_path)
 	char	*path_tmp;
 	int		index;
 
+	index = -1;
 	if (!cmd)
 		return (NULL);
-	index = 0;
-	while (envp_path && envp_path[index])
+	while (envp_path && envp_path[++index])
 	{
 		if (envp_path[index][ft_strlen(envp_path[index]) - 1] == '/')
 			path_bin = ft_strjoin(envp_path[index], cmd);
@@ -36,7 +36,6 @@ static char	*get_good_path(char *cmd, char **envp_path)
 			return (path_bin);
 		}
 		free(path_bin);
-		index++;
 	}
 	return (NULL);
 }
@@ -46,14 +45,14 @@ char	*get_abs_path(char *cmd, char **envp)
 	int		i;
 	char	**envp_path;
 
-	if(!cmd || !envp)
+	if (!cmd || !envp)
 		return (NULL);
-	if(!access(cmd, F_OK))
+	if (!access(cmd, F_OK))
 		return (cmd);
 	i = 0;
-	while(ft_strncmp(envp[i], "PATH=", 5))
+	while (ft_strncmp(envp[i], "PATH=", 5))
 	{
-		if(!envp[i])
+		if (!envp[i])
 			return (NULL);
 		i++;
 	}

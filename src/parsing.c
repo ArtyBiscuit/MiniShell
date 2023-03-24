@@ -6,19 +6,17 @@
 /*   By: axcallet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 15:15:24 by axcallet          #+#    #+#             */
-/*   Updated: 2023/03/23 11:53:33 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/03/24 10:19:10 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../inc/minishell.h"
-#include "libft/libft.h"
-#include <strings.h>
 
 static char	*search_rlt_file(char *cmd)
 {
 	int		i;
 	int		j;
 	char	*file;
-	
+
 	i = 0;
 	j = 0;
 	while (cmd[i])
@@ -40,27 +38,26 @@ static	int	nb_chevrons(char *cmd)
 	int	i;
 	int	nb;
 
-	i = 0;
+	i = -1;
 	nb = 0;
-	while (cmd[i])
+	while (cmd[++i])
 	{
 		if (cmd[i] && ((cmd[i] == '<' || cmd[i] == '>')
-					&& (cmd[i+1] != '<' && cmd[i+1] != '>')))
+				&& (cmd[i + 1] != '<' && cmd[i + 1] != '>')))
 		{
 			i++;
 			nb++;
 		}
-		else if (cmd[i] && (cmd[i] == '<' && cmd[i+1] == '<'))
+		else if (cmd[i] && (cmd[i] == '<' && cmd[i + 1] == '<'))
 		{
 			i += 2;
 			nb++;
 		}
-		else if (cmd[i] && (cmd[i] == '>' && cmd[i+1] == '>'))
+		else if (cmd[i] && (cmd[i] == '>' && cmd[i + 1] == '>'))
 		{
 			i += 2;
 			nb++;
 		}
-		i++;
 	}
 	return (nb);
 }
@@ -91,13 +88,13 @@ static t_cmd	*get_chevron(char *cmd)
 	i = 0;
 	index = 0;
 	tmp = malloc(sizeof(t_cmd));
-	tmp->spe = malloc(sizeof(char*) * nb_chevrons(cmd));
+	tmp->spe = malloc(sizeof(char *) * nb_chevrons(cmd));
 	while (cmd[i])
 	{
 		if (cmd[i] && (cmd[i] == '<' || cmd[i] == '>'))
 		{
 			tmp->spe[index++] = refile_chevrons(&cmd[i]);
-			if (cmd[i+1] == '<')
+			if (cmd[i + 1] == '<')
 				tmp->in = "le truc avec le heredoc";
 			else if (cmd[i] == '>')
 				tmp->out = search_rlt_file(&cmd[i]);
@@ -109,9 +106,8 @@ static t_cmd	*get_chevron(char *cmd)
 	return (tmp);
 }
 
-int	parsing(char *input, t_data *data)
+int	parsing(char *input)
 {
-	(void)data;
 	char	**tab;
 	int		i;
 
@@ -124,14 +120,4 @@ int	parsing(char *input, t_data *data)
 		i++;
 	}
 	return (0);
-}
-
-int	strlen_word(char *str)
-{
-	int	i;
-
-	i = 0;
-	while (str[i] && str[i] != ' ' && str[i] != '\t')
-		i++;
-	return (i);
 }

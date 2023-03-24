@@ -6,7 +6,7 @@
 /*   By: arforgea <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 14:22:32 by arforgea          #+#    #+#             */
-/*   Updated: 2023/03/22 11:26:38 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/03/24 09:59:30 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@
 
 //	########## STRCTURE ##########
 
-typedef struct	s_cmd
+typedef struct s_cmd
 {
 	char			**cmd;
 	char			*abs_path;
@@ -46,7 +46,7 @@ typedef struct	s_cmd
 	struct s_cmd	*back;
 }				t_cmd;
 
-typedef struct	s_data
+typedef struct s_data
 {
 	char	**av;
 	char	**env;
@@ -56,8 +56,8 @@ typedef struct	s_data
 
 //	########## FONCTIONS ##########
 
+int		parsing(char *input);
 int		strlen_word(char *str);
-int		parsing(char *input, t_data *data);
 int		main(int argc, char **argv, char **envp);
 
 char	*get_abs_path(char *cmd, char **envp);
