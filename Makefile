@@ -6,7 +6,7 @@
 #    By: axcallet <axcallet@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/13 13:47:21 by axcallet          #+#    #+#              #
-#    Updated: 2023/03/24 09:58:50 by axcallet         ###   ########.fr        #
+#    Updated: 2023/03/26 07:49:02 by arty             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,7 @@ _CYAN="\033[0;36m"
 ########## ARGUMENTS ##########
 
 NAME		= minishell
-CXX			= clang
+CXX			= gcc
 CXXFLAGS	= -Wall -Werror -Wextra -g
 
 ########## SOURCES ##########
@@ -33,7 +33,7 @@ BIN_DIR		= bin
 
 MAKEFLAGS	+= --no-print-directory
 SRC			= src/main.c src/get_abs_path.c src/free.c src/echo.c src/parsing.c \
-			src/utils.c
+			src/utils.c src/init_exec_lst.c src/init_rdir_lst.c
 OBJ			= $(SRC:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 LIBFT		= src/libft
 INC			= -Iinc
