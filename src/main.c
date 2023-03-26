@@ -6,7 +6,7 @@
 /*   By: axcallet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 15:30:39 by axcallet          #+#    #+#             */
-/*   Updated: 2023/03/24 09:49:15 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/03/26 07:54:17 by arty             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../inc/minishell.h"
@@ -14,6 +14,24 @@
 
 int	main(int argc, char **argv, char **envp)
 {
+	/////// CA LEAK !!!! ///////
+	/*
+	(void)argc;
+	(void)argv;
+	(void)envp;
+
+	t_rdir *test;
+
+	test = rdir_lst_init(3);
+
+	while(test)
+	{
+		printf("%p\n", test);
+		test = test->next;
+	}
+	rdir_lst_free(test);
+	*/
+
 	t_data	*data;	
 	char	*input;
 
