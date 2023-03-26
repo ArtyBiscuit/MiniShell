@@ -6,7 +6,7 @@
 /*   By: arforgea <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 14:22:32 by arforgea          #+#    #+#             */
-/*   Updated: 2023/03/26 07:45:03 by arty             ###   ########.fr       */
+/*   Updated: 2023/03/26 12:07:45 by arforgea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,11 @@
 //	########## STRCTURE ##########
 typedef struct	s_exec	t_exec;
 typedef struct	s_rdir	t_rdir;
+typedef struct	s_cmd	t_cmd;
 
 struct	s_exec
 {
+	t_cmd	*cmd;
 	t_rdir	*rdir;
 	t_exec	*next;
 	t_exec	*back;
@@ -53,6 +55,14 @@ struct	s_rdir
 	t_rdir	*back;
 };
 
+struct	s_cmd
+{
+	char	*abs_path;
+	char	**full_cmd;
+	char	*cmd;
+};
+
+/*
 typedef struct s_cmd
 {
 	char			**cmd;
@@ -63,6 +73,7 @@ typedef struct s_cmd
 	struct s_cmd	*next;
 	struct s_cmd	*back;
 }				t_cmd;
+*/
 
 typedef struct s_data
 {
@@ -79,6 +90,7 @@ t_exec	*exec_lst_init(int nb);
 t_rdir	*rdir_lst_init(int nbr);
 void	exec_lst_free(t_exec *ptr);
 void	rdir_lst_free(t_rdir *ptr);
+void	lst_destroy(t_exec *ptr);
 
 
 
