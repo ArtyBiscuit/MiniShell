@@ -6,7 +6,7 @@
 /*   By: arforgea <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 14:22:32 by arforgea          #+#    #+#             */
-/*   Updated: 2023/03/28 11:36:34 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/03/28 11:47:19 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ int		parsing(char *input);
 int		strlen_word(char *str);
 int		main(int argc, char **argv, char **envp);
 
-int		get_chevrons_numbers(char *cmd);
+int		get_chevrons_number(char *cmd);
 
 
 //	other...
@@ -108,7 +108,7 @@ char	*get_abs_path(char *cmd, char **envp);
 
 t_cmd	*get_chevron(char *cmd);
 
-int	skip_argument(char *c);
+int		skip_argument(char *c);
 
 void	free_tab(char **tab);
 void	echo(char *str, char *flags);
