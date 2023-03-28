@@ -6,7 +6,7 @@
 /*   By: arforgea <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 14:22:32 by arforgea          #+#    #+#             */
-/*   Updated: 2023/03/28 09:03:50 by arforgea         ###   ########.fr       */
+/*   Updated: 2023/03/28 11:08:45 by arforgea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,8 @@ int		get_chevrons_numbers(char *cmd);
 
 //	other...
 char	*get_abs_path(char *cmd, char **envp);
+
+int	skip_argument(char *c);
 
 void	free_tab(char **tab);
 void	echo(char *str, char *flags);
