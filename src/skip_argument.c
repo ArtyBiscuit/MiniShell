@@ -1,26 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pars_init.c                                        :+:      :+:    :+:   */
+/*   skip_argument.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: arforgea <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/28 08:54:27 by arforgea          #+#    #+#             */
-/*   Updated: 2023/03/28 10:18:09 by arforgea         ###   ########.fr       */
+/*   Created: 2023/03/28 10:18:14 by arforgea          #+#    #+#             */
+/*   Updated: 2023/03/28 11:07:52 by arforgea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../inc/minishell.h"
-#include <stdlib.h>
+#include <stdio.h>
 
-// D.T.T or "dtt" for "DaTa_Tree"
-
-t_exec *dtt_init(char *str)
+int	skip_argument(char *c)
 {
-	t_exec	*data_tree;
+	int		cmp;
+	int		index;
+	char	temple;
 
-	data_tree = malloc(sizeof(t_exec) * get_chevrons_numbers(str) + 1);
-	if (!data_tree)
-		return(NULL);
-	
-	return (data_tree);
+	index = 1;
+	temple = *c;
+	while(c)
+	{
+		if (temple == c[index])
+			return (index);
+		index++;
+	}
+	return (-1);
 }
