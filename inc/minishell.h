@@ -6,7 +6,7 @@
 /*   By: arforgea <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 14:22:32 by arforgea          #+#    #+#             */
-/*   Updated: 2023/03/26 12:07:45 by arforgea         ###   ########.fr       */
+/*   Updated: 2023/03/28 09:03:50 by arforgea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,9 @@ void	lst_destroy(t_exec *ptr);
 int		parsing(char *input);
 int		strlen_word(char *str);
 int		main(int argc, char **argv, char **envp);
+
+int		get_chevrons_numbers(char *cmd);
+
 
 //	other...
 char	*get_abs_path(char *cmd, char **envp);

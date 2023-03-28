@@ -6,7 +6,7 @@
 /*   By: axcallet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 15:15:24 by axcallet          #+#    #+#             */
-/*   Updated: 2023/03/26 12:10:38 by arforgea         ###   ########.fr       */
+/*   Updated: 2023/03/28 09:04:22 by arforgea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../inc/minishell.h"
@@ -33,7 +33,7 @@ static char	*search_rlt_file(char *cmd)
 	return (NULL);
 }
 
-static	int	nb_chevrons(char *cmd)
+int	get_chevrons_numbers(char *cmd)
 {
 	int	i;
 	int	nb;
@@ -88,7 +88,7 @@ static t_cmd	*get_chevron(char *cmd)
 	i = 0;
 	index = 0;
 	tmp = malloc(sizeof(t_cmd));
-	tmp->spe = malloc(sizeof(char *) * nb_chevrons(cmd));
+	tmp->spe = malloc(sizeof(char *) * get_chevrons_numbers(cmd));
 	while (cmd[i])
 	{
 		if (cmd[i] && (cmd[i] == '<' || cmd[i] == '>'))

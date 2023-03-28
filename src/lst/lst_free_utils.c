@@ -6,10 +6,10 @@
 /*   By: arforgea <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/26 11:37:47 by arforgea          #+#    #+#             */
-/*   Updated: 2023/03/26 12:04:40 by arforgea         ###   ########.fr       */
+/*   Updated: 2023/03/28 08:48:16 by arforgea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "../inc/minishell.h"
+#include "../../inc/minishell.h"
 
 void	cmd_link_value_free(t_cmd *ptr)
 {

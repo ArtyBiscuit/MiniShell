@@ -6,10 +6,10 @@
 /*   By: arforgea <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/26 11:28:22 by arforgea          #+#    #+#             */
-/*   Updated: 2023/03/26 11:37:14 by arforgea         ###   ########.fr       */
+/*   Updated: 2023/03/28 08:48:29 by arforgea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "../inc/minishell.h"
+#include "../../inc/minishell.h"
 
 t_cmd	*cmd_set_valus(t_cmd *ptr, char *abs, char **full_cmd, char *cmd)
 {
