@@ -1,34 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipes_number.c                                     :+:      :+:    :+:   */
+/*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: axcallet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/28 11:00:01 by axcallet          #+#    #+#             */
-/*   Updated: 2023/03/30 17:29:33 by arty             ###   ########.fr       */
+/*   Created: 2023/03/16 15:15:24 by axcallet          #+#    #+#             */
+/*   Updated: 2023/03/28 11:36:10 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "../../inc/minishell.h"
+#include "../inc/minishell.h"
 
-int	get_pipes_number(char *str)
+int	parsing(char *input)
 {
-	int	i;
-	int	res;
+	char	**tab;
+	int		i;
 
 	i = 0;
-	res = 0;
-	while (str[i])
+	tab = ft_split(input, '|');
+	while (tab[i])
 	{
-		if (str[i] && (str[i] == '\"' || str[i] == '\''))
-		{
-		if (skip_argument(&str[i]))
-				i += skip_argument(&str[i]);
-		}
-		if (str[i] && str[i] == '|')
-			res++;
+		if (get_chevron(tab[i]) == NULL)
+			return (1);
 		i++;
 	}
-	return (res + 1);
+	return (0);
 }
-

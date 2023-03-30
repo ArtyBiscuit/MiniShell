@@ -6,7 +6,7 @@
 /*   By: axcallet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 11:35:54 by axcallet          #+#    #+#             */
-/*   Updated: 2023/03/28 11:36:12 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/03/30 16:18:04 by arty             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../inc/minishell.h"
@@ -77,3 +77,16 @@ t_cmd	*get_chevron(char *cmd)
 	return (tmp);
 }
 
+int	check_chevrons(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] && (str[i] == '>' || str[i] == '<'))
+			return (1);
+		i++;
+	}
+	return (0);
+}
