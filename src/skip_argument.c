@@ -6,7 +6,7 @@
 /*   By: arforgea <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 10:18:14 by arforgea          #+#    #+#             */
-/*   Updated: 2023/03/28 11:07:52 by arforgea         ###   ########.fr       */
+/*   Updated: 2023/04/03 09:35:57 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../inc/minishell.h"
@@ -14,7 +14,6 @@
 
 int	skip_argument(char *c)
 {
-	int		cmp;
 	int		index;
 	char	temple;
 

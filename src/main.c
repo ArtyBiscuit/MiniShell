@@ -6,7 +6,7 @@
 /*   By: axcallet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 15:30:39 by axcallet          #+#    #+#             */
-/*   Updated: 2023/03/26 12:09:03 by arforgea         ###   ########.fr       */
+/*   Updated: 2023/04/03 09:39:09 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../inc/minishell.h"
@@ -18,17 +18,18 @@ int	main(int argc, char **argv, char **envp)
 	(void)argc;
 	(void)argv;
 	(void)envp;
+	int		i = 0;
+	char	**tab;
 
-	t_exec	*exec = exec_lst_init(50);
-	t_exec	*tmp = exec;
-
-	while(tmp)
+	tab = split_pipes("echo \"prout | lol\" | hello");
+	while (tab[i] != NULL)
 	{
-		printf("%p\n", tmp);
-		tmp = tmp->next;
+		printf("%s\n", tab[i]);
+		i++;
 	}
-
-	lst_destroy(exec);
+	return (0);
+//	t_exec	*exec = exec_lst_init(50);
+//	t_exec	*tmp = exec;
 	/*
 	t_data	*data;	
 	char	*input;

@@ -6,26 +6,26 @@
 /*   By: axcallet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 11:00:01 by axcallet          #+#    #+#             */
-/*   Updated: 2023/03/30 17:29:33 by arty             ###   ########.fr       */
+/*   Updated: 2023/04/03 09:16:06 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../../inc/minishell.h"
 
-int	get_pipes_number(char *str)
+int	get_pipes_number(char *cmd)
 {
 	int	i;
 	int	res;
 
 	i = 0;
 	res = 0;
-	while (str[i])
+	while (cmd[i])
 	{
-		if (str[i] && (str[i] == '\"' || str[i] == '\''))
+		if (cmd[i] && (cmd[i] == '\"' || cmd[i] == '\''))
 		{
-		if (skip_argument(&str[i]))
-				i += skip_argument(&str[i]);
+			if (skip_argument(&cmd[i]))
+				i += skip_argument(&cmd[i]);
 		}
-		if (str[i] && str[i] == '|')
+		if (cmd[i] && cmd[i] == '|')
 			res++;
 		i++;
 	}
