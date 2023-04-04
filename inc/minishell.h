@@ -6,7 +6,7 @@
 /*   By: arforgea <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 14:22:32 by arforgea          #+#    #+#             */
-/*   Updated: 2023/04/03 09:28:09 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/04/04 14:20:24 by arty             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ void	rdir_lst_free(t_rdir *ptr);
 void	lst_destroy(t_exec *ptr);
 
 
-
+t_exec	*dtt_init(char *input);
 
 //	parsing
 int		parsing(char *input);
@@ -102,7 +102,7 @@ int		main(int argc, char **argv, char **envp);
 
 int		get_chevrons_number(char *cmd);
 int		get_pipes_number(char *cmd);
-
+int		check_chevrons(char *str);
 //	other...
 char	*get_abs_path(char *cmd, char **envp);
 

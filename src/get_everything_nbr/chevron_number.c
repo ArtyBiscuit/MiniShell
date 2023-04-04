@@ -6,7 +6,7 @@
 /*   By: axcallet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 11:34:31 by axcallet          #+#    #+#             */
-/*   Updated: 2023/03/28 11:55:20 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/04/04 15:39:01 by arty             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../../inc/minishell.h"
@@ -33,7 +33,8 @@ int	get_chevrons_number(char *str)
 				i++;
 			res++;
 		}
+		i++;
 	}
 	return (res);
 }
-
+//echo "yolo | yolo lyog" | oui > non > bof | echo > yop | echo "yolo"
