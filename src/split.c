@@ -1,38 +1,53 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   split.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: axcallet <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/04/05 09:39:12 by axcallet          #+#    #+#             */
+/*   Updated: 2023/04/05 09:47:03 by axcallet         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 #include "../inc/minishell.h"
 
-
-char **split_pipes(char *str)
+char	**split_pipes(char *str)
 {
-    int i = 0;
-    int j = 0;
-    int index = 0;
-    char **f_tab = malloc(sizeof(char *) * (get_pipes_number(str) + 1));
-    if (!f_tab)
-        return NULL;
+	int		i;
+	int		j;
+	int		index;
+	char	**f_tab;
+
+	i = 0;
+	j = 0;
+	index = 0;
+	f_tab = malloc(sizeof(char *) * (get_pipes_number(str) + 1));
+	if (!f_tab)
+		return (NULL);
     //f_tab[get_pipes_number(str)] = NULL;
-    while (i < get_pipes_number(str))
-    {
-        while (str[index])
-        {
-            if (str[index + j] == '"')
-                j += skip_argument(&str[index + j]);
-            if (str[index + j] == '|' || str[index + j + 1] == '\0')
-            {
-                f_tab[i] = malloc(sizeof(char) * (j + 1));
-                if (!f_tab[i])
-                    return NULL;
+	while (i < get_pipes_number(str))
+	{
+		while (str[index])
+		{
+			if (str[index + j] == '"')
+				j += skip_argument(&str[index + j]);
+			if (str[index + j] == '|' || str[index + j + 1] == '\0')
+			{
+				f_tab[i] = malloc(sizeof(char) * (j + 1));
+				if (!f_tab[i])
+					return (NULL);
 				ft_memcpy(f_tab[i], &str[index], j);
 				f_tab[i][j + index] = '\0';
-                index += j + 1;
-                break;
-            }
-            j++;
-        }
-        i++;
-        j = 0;
-    }
+				index += j + 1;
+				break ;
+			}
+			j++;
+		}
+		i++;
+		j = 0;
+	}
 	f_tab[i + 1] = NULL;
-    return (f_tab);
+	return (f_tab);
 }
 
 /*

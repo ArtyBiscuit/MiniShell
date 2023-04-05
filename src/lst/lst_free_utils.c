@@ -6,7 +6,7 @@
 /*   By: arforgea <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/26 11:37:47 by arforgea          #+#    #+#             */
-/*   Updated: 2023/03/28 08:48:16 by arforgea         ###   ########.fr       */
+/*   Updated: 2023/04/05 10:14:54 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../../inc/minishell.h"
@@ -74,10 +74,10 @@ void	lst_destroy(t_exec *ptr)
 	t_exec	*current;
 
 	current = ptr;
-	while(current)
+	while (current)
 	{
 		next = current->next;
-		if(current->rdir)
+		if (current->rdir)
 			rdir_lst_free(current->rdir);
 		else if (current->cmd)
 		{

@@ -6,7 +6,7 @@
 /*   By: arforgea <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 14:22:32 by arforgea          #+#    #+#             */
-/*   Updated: 2023/04/04 14:20:24 by arty             ###   ########.fr       */
+/*   Updated: 2023/04/05 09:35:39 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,9 @@
 # include <termios.h>
 
 //	########## STRCTURE ##########
-typedef struct	s_exec	t_exec;
-typedef struct	s_rdir	t_rdir;
-typedef struct	s_cmd	t_cmd;
+typedef struct s_exec	t_exec;
+typedef struct s_rdir	t_rdir;
+typedef struct s_cmd	t_cmd;
 
 struct	s_exec
 {
@@ -91,7 +91,6 @@ t_rdir	*rdir_lst_init(int nbr);
 void	exec_lst_free(t_exec *ptr);
 void	rdir_lst_free(t_rdir *ptr);
 void	lst_destroy(t_exec *ptr);
-
 
 t_exec	*dtt_init(char *input);
 

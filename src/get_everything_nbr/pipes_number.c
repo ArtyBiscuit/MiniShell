@@ -6,7 +6,7 @@
 /*   By: axcallet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 11:00:01 by axcallet          #+#    #+#             */
-/*   Updated: 2023/04/03 09:16:06 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/04/05 10:15:12 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../../inc/minishell.h"
@@ -31,4 +31,3 @@ int	get_pipes_number(char *cmd)
 	}
 	return (res + 1);
 }
-

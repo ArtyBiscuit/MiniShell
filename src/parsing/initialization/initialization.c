@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   initialization.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: axcallet <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/04/05 09:49:35 by axcallet          #+#    #+#             */
+/*   Updated: 2023/04/05 10:14:01 by axcallet         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 #include "../../../inc/minishell.h"
 #include <stdlib.h>
 
@@ -7,9 +18,8 @@ t_exec	*dtt_init(char *input)
 	char	**tab;
 	t_exec	*tmp;
 	t_exec	*main;
-	
+
 	i = 0;
-	
 	main = exec_lst_init(get_pipes_number(input));
 	if (!main)
 		return (NULL);
