@@ -6,7 +6,7 @@
 /*   By: arforgea <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 14:22:32 by arforgea          #+#    #+#             */
-/*   Updated: 2023/04/05 09:35:39 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/04/05 17:14:13 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,10 +77,9 @@ typedef struct s_cmd
 
 typedef struct s_data
 {
-	char	**av;
-	char	**env;
-	int		ac;
-	int		nb_pipe;
+	char	*input;
+	char	**envp;
+	t_exec	*dtt;
 }				t_data;
 
 //	########## FONCTIONS ##########
@@ -92,7 +91,8 @@ void	exec_lst_free(t_exec *ptr);
 void	rdir_lst_free(t_rdir *ptr);
 void	lst_destroy(t_exec *ptr);
 
-t_exec	*dtt_init(char *input);
+t_data	*dtt_init(t_data *data);
+t_data	*dtt_refile(t_data *data);
 
 //	parsing
 int		parsing(char *input);
