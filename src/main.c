@@ -6,7 +6,7 @@
 /*   By: axcallet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 15:30:39 by axcallet          #+#    #+#             */
-/*   Updated: 2023/04/04 15:02:13 by arty             ###   ########.fr       */
+/*   Updated: 2023/04/05 10:20:52 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../inc/minishell.h"
@@ -28,6 +28,7 @@ int	main(int argc, char **argv, char **envp)
 		if (input[0] == '\0')
 			printf("%s", input);
 		dtt = dtt_init(input);
+		(void)dtt;
 		free(input);
 	}
 	return (0);

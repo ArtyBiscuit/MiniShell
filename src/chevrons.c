@@ -6,11 +6,11 @@
 /*   By: axcallet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 11:35:54 by axcallet          #+#    #+#             */
-/*   Updated: 2023/04/05 09:35:57 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/04/05 11:46:38 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../inc/minishell.h"
-
+/*
 static char	*search_rlt_file(char *cmd)
 {
 	int		i;
@@ -32,7 +32,8 @@ static char	*search_rlt_file(char *cmd)
 	}
 	return (NULL);
 }
-
+*/
+/*
 static char	*refile_chevrons(char *cmd)
 {
 	if (cmd[0] == '<')
@@ -49,6 +50,7 @@ static char	*refile_chevrons(char *cmd)
 	}
 	return (NULL);
 }
+*/
 /*
 t_cmd	*get_chevron(char *cmd)
 {

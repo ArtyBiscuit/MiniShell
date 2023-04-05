@@ -6,7 +6,7 @@
 #    By: axcallet <axcallet@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/13 13:47:21 by axcallet          #+#    #+#              #
-#    Updated: 2023/04/03 09:32:46 by axcallet         ###   ########.fr        #
+#    Updated: 2023/04/05 11:48:41 by axcallet         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,7 @@ _CYAN="\033[0;36m"
 ########## ARGUMENTS ##########
 
 NAME		= minishell
-CXX			= gcc
+CXX			= clang
 CXXFLAGS	= -Wall -Werror -Wextra -g
 
 ########## SOURCES ##########
@@ -32,8 +32,25 @@ OBJ_DIR		= obj
 BIN_DIR		= bin
 
 MAKEFLAGS	+= --no-print-directory
-SRC			= src/main.c src/get_abs_path.c src/free.c src/echo.c src/parsing/parsing.c \
-			src/utils.c src/exec_lst_init.c src/rdir_lst_init.c src/lst_free_utils.c
+SRC			= src/get_everything_nbr/chevron_number.c	\
+			src/get_everything_nbr/pipes_number.c		\
+			src/lst/exec_lst_init.c						\
+			src/lst/lst_free_utils.c					\
+			src/lst/lst_set_content.c					\
+			src/lst/lst_set_value.c						\
+			src/lst/rdir_lst_init.c						\
+			src/parsing/initialization/initialization.c	\
+			src/parsing/parsing.c						\
+			src/chevrons.c								\
+			src/echo.c									\
+			src/free.c									\
+			src/get_abs_path.c							\
+			src/main.c									\
+			src/pars_set_value.c						\
+			src/skip_argument.c							\
+			src/split.c									\
+			src/utils.c									\
+
 OBJ			= $(SRC:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 LIBFT		= src/libft
 INC			= -Iinc
@@ -49,9 +66,10 @@ $(NAME): $(OBJ_DIR) $(OBJ)
 	@$(CXX) $(CXXFLAGS) -L $(LIBFT) -o $(NAME) $(OBJ) -lreadline -l:libft.a
 
 $(OBJ_DIR):
-	@mkdir -p $@
+	@mkdir -p $(OBJ_DIR)
 
-$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c | $(OBJ_DIR)
+	@mkdir -p $(@D)
 	@echo $(_CYAN)Compiling $<...$(END)
 	@$(CXX) -o $@ -c $< $(CXXFLAGS)
 
@@ -63,7 +81,7 @@ clean:
 
 fclean: clean
 	@echo $(_RED)Cleaning $(NAME)...$(END)
-	@rm -rf $(BIN_DIR)
+	@rm -rf $(NAME)
 	@echo $(_RED)Cleaning libft.a
 	@$(MAKE) -s -C $(LIBFT) fclean
 
