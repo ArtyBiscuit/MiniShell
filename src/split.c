@@ -6,7 +6,7 @@
 /*   By: axcallet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/05 09:39:12 by axcallet          #+#    #+#             */
-/*   Updated: 2023/04/05 09:47:03 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/04/05 15:21:38 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../inc/minishell.h"
@@ -31,7 +31,7 @@ char	**split_pipes(char *str)
 		{
 			if (str[index + j] == '"')
 				j += skip_argument(&str[index + j]);
-			if (str[index + j] == '|' || str[index + j + 1] == '\0')
+			if (str[index + j] == '|' || str[index + j] == '\0')
 			{
 				f_tab[i] = malloc(sizeof(char) * (j + 1));
 				if (!f_tab[i])
@@ -46,7 +46,7 @@ char	**split_pipes(char *str)
 		i++;
 		j = 0;
 	}
-	f_tab[i + 1] = NULL;
+	f_tab[i] = NULL;
 	return (f_tab);
 }
 
