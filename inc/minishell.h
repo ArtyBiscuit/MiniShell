@@ -6,7 +6,7 @@
 /*   By: arforgea <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 14:22:32 by arforgea          #+#    #+#             */
-/*   Updated: 2023/04/05 17:14:13 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/04/06 17:57:58 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,9 @@ char	*get_abs_path(char *cmd, char **envp);
 
 char	**split_pipes(char *input);
 
-t_cmd	*get_chevron(char *cmd);
+char	*get_next_word(char *str);
+
+t_rdir	*get_chevron(t_rdir *rdir, char *cmd);
 
 int		skip_argument(char *c);
 

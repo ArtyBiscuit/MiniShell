@@ -6,14 +6,15 @@
 /*   By: axcallet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 15:30:39 by axcallet          #+#    #+#             */
-/*   Updated: 2023/04/05 17:14:45 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/04/06 18:03:40 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../inc/minishell.h"
 
 int	main(int argc, char **argv, char **envp)
 {
-	t_exec	*dtt;
+	(void)argc;
+	(void)argv;
 	t_data	*data;	
 
 	data = malloc(sizeof(t_data));
@@ -26,7 +27,7 @@ int	main(int argc, char **argv, char **envp)
 			printf("%s", data->input);
 		data = dtt_init(data);
 		data = dtt_refile(data);
-		free(input);
+		free(data->input);
 	}
 	return (0);
 }
