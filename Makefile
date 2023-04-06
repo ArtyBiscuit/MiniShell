@@ -6,7 +6,7 @@
 #    By: axcallet <axcallet@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/13 13:47:21 by axcallet          #+#    #+#              #
-#    Updated: 2023/04/05 11:48:41 by axcallet         ###   ########.fr        #
+#    Updated: 2023/04/05 17:21:26 by axcallet         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,12 +34,12 @@ BIN_DIR		= bin
 MAKEFLAGS	+= --no-print-directory
 SRC			= src/get_everything_nbr/chevron_number.c	\
 			src/get_everything_nbr/pipes_number.c		\
+			src/lst/data_tree/dtt_init.c				\
+			src/lst/data_tree/dtt_refile.c				\
 			src/lst/exec_lst_init.c						\
 			src/lst/lst_free_utils.c					\
-			src/lst/lst_set_content.c					\
 			src/lst/lst_set_value.c						\
 			src/lst/rdir_lst_init.c						\
-			src/parsing/initialization/initialization.c	\
 			src/parsing/parsing.c						\
 			src/chevrons.c								\
 			src/echo.c									\

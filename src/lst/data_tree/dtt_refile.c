@@ -1,39 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   initialization.c                                   :+:      :+:    :+:   */
+/*   dtt_refile.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: axcallet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/05 09:49:35 by axcallet          #+#    #+#             */
-/*   Updated: 2023/04/05 10:14:01 by axcallet         ###   ########.fr       */
+/*   Created: 2023/04/05 16:56:54 by axcallet          #+#    #+#             */
+/*   Updated: 2023/04/05 17:32:17 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../../../inc/minishell.h"
-#include <stdlib.h>
 
-t_exec	*dtt_init(char *input)
+t_data	*dtt_refile(t_data *data)
 {
 	int		i;
 	char	**tab;
 	t_exec	*tmp;
-	t_exec	*main;
-
+	
 	i = 0;
-	main = exec_lst_init(get_pipes_number(input));
-	if (!main)
-		return (NULL);
-	tmp = main;
-	tab = split_pipes(input);
+	tab = split_pipes(data->input);
+	tmp = data->dtt;
 	while (tab[i])
 	{
 		if (check_chevrons(tab[i]))
-			tmp->rdir = rdir_lst_init(get_chevrons_number(tab[i]));
+		{
+			tmp->rdir = get_chevron(tmp->rdir);
+			if (!tmp->rdir)
+				return (NULL);
+		}
 		else
-			tmp->cmd = malloc(sizeof(t_cmd) * 1);
+		{
+			tmp->cmd = get_cmd(tmp->cmd);
+			if (!tmp->rdir)
+				return (NULL);
+		}
 		tmp = tmp->next;
 		i++;
 	}
-//	free_tab(tab);
-	return (main);
+//	free_tab(tab);	
+	return (data);
 }
