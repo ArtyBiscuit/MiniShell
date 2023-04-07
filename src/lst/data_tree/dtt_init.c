@@ -6,7 +6,7 @@
 /*   By: axcallet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/05 09:49:35 by axcallet          #+#    #+#             */
-/*   Updated: 2023/04/05 17:31:47 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/04/07 13:54:04 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../../../inc/minishell.h"
@@ -14,15 +14,18 @@
 
 t_data	*dtt_init(t_data *data)
 {
-	int		i;
-	char	**tab;
-	t_exec	*tmp;
+	t_data	*tmp;
 
-	i = 0;
-	data->dtt = exec_lst_init(get_pipes_number(data->input));
-	if (!data->dtt)
+	tmp = data;
+	tmp->dtt = malloc(sizeof(t_exec) * get_pipes_number(tmp->input));
+	if (!tmp->dtt)
+	{
+		write(2, "Error: dtt_init.", 16);
 		return (NULL);
-	tmp = data->dtt;
+	}
+	return (tmp);
+}
+	/*
 	tab = split_pipes(data->input);
 	while (tab[i])
 	{
@@ -44,3 +47,4 @@ t_data	*dtt_init(t_data *data)
 //	free_tab(tab);
 	return (data);
 }
+*/

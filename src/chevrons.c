@@ -6,11 +6,10 @@
 /*   By: axcallet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 11:35:54 by axcallet          #+#    #+#             */
-/*   Updated: 2023/04/06 18:01:29 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/04/07 11:17:58 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../inc/minishell.h"
-#include "libft/libft.h"
 
 static t_rdir	*search_rlt_file(t_rdir *rdir, char *cmd, int i)
 {
@@ -24,6 +23,7 @@ static t_rdir	*search_rlt_file(t_rdir *rdir, char *cmd, int i)
 	if (cmd[i] == '<')
 	{
 		in = get_next_word(&cmd[i]);
+		out = get_other()
 	}
 	else
 	{
@@ -53,24 +53,23 @@ t_rdir	*get_chevron(t_rdir *rdir, char *cmd)
 {
 	int		i;
 	int		index;
+	char	*tab;
 	t_rdir	*tmp;
 
 	i = 0;
 	index = 0;
+	tab = ft_split
 	tmp = rdir;
 	while (tmp->next)
 	{
-		if (cmd[i] && (cmd[i] == '<' || cmd[i] == '>'))
+		tmp->rdir = refile_chevrons(&cmd[i]);
+//		if (cmd[i + 1] == '<')
+//			tmp->in = "le truc avec le heredoc";
+		if (cmd[i] == '>' || cmd[i] == '<')
 		{
-			tmp->rdir = refile_chevrons(&cmd[i]);
-//			if (cmd[i + 1] == '<')
-//				tmp->in = "le truc avec le heredoc";
-			if (cmd[i] == '>' || cmd[i] == '<')
-			{
-				tmp = search_rlt_file(tmp, cmd, i);
-			}
+			tmp = search_rlt_file(tmp, cmd, i);
 		}
-		i++;
+		tmp = tmp->next;
 	}
 	return (tmp);
 }

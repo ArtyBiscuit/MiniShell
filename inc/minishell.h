@@ -6,7 +6,7 @@
 /*   By: arforgea <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 14:22:32 by arforgea          #+#    #+#             */
-/*   Updated: 2023/04/06 17:57:58 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/04/07 14:01:11 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,52 +35,25 @@
 
 //	########## STRCTURE ##########
 typedef struct s_exec	t_exec;
-typedef struct s_rdir	t_rdir;
-typedef struct s_cmd	t_cmd;
+typedef struct s_data	t_data;
 
 struct	s_exec
 {
-	t_cmd	*cmd;
-	t_rdir	*rdir;
+	int		fd_in;
+	int		fd_out;
+	char	*abs_path;
+	char	**full_cmd;
+	char	*cmd;
 	t_exec	*next;
 	t_exec	*back;
 };
 
-struct	s_rdir
-{
-	char	*rdir;
-	char	*infile;
-	char	*outfile;
-	t_rdir	*next;
-	t_rdir	*back;
-};
-
-struct	s_cmd
-{
-	char	*abs_path;
-	char	**full_cmd;
-	char	*cmd;
-};
-
-/*
-typedef struct s_cmd
-{
-	char			**cmd;
-	char			*abs_path;
-	char			**spe;
-	char			*in;
-	char			*out;
-	struct s_cmd	*next;
-	struct s_cmd	*back;
-}				t_cmd;
-*/
-
-typedef struct s_data
+struct s_data
 {
 	char	*input;
 	char	**envp;
 	t_exec	*dtt;
-}				t_data;
+};
 
 //	########## FONCTIONS ##########
 
