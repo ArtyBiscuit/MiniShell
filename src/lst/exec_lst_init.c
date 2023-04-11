@@ -6,7 +6,7 @@
 /*   By: arforgea <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/26 10:11:33 by arforgea          #+#    #+#             */
-/*   Updated: 2023/03/28 08:48:11 by arforgea         ###   ########.fr       */
+/*   Updated: 2023/04/11 10:35:16 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../../inc/minishell.h"
@@ -23,7 +23,6 @@ static	t_exec	*exec_link_create(void)
 	}
 	current->next = NULL;
 	current->back = NULL;
-	current->rdir = NULL;
 	current->cmd = NULL;
 	return (current);
 }

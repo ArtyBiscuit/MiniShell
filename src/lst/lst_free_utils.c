@@ -6,12 +6,12 @@
 /*   By: arforgea <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/26 11:37:47 by arforgea          #+#    #+#             */
-/*   Updated: 2023/04/05 10:14:54 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/04/11 10:36:51 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../../inc/minishell.h"
 
-void	cmd_link_value_free(t_cmd *ptr)
+void	cmd_link_value_free(t_exec *ptr)
 {
 	if (!ptr)
 		return ;
@@ -24,34 +24,6 @@ void	cmd_link_value_free(t_cmd *ptr)
 	return ;
 }
 
-void	rdir_link_value_free(t_rdir *ptr)
-{
-	if (!ptr)
-		return ;
-	if (ptr->infile)
-		free(ptr->infile);
-	if (ptr->outfile)
-		free(ptr->outfile);
-	if (ptr->rdir)
-		free(ptr->rdir);
-	return ;
-}
-
-void	rdir_lst_free(t_rdir *ptr)
-{
-	t_rdir	*next;
-	t_rdir	*current;
-
-	current = ptr;
-	while (current)
-	{
-		next = current->next;
-		rdir_link_value_free(ptr);
-		free(current);
-		current = next;
-	}
-	return ;
-}
 
 void	exec_lst_free(t_exec *ptr)
 {
@@ -77,13 +49,8 @@ void	lst_destroy(t_exec *ptr)
 	while (current)
 	{
 		next = current->next;
-		if (current->rdir)
-			rdir_lst_free(current->rdir);
-		else if (current->cmd)
-		{
-			cmd_link_value_free(current->cmd);
-			free(current->cmd);
-		}
+		cmd_link_value_free(current);
+		free(current);
 		current = next;
 	}
 	exec_lst_free(ptr);

@@ -6,7 +6,7 @@
 /*   By: arforgea <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 14:22:32 by arforgea          #+#    #+#             */
-/*   Updated: 2023/04/07 14:01:11 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/04/11 11:11:47 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,13 +59,12 @@ struct s_data
 
 //	lst-init
 t_exec	*exec_lst_init(int nb);
-t_rdir	*rdir_lst_init(int nbr);
 void	exec_lst_free(t_exec *ptr);
-void	rdir_lst_free(t_rdir *ptr);
 void	lst_destroy(t_exec *ptr);
 
 t_data	*dtt_init(t_data *data);
 t_data	*dtt_refile(t_data *data);
+t_exec	*refile_exec(t_exec *exec, char *cmd);
 
 //	parsing
 int		parsing(char *input);
@@ -78,11 +77,13 @@ int		check_chevrons(char *str);
 //	other...
 char	*get_abs_path(char *cmd, char **envp);
 
+int	check_syntax(char *str);
+
+int	get_chars_number(char *str, char c);
+
 char	**split_pipes(char *input);
 
 char	*get_next_word(char *str);
-
-t_rdir	*get_chevron(t_rdir *rdir, char *cmd);
 
 int		skip_argument(char *c);
 
