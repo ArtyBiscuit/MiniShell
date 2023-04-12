@@ -6,28 +6,10 @@
 /*   By: arforgea <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 14:41:40 by arforgea          #+#    #+#             */
-/*   Updated: 2023/04/11 11:53:44 by arforgea         ###   ########.fr       */
+/*   Updated: 2023/04/12 10:40:00 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../inc/minishell.h"
-#include <stddef.h>
-#include <stdio.h>
-
-static int	check_pipes_syntax(char *str);
-static int	check_chevrons_syntax(char *str);
-
-int	check_syntax(char *str)
-{
-	if (!str)
-		return (1);
-	if (get_chars_number(str, '"') % 2)
-		return (1);
-	if (check_pipes_syntax(str))
-		return (1);
-	if (check_chevrons_syntax(str))
-		return (1);
-	return (0);
-}
 
 static int	check_chevrons_syntax(char *str)
 {
@@ -67,6 +49,20 @@ static int	check_pipes_syntax(char *str)
 		i++;
 	}
 	return(0);
+}
+
+
+int	check_syntax(char *str)
+{
+	if (!str)
+		return (1);
+	if (get_chars_number(str, '"') % 2)
+		return (1);
+	if (check_pipes_syntax(str))
+		return (1);
+	if (check_chevrons_syntax(str))
+		return (1);
+	return (0);
 }
 
 /*
