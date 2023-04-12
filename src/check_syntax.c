@@ -6,7 +6,7 @@
 /*   By: arforgea <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 14:41:40 by arforgea          #+#    #+#             */
-/*   Updated: 2023/04/11 11:53:44 by arforgea         ###   ########.fr       */
+/*   Updated: 2023/04/12 15:13:50 by arforgea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../inc/minishell.h"
@@ -54,6 +54,10 @@ static int	check_pipes_syntax(char *str)
 	int i;
 
 	i = 0;
+	while(str[i] && str[i] != '|'  && (str[i] == ' ' || str[i] == '	'))
+		i++;
+	if (!str[i] || str[i] == '|')
+		return(1);
 	while (str[i])
 	{
 		if (str[i] == '|')
