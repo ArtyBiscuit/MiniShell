@@ -6,7 +6,7 @@
 /*   By: axcallet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 15:30:39 by axcallet          #+#    #+#             */
-/*   Updated: 2023/04/11 11:59:42 by arforgea         ###   ########.fr       */
+/*   Updated: 2023/04/12 10:42:28 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../inc/minishell.h"
@@ -26,6 +26,7 @@ int	main(int argc, char **argv, char **envp)
 		add_history(data->input);
 		if (data->input[0] == '\0')
 			printf("%s", data->input);
+		data->input = input_restructuring(data->input);
 		if (check_syntax(data->input))
 			printf("Syntax error\n");
 		else

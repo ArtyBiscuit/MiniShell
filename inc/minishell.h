@@ -6,7 +6,7 @@
 /*   By: arforgea <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 14:22:32 by arforgea          #+#    #+#             */
-/*   Updated: 2023/04/11 11:11:47 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/04/12 15:12:49 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,8 @@ int		get_pipes_number(char *cmd);
 int		check_chevrons(char *str);
 //	other...
 char	*get_abs_path(char *cmd, char **envp);
+
+char	*input_restructuring(char* str);
 
 int	check_syntax(char *str);
 
