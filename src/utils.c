@@ -6,7 +6,7 @@
 /*   By: axcallet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/24 09:53:43 by axcallet          #+#    #+#             */
-/*   Updated: 2023/04/12 09:26:31 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/04/17 11:53:31 by arforgea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../inc/minishell.h"
@@ -41,11 +41,7 @@ char	*get_next_word(char *str)
 			len_word = strlen_word(&str[i]);
 			next_word = malloc(sizeof(char) * (len_word + 1));
 			while (j <= len_word)
-			{
-				next_word[j] = str[i];
-				j++;
-				i++;
-			}
+				next_word[j++] = str[i++];
 			next_word[j] = '\0';
 			return (next_word);
 		}

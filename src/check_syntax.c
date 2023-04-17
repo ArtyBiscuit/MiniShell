@@ -6,7 +6,7 @@
 /*   By: arforgea <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 14:41:40 by arforgea          #+#    #+#             */
-/*   Updated: 2023/04/17 11:10:42 by arforgea         ###   ########.fr       */
+/*   Updated: 2023/04/17 11:52:14 by arforgea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../inc/minishell.h"
@@ -28,19 +28,21 @@ static int	check_chevrons_syntax(char *str)
 
 	nbr = 0;
 	i = 0;
-	while(str[i])
+	while (str[i])
 	{
-		if(str[i] == '\"' || str[i] == '\'')
+		if (str[i] == '\"' || str[i] == '\'')
 			i += skip_argument(&str[i]);
-		if(is_rdir(str[i]))
-			while(is_rdir(str[i]) || is_space(str[i]))
+		if (is_rdir(str[i]))
+		{
+			while (is_rdir(str[i]) || is_space(str[i]))
 			{
-				if(is_rdir(str[i]))
+				if (is_rdir(str[i]))
 					nbr++;
 				i++;
 			}
-		if(nbr > 2)
-			return(1);
+		}
+		if (nbr > 2)
+			return (1);
 		else
 			nbr = 0;
 		i++;
@@ -50,28 +52,27 @@ static int	check_chevrons_syntax(char *str)
 
 static int	check_pipes_syntax(char *str)
 {
-	int i;
+	int	i;
 
 	i = 0;
-	while(str[i] && str[i] != '|'  && (str[i] == ' ' || str[i] == '	'))
+	while (str[i] && str[i] != '|' && (str[i] == ' ' || str[i] == '	'))
 		i++;
 	if (str[i] == '|')
-		return(1);
+		return (1);
 	while (str[i])
 	{
 		if (str[i] == '|')
 		{
 			i++;
-			while(str[i] && str[i] != '|'  && (str[i] == ' ' || str[i] == '	'))
-			 i++;
+			while (str[i] && str[i] != '|' && (str[i] == ' ' || str[i] == '	'))
+				i++;
 			if (!str[i] || str[i] == '|')
-				return(1);
+				return (1);
 		}
 		i++;
 	}
-	return(0);
+	return (0);
 }
-
 
 int	check_syntax(char *str)
 {
@@ -85,11 +86,3 @@ int	check_syntax(char *str)
 		return (1);
 	return (0);
 }
-
-/*
- *	wc -l |                        
- *	oui >>> non
- *	echo "et oui | echo "les amis !"
- *	NULL
- *
- */
