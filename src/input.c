@@ -6,16 +6,36 @@
 /*   By: axcallet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 10:42:51 by axcallet          #+#    #+#             */
-/*   Updated: 2023/04/17 10:15:19 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/04/17 10:56:12 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../inc/minishell.h"
+
+static int	is_special(char c)
+{
+	return (c == '<' || c == '>' || c == '|');
+}
+
+static void	add_no_spaces(char *str, char *res, int *i, int *j)
+{
+	char	tmp;
+
+	tmp = str[*i];
+	res[*j] = str[*i];
+	(*j)++;
+	(*i)++;
+	while (str[*i] && str[*i] != tmp)
+	{
+		res[*j] = str[*i];
+		(*j)++;
+		(*i)++;
+	}
+}
 
 char	*add_spaces(char *str)
 {
 	int		i;
 	int		j;
-	char	tmp;
 	char	*res;
 
 	i = 0;
@@ -24,21 +44,14 @@ char	*add_spaces(char *str)
 	while (str[i])
 	{
 		if (str[i] && (str[i] == '\"' || str[i] == '\''))
+			add_no_spaces(str, res, &i, &j);
+		if (str[i] && is_special(str[i]))
 		{
-			tmp = str[i];
-			res[j++] = str[i++];
-			while (str[i] && str[i] != tmp)
-				res[j++] = str[i++]; 
-		}
-		if (str[i] && (str[i] == '<' || str[i] == '>' || str[i] == '|'))
-		{
-			if (str[i - 1] && (str[i - 1] != ' '
-					&& str[i - 1] != '<' && str[i - 1] != '>'))
+			if (str[i - 1] && (str[i - 1] != ' ' && !is_special(str[i - 1])))
 				res[j++] = ' ';
 			res[j++] = str[i++];
 		}
-		if (i >= 0 && str[i] != str[i - 1] && (str[i - 1] == '<'
-				|| str[i - 1] == '>' || str[i - 1] == '|'))
+		if (i >= 0 && str[i] != str[i - 1] && is_special(str[i - 1]))
 			res[j++] = ' ';
 		res[j++] = str[i++];
 	}
