@@ -6,11 +6,11 @@
 /*   By: axcallet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/07 14:02:37 by axcallet          #+#    #+#             */
-/*   Updated: 2023/04/17 11:13:03 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/04/17 15:48:06 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../inc/minishell.h"
-/*
+
 static int	get_good_nb_word(char **tab_cmd)
 {
 	int	i;
@@ -31,7 +31,7 @@ static int	get_good_nb_word(char **tab_cmd)
 	return (res);
 }
 
-static t_exec	*get_cmd(t_exec *exec, char *cmd)
+static t_exec	*get_cmd(t_exec *exec, char *cmd, char **envp)
 {
 	int		i;
 	int		j;
@@ -40,18 +40,25 @@ static t_exec	*get_cmd(t_exec *exec, char *cmd)
 	t_exec	*tmp;
 
 	i = 0;
-	tab_cmd = turbo_split(cmd, ' '); 
+	j = 0;
+	tab_cmd = turbo_split(cmd, ' ');
 	tmp = exec;
 	new_tab = malloc(sizeof(char *) * get_good_nb_word(tab_cmd));
 	while (tab_cmd[i])
 	{
 		if (tab_cmd[i][0] == '<' || tab_cmd[i][0] == '>')
-			
+			i += 2;
+		else
+			new_tab[j++] = ft_strdup(tab_cmd[i++]);
 	}
-		
+	new_tab[j] = NULL;
+	tmp->full_cmd = new_tab;
+	tmp->cmd = new_tab[0];
+	tmp->abs_path = get_abs_path(new_tab[0], envp);
+	return (tmp);
 }
-*/
-static t_exec	*right_chevrons(t_exec *exec , char *cmd)
+
+static t_exec	*right_chevrons(t_exec *exec, char *cmd)
 {
 	int		i;
 	int		out;
@@ -60,12 +67,12 @@ static t_exec	*right_chevrons(t_exec *exec , char *cmd)
 
 	i = 0;
 	tmp = exec;
-	out	= tmp->fd_out;
+	out = tmp->fd_out;
 	close (out);
 	if (cmd[i] && cmd[i + 1] == '>')
 	{
 		file = get_next_word(&cmd[i]);
-		out	= open(file, O_CREAT | O_WRONLY | 0644);
+		out = open(file, O_CREAT | O_WRONLY | 0644);
 		free(file);
 	}
 	else
@@ -103,15 +110,15 @@ static t_exec	*change_fds(t_exec *exec, char *cmd)
 	return (tmp);
 }
 
-t_exec	*refile_exec(t_exec *exec, char *cmd)
+t_exec	*refile_exec(t_data *data, char *cmd)
 {
 	t_exec	*tmp;
 
-	tmp = exec;
+	tmp = data->dtt;
 	tmp->fd_in = 0;
 	tmp->fd_out = 1;
 	if (check_chevrons(cmd) == 1)
 		tmp = change_fds(tmp, cmd);
-//	tmp = get_cmd(tmp, cmd);
+	tmp = get_cmd(tmp, cmd, data->envp);
 	return (tmp);
 }

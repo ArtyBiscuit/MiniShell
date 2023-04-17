@@ -6,7 +6,7 @@
 /*   By: arforgea <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 14:22:32 by arforgea          #+#    #+#             */
-/*   Updated: 2023/04/14 11:08:29 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/04/17 11:51:53 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void	lst_destroy(t_exec *ptr);
 
 t_data	*dtt_init(t_data *data);
 t_data	*dtt_refile(t_data *data);
-t_exec	*refile_exec(t_exec *exec, char *cmd);
+t_exec	*refile_exec(t_data *data, char *cmd);
 
 //	parsing
 int		parsing(char *input);
