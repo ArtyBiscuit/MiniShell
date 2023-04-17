@@ -6,10 +6,20 @@
 /*   By: arforgea <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 14:41:40 by arforgea          #+#    #+#             */
-/*   Updated: 2023/04/12 10:40:00 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/04/13 11:25:50 by arforgea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../inc/minishell.h"
+
+static int	is_rdir(char c)
+{
+	return (c == '<' || c == '>');
+}
+
+static int	is_space(char c)
+{
+	return (c == ' ' || c == '	');
+}
 
 static int	check_chevrons_syntax(char *str)
 {
@@ -20,12 +30,14 @@ static int	check_chevrons_syntax(char *str)
 	nbr = 0;
 	while (str[cmp])
 	{
-		if (str[cmp] == '<' || str[cmp] == '>')
-			nbr++;
-		if (nbr > 2)
-			return (1);
-		if (str[cmp] != ' ' || str[cmp] != '	')
-			nbr = 0;
+		if (is_rdir(str[cmp]))
+		{
+			while (is_rdir(str[cmp] ) || is_space(str[cmp]))
+			{
+				cmp++;
+				nbr++;
+			}
+		}
 		cmp++;
 	}
 	return (0);
@@ -36,6 +48,10 @@ static int	check_pipes_syntax(char *str)
 	int i;
 
 	i = 0;
+	while(str[i] && str[i] != '|'  && (str[i] == ' ' || str[i] == '	'))
+		i++;
+	if (!str[i] || str[i] == '|')
+		return(1);
 	while (str[i])
 	{
 		if (str[i] == '|')
