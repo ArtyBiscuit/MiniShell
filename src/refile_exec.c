@@ -6,14 +6,35 @@
 /*   By: axcallet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/07 14:02:37 by axcallet          #+#    #+#             */
-/*   Updated: 2023/04/12 17:58:06 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/04/17 11:13:03 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../inc/minishell.h"
 /*
+static int	get_good_nb_word(char **tab_cmd)
+{
+	int	i;
+	int	res;
+
+	i = 0;
+	res = 0;
+	while (tab_cmd[i])
+	{
+		if (tab_cmd[i][0] == '<' || tab_cmd[i][0] == '>')
+			i += 2;
+		else
+		{
+			i++;
+			res++;
+		}
+	}
+	return (res);
+}
+
 static t_exec	*get_cmd(t_exec *exec, char *cmd)
 {
 	int		i;
+	int		j;
 	char	**new_tab;
 	char	**tab_cmd;
 	t_exec	*tmp;
@@ -21,9 +42,11 @@ static t_exec	*get_cmd(t_exec *exec, char *cmd)
 	i = 0;
 	tab_cmd = turbo_split(cmd, ' '); 
 	tmp = exec;
+	new_tab = malloc(sizeof(char *) * get_good_nb_word(tab_cmd));
 	while (tab_cmd[i])
 	{
-		
+		if (tab_cmd[i][0] == '<' || tab_cmd[i][0] == '>')
+			
 	}
 		
 }

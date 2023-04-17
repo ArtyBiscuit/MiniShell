@@ -6,7 +6,7 @@
 /*   By: axcallet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 10:42:51 by axcallet          #+#    #+#             */
-/*   Updated: 2023/04/17 10:56:12 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/04/17 11:15:13 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../inc/minishell.h"
@@ -21,6 +21,8 @@ static void	add_no_spaces(char *str, char *res, int *i, int *j)
 	char	tmp;
 
 	tmp = str[*i];
+	if (str[(*i) - 1] != ' ')
+		res[(*j)++] = ' ';
 	res[*j] = str[*i];
 	(*j)++;
 	(*i)++;
