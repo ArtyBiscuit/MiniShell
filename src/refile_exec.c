@@ -6,42 +6,25 @@
 /*   By: axcallet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/07 14:02:37 by axcallet          #+#    #+#             */
-/*   Updated: 2023/04/12 15:17:13 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/04/12 17:58:06 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../inc/minishell.h"
 /*
-static char	*str_without_chevrons(char *cmd)
-{
-	int		i;
-	char	*res;
-	char	**tab_cmd;
-
-	i = 0;
-	res = NULL;
-	tab_cmd = ft_split(cmd, ' ');
-	while (tab_cmd[i])
-	{
-		if (check_chevrons(tab_cmd[i]) == 1)
-			i += 2;
-		else
-		{
-			res = ft_strjoin(res, tab_cmd[i]);
-			i++;
-		}
-	}
-	return (res);
-}
-
 static t_exec	*get_cmd(t_exec *exec, char *cmd)
 {
 	int		i;
-	char	*buf;
+	char	**new_tab;
+	char	**tab_cmd;
 	t_exec	*tmp;
 
 	i = 0;
-	buf = str_without_chevrons(cmd);
+	tab_cmd = turbo_split(cmd, ' '); 
 	tmp = exec;
+	while (tab_cmd[i])
+	{
+		
+	}
 		
 }
 */

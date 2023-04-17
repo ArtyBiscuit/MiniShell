@@ -6,7 +6,7 @@
 /*   By: axcallet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/05 16:56:54 by axcallet          #+#    #+#             */
-/*   Updated: 2023/04/07 14:02:30 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/04/12 17:57:42 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../../../inc/minishell.h"
@@ -18,7 +18,7 @@ t_data	*dtt_refile(t_data *data)
 	t_exec	*tmp;
 	
 	i = 0;
-	tab = split_pipes(data->input);
+	tab = turbo_split(data->input, '|');
 	tmp = data->dtt;
 	while (tab[i])
 	{

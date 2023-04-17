@@ -6,7 +6,7 @@
 /*   By: arforgea <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 14:22:32 by arforgea          #+#    #+#             */
-/*   Updated: 2023/04/12 15:12:49 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/04/14 11:08:29 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,13 +77,13 @@ int		check_chevrons(char *str);
 //	other...
 char	*get_abs_path(char *cmd, char **envp);
 
-char	*input_restructuring(char* str);
+char	*add_spaces(char* str);
 
-int	check_syntax(char *str);
+int		check_syntax(char *str);
 
-int	get_chars_number(char *str, char c);
+int		get_chars_number(char *str, char c);
 
-char	**split_pipes(char *input);
+char	**turbo_split(char *input, char c);
 
 char	*get_next_word(char *str);
 

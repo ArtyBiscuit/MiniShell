@@ -6,44 +6,34 @@
 /*   By: axcallet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 10:42:51 by axcallet          #+#    #+#             */
-/*   Updated: 2023/04/12 15:16:43 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/04/17 09:27:50 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../inc/minishell.h"
 
-static int	my_isspace(char c)
+char	*add_spaces(char *str)
 {
-	if (c == ' ' || c == '\t' || c == '\n'
-			|| c == '\r' || c == '\f' || c == '\v')
-    	return (1);
-	return (0);
-}
-
-char	*input_restructuring(char* str)
-{
-	size_t	i;
+	int		i;
 	int		j;
-    char	*result;
+	char	*res;
 
 	i = 0;
 	j = 0;
-	result = malloc(sizeof(char) * (ft_strlen(str) * 2 + 1));
-	while (i < ft_strlen(str))
+	res = malloc(sizeof(char) * ((ft_strlen(str) * 2) + 1));
+	while (str[i])
 	{
-        if (str[i] == '>' || str[i] == '<' || str[i] == '|'
-				|| str[i] == '&' || str[i] == ';')
+		if (str[i] && (str[i] == '<' || str[i] == '>' || str[i] == '|'))
 		{
-            if (i > 0 && !my_isspace(str[i - 1]))
-                result[j++] = ' ';
-            result[j] = str[i];
-            if (i < (ft_strlen(str) - 1) && !my_isspace(str[i + 1]))
-                result[++j] = ' ';
+			if (str[i - 1] && (str[i - 1] != ' '
+					&& str[i - 1] != '<' && str[i - 1] != '>'))
+				j++;
+			res[j++] = str[i++];
 		}
-		else
-			result[j] = str[i];
-		i++;
-        j++;
-    }
-    result[j] = '\0'; 
-    return (result);
+		if (i >= 0 && str[i] != str[i - 1] && (str[i - 1] == '<'
+				|| str[i - 1] == '>' || str[i - 1] == '|'))
+			res[j++] = ' ';
+		res[j++] = str[i++];
+	}
+	res[j] = '\0';
+	return (res);
 }

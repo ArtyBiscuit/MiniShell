@@ -6,7 +6,7 @@
 /*   By: axcallet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 15:30:39 by axcallet          #+#    #+#             */
-/*   Updated: 2023/04/12 10:42:28 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/04/14 11:28:34 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../inc/minishell.h"
@@ -22,11 +22,12 @@ int	main(int argc, char **argv, char **envp)
 	data->envp = envp;
 	while (1)
 	{
-		data->input = readline("B==>");
+		data->input = readline("B==> ");
 		add_history(data->input);
 		if (data->input[0] == '\0')
 			printf("%s", data->input);
-		data->input = input_restructuring(data->input);
+		data->input = add_spaces(data->input);
+		printf("%s\n", data->input);
 		if (check_syntax(data->input))
 			printf("Syntax error\n");
 		else

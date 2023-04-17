@@ -6,12 +6,12 @@
 /*   By: axcallet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/05 09:39:12 by axcallet          #+#    #+#             */
-/*   Updated: 2023/04/06 14:17:01 by arforgea         ###   ########.fr       */
+/*   Updated: 2023/04/12 15:36:18 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../inc/minishell.h"
 
-static char	*get_str(char *str, int *index, int *j)
+static char	*get_str(char *str, int *index, int *j, char c)
 {
 	char	*f_tab;
 
@@ -20,7 +20,7 @@ static char	*get_str(char *str, int *index, int *j)
 	{
 		if (str[*index + *j] == '"')
 			*j += skip_argument(&str[*index + *j]);
-		if (str[*index + *j] == '|' || str[*index + *j] == '\0')
+		if (str[*index + *j] == c || str[*index + *j] == '\0')
 		{
 			f_tab = malloc(sizeof(char) * (*j + 1));
 			if (!f_tab)
@@ -35,7 +35,7 @@ static char	*get_str(char *str, int *index, int *j)
 	return (f_tab);
 }
 
-char	**split_pipes(char *str)
+char	**turbo_split(char *str, char c)
 {
 	int		i;
 	int		j;
@@ -50,7 +50,7 @@ char	**split_pipes(char *str)
 		return (NULL);
 	while (i < get_pipes_number(str))
 	{
-		f_tab[i] = get_str(str, &index, &j);
+		f_tab[i] = get_str(str, &index, &j, c);
 		i++;
 		j = 0;
 	}
