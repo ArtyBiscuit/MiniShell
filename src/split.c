@@ -6,7 +6,7 @@
 /*   By: axcallet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/05 09:39:12 by axcallet          #+#    #+#             */
-/*   Updated: 2023/04/17 14:17:10 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/04/18 13:38:02 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../inc/minishell.h"
@@ -48,7 +48,7 @@ char	**turbo_split(char *str, char c)
 	f_tab = malloc(sizeof(char *) * (get_chars_number(str, c) + 1));
 	if (!f_tab)
 		return (NULL);
-	while (i < get_chars_number(str, c) + 1)
+	while (i < get_chars_number(str, c))
 	{
 		f_tab[i] = get_str(str, &index, &j, c);
 		i++;

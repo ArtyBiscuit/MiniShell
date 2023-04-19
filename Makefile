@@ -6,7 +6,7 @@
 #    By: axcallet <axcallet@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/13 13:47:21 by axcallet          #+#    #+#              #
-#    Updated: 2023/04/12 15:13:26 by axcallet         ###   ########.fr        #
+#    Updated: 2023/04/18 10:54:43 by axcallet         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,7 +39,6 @@ SRC			= src/get_everything_nbr/char_number.c		\
 			src/lst/data_tree/dtt_refile.c				\
 			src/lst/exec_lst_init.c						\
 			src/lst/lst_free_utils.c					\
-			src/parsing/parsing.c						\
 			src/check_syntax.c							\
 			src/chevrons.c								\
 			src/echo.c									\
