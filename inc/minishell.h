@@ -6,7 +6,7 @@
 /*   By: arforgea <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 14:22:32 by arforgea          #+#    #+#             */
-/*   Updated: 2023/04/19 11:42:04 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/04/19 14:52:36 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ t_exec	*refile_exec(t_data *data, char *cmd);
 int		parsing(char *input);
 int		strlen_word(char *str);
 int		main(int argc, char **argv, char **envp);
+int		is_rdir(char c);
 
 int		get_chevrons_number(char *cmd);
 int		get_pipes_number(char *cmd);

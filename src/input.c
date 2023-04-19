@@ -6,15 +6,10 @@
 /*   By: axcallet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 10:42:51 by axcallet          #+#    #+#             */
-/*   Updated: 2023/04/19 11:28:21 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/04/19 15:15:35 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../inc/minishell.h"
-
-static int	is_rdir(char c)
-{
-	return (c == '<' || c == '>');
-}
 
 static void	add_no_spaces(char *str, char *res, int *i, int *j)
 {
@@ -52,7 +47,7 @@ char	*add_spaces(char *cmd)
 				new_cmd[j++] = ' ';
 			new_cmd[j++] = cmd[i++];
 		}
-		if (cmd[i] && i > 0 && cmd[i] != cmd[i - 1] && is_rdir(cmd[i - 1]))
+		if (cmd[i] && i > 0 && !is_rdir(cmd[i]) && is_rdir(cmd[i - 1]))
 			new_cmd[j++] = ' ';
 		if (cmd[i])
 			new_cmd[j++] = cmd[i++];
