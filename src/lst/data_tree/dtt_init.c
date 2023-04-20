@@ -6,7 +6,7 @@
 /*   By: axcallet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/05 09:49:35 by axcallet          #+#    #+#             */
-/*   Updated: 2023/04/07 13:54:04 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/04/20 18:54:46 by arforgea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../../../inc/minishell.h"
@@ -25,26 +25,3 @@ t_data	*dtt_init(t_data *data)
 	}
 	return (tmp);
 }
-	/*
-	tab = split_pipes(data->input);
-	while (tab[i])
-	{
-		if (check_chevrons(tab[i]))
-		{
-			tmp->rdir = rdir_lst_init(get_chevrons_number(tab[i]));
-			if (!tmp->rdir)
-				return (NULL);
-		}
-		else
-		{
-			tmp->cmd = malloc(sizeof(t_cmd) * 1);
-			if (!tmp->cmd)
-				return (NULL);
-		}
-		tmp = tmp->next;
-		i++;
-	}
-//	free_tab(tab);
-	return (data);
-}
-*/

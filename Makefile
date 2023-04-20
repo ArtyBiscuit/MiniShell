@@ -6,7 +6,7 @@
 #    By: axcallet <axcallet@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/13 13:47:21 by axcallet          #+#    #+#              #
-#    Updated: 2023/04/12 15:13:26 by axcallet         ###   ########.fr        #
+#    Updated: 2023/04/20 19:05:44 by arforgea         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,7 +39,6 @@ SRC			= src/get_everything_nbr/char_number.c		\
 			src/lst/data_tree/dtt_refile.c				\
 			src/lst/exec_lst_init.c						\
 			src/lst/lst_free_utils.c					\
-			src/parsing/parsing.c						\
 			src/check_syntax.c							\
 			src/chevrons.c								\
 			src/echo.c									\
@@ -51,6 +50,8 @@ SRC			= src/get_everything_nbr/char_number.c		\
 			src/skip_argument.c							\
 			src/split.c									\
 			src/utils.c									\
+			src/input_to_tab.c							\
+			src/DEBUG/print_tab.c						\
 
 OBJ			= $(SRC:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 LIBFT		= src/libft

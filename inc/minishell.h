@@ -6,7 +6,7 @@
 /*   By: arforgea <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 14:22:32 by arforgea          #+#    #+#             */
-/*   Updated: 2023/04/17 11:51:53 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/04/20 19:02:00 by arforgea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,8 @@ struct s_data
 	char	**envp;
 	t_exec	*dtt;
 };
-
+//	**********	 DEBUG ! **********
+void	DB_print_tab(char **tab);
 //	########## FONCTIONS ##########
 
 //	lst-init
@@ -65,8 +66,8 @@ void	lst_destroy(t_exec *ptr);
 t_data	*dtt_init(t_data *data);
 t_data	*dtt_refile(t_data *data);
 t_exec	*refile_exec(t_data *data, char *cmd);
-
 //	parsing
+char	**input_to_tab(char *input);
 int		parsing(char *input);
 int		strlen_word(char *str);
 int		main(int argc, char **argv, char **envp);
