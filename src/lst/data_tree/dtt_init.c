@@ -6,7 +6,7 @@
 /*   By: axcallet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/05 09:49:35 by axcallet          #+#    #+#             */
-/*   Updated: 2023/04/20 18:54:46 by arforgea         ###   ########.fr       */
+/*   Updated: 2023/04/21 18:02:57 by arforgea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../../../inc/minishell.h"
@@ -14,14 +14,26 @@
 
 t_data	*dtt_init(t_data *data)
 {
-	t_data	*tmp;
+	t_exec			*dtt;
+	t_exec			*tmp;
+	unsigned int	cmp;
+	unsigned int	dtt_size;
 
-	tmp = data;
-	tmp->dtt = malloc(sizeof(t_exec) * get_pipes_number(tmp->input));
-	if (!tmp->dtt)
-	{
-		write(2, "Error: dtt_init.", 16);
+	dtt_size = get_pipes_number(data->input);
+	dtt = NULL;
+	if(!(dtt = malloc(sizeof(t_exec) * 1)))
 		return (NULL);
+	dtt->back = NULL;
+	tmp = dtt;
+	cmp = 1;
+	while(cmp < dtt_size)
+	{
+		 	if(!(tmp->next = malloc(sizeof(t_exec) * 1)))
+				return (NULL);
+			tmp = tmp->next;
+			cmp++;
 	}
-	return (tmp);
+	tmp->next = NULL;
+	data->dtt = dtt;
+	return (data);
 }

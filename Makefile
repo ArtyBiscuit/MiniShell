@@ -6,7 +6,7 @@
 #    By: axcallet <axcallet@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/13 13:47:21 by axcallet          #+#    #+#              #
-#    Updated: 2023/04/21 12:15:05 by arforgea         ###   ########.fr        #
+#    Updated: 2023/04/21 15:17:53 by arforgea         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -52,6 +52,7 @@ SRC			= src/get_everything_nbr/char_number.c		\
 			src/utils.c									\
 			src/input_to_tab.c							\
 			src/DEBUG/print_tab.c						\
+			src/DEBUG/print_dtt.c						\
 
 OBJ			= $(SRC:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 LIBFT		= src/libft

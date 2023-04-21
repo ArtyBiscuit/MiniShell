@@ -6,7 +6,7 @@
 /*   By: axcallet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 15:30:39 by axcallet          #+#    #+#             */
-/*   Updated: 2023/04/21 13:55:50 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/04/21 17:41:30 by arforgea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../inc/minishell.h"
@@ -31,10 +31,11 @@ int	main(int argc, char **argv, char **envp)
 			printf("Syntax error\n");
 			return (1);
 		}
-		DB_print_tab(turbo_split(data->input, '|'));
-		DB_print_tab(input_to_tab(data->input));
+	//	DB_print_tab(turbo_split(data->input, '|'));
+	//	DB_print_tab(input_to_tab(data->input));
 		data = dtt_init(data);
 		data = dtt_refile(data);
+		DB_print_dtt(data);
 		free(data->input);
 	}
 	return (0);

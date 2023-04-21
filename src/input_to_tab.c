@@ -6,7 +6,7 @@
 /*   By: arforgea <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/20 18:13:28 by arforgea          #+#    #+#             */
-/*   Updated: 2023/04/21 14:48:10 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/04/21 17:35:23 by arforgea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../inc/minishell.h"
@@ -53,7 +53,7 @@ static char	*refactor_str(char *str)
 			index++;
 		new_index++;
 	}
-	new_str[new_index - 1] = '\0';
+	new_str[new_index] = '\0';
 	return (new_str);
 }
 

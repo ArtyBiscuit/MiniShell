@@ -6,7 +6,7 @@
 /*   By: axcallet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/07 14:02:37 by axcallet          #+#    #+#             */
-/*   Updated: 2023/04/21 13:51:45 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/04/21 18:45:49 by arforgea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../inc/minishell.h"
@@ -110,11 +110,12 @@ static t_exec	*change_fds(t_exec *exec, char *cmd)
 	return (tmp);
 }
 
-t_exec	*refile_exec(t_data *data, char *cmd)
+t_exec	*refile_exec(t_data *data, t_exec *dtt, char *cmd)
 {
+	// ta mere la pute! c'est pas "data->dtt" c'est le "tmp" ! pas DATA->DTT !!!!!!
 	t_exec	*tmp;
 
-	tmp = data->dtt;
+	tmp = dtt;
 	tmp->fd_in = 0;
 	tmp->fd_out = 1;
 	if (check_chevrons(cmd) == 1)
