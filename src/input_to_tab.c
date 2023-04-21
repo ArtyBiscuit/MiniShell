@@ -6,7 +6,7 @@
 /*   By: arforgea <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/20 18:13:28 by arforgea          #+#    #+#             */
-/*   Updated: 2023/04/20 18:57:34 by arforgea         ###   ########.fr       */
+/*   Updated: 2023/04/21 14:48:10 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../inc/minishell.h"
@@ -37,7 +37,7 @@ static char	*refactor_str(char *str)
 	unsigned int	new_index;
 	char			*new_str;
 
-	if(!(new_str = malloc(sizeof(char) * get_new_size(str))))
+	if(!(new_str = malloc(sizeof(char) * get_new_size(str) + 1)))
 	{
 		write(2, "Error: refactor_str.", 20);
 		return (NULL);
@@ -49,9 +49,11 @@ static char	*refactor_str(char *str)
 		if(str[index] == '"')
 			index++;
 		new_str[new_index] = str[index];
-		index++;
+		if (str[index])
+			index++;
 		new_index++;
 	}
+	new_str[new_index - 1] = '\0';
 	return (new_str);
 }
 
