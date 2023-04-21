@@ -6,23 +6,16 @@
 /*   By: axcallet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 10:42:51 by axcallet          #+#    #+#             */
-/*   Updated: 2023/04/17 11:15:13 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/04/19 15:15:35 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../inc/minishell.h"
-
-static int	is_special(char c)
-{
-	return (c == '<' || c == '>' || c == '|');
-}
 
 static void	add_no_spaces(char *str, char *res, int *i, int *j)
 {
 	char	tmp;
 
 	tmp = str[*i];
-	if (str[(*i) - 1] != ' ')
-		res[(*j)++] = ' ';
 	res[*j] = str[*i];
 	(*j)++;
 	(*i)++;
@@ -34,29 +27,31 @@ static void	add_no_spaces(char *str, char *res, int *i, int *j)
 	}
 }
 
-char	*add_spaces(char *str)
+char	*add_spaces(char *cmd)
 {
 	int		i;
 	int		j;
-	char	*res;
+	char	*new_cmd;
 
 	i = 0;
 	j = 0;
-	res = malloc(sizeof(char) * ((ft_strlen(str) * 2) + 1));
-	while (str[i])
+	new_cmd = malloc(sizeof(char) * ((ft_strlen(cmd) * 2) + 1));
+	while (cmd[i])
 	{
-		if (str[i] && (str[i] == '\"' || str[i] == '\''))
-			add_no_spaces(str, res, &i, &j);
-		if (str[i] && is_special(str[i]))
+		if (cmd[i] && (cmd[i] == '\"' || cmd[i] == '\''))
+			add_no_spaces(cmd, new_cmd, &i, &j);
+		if (cmd[i] && is_rdir(cmd[i]))
 		{
-			if (str[i - 1] && (str[i - 1] != ' ' && !is_special(str[i - 1])))
-				res[j++] = ' ';
-			res[j++] = str[i++];
+			if (i > 0 && cmd[i - 1] != ' ' && !is_rdir(cmd[i - 1])
+				&& cmd[i - 1] != '|')
+				new_cmd[j++] = ' ';
+			new_cmd[j++] = cmd[i++];
 		}
-		if (i >= 0 && str[i] != str[i - 1] && is_special(str[i - 1]))
-			res[j++] = ' ';
-		res[j++] = str[i++];
+		if (cmd[i] && i > 0 && !is_rdir(cmd[i]) && is_rdir(cmd[i - 1]))
+			new_cmd[j++] = ' ';
+		if (cmd[i])
+			new_cmd[j++] = cmd[i++];
 	}
-	res[j] = '\0';
-	return (res);
+	new_cmd[j] = '\0';
+	return (new_cmd);
 }

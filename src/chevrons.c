@@ -6,7 +6,7 @@
 /*   By: axcallet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 11:35:54 by axcallet          #+#    #+#             */
-/*   Updated: 2023/04/12 09:26:38 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/04/19 14:52:15 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../inc/minishell.h"
@@ -23,4 +23,9 @@ int	check_chevrons(char *str)
 		i++;
 	}
 	return (0);
+}
+
+int	is_rdir(char c)
+{
+	return (c == '<' || c == '>');
 }

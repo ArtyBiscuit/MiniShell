@@ -6,7 +6,11 @@
 /*   By: arforgea <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 14:22:32 by arforgea          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2023/04/20 19:02:00 by arforgea         ###   ########.fr       */
+=======
+/*   Updated: 2023/04/19 14:52:36 by axcallet         ###   ########.fr       */
+>>>>>>> 5a1816898956d83f6da7bf1b39ac66b2994d833b
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +75,7 @@ char	**input_to_tab(char *input);
 int		parsing(char *input);
 int		strlen_word(char *str);
 int		main(int argc, char **argv, char **envp);
+int		is_rdir(char c);
 
 int		get_chevrons_number(char *cmd);
 int		get_pipes_number(char *cmd);
@@ -78,7 +83,7 @@ int		check_chevrons(char *str);
 //	other...
 char	*get_abs_path(char *cmd, char **envp);
 
-char	*add_spaces(char* str);
+char	*add_spaces(char *str);
 
 int		check_syntax(char *str);
 

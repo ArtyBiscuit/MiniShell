@@ -6,45 +6,53 @@
 /*   By: arforgea <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 14:41:40 by arforgea          #+#    #+#             */
-/*   Updated: 2023/04/17 11:52:14 by arforgea         ###   ########.fr       */
+/*   Updated: 2023/04/19 15:52:05 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../inc/minishell.h"
 
-static int	is_rdir(char c)
-{
-	return (c == '<' || c == '>');
-}
-
 static int	is_space(char c)
 {
-	return (c == ' ' || c == '	');
+	return (c == ' ' || c == '	' || c == '\n');
+}
+
+static int	str_is_blank(char *str)
+{
+	int	i;
+
+	i = 0;
+	if (str[i + 1])
+		i++;
+	while (str[i])
+	{
+		if (str[i] && !is_space(str[i]))
+			return (0);
+		i++;
+	}
+	return (1);
 }
 
 static int	check_chevrons_syntax(char *str)
 {
 	int	i;
-	int	nbr;
 
-	nbr = 0;
 	i = 0;
+	if (is_rdir(str[i]))
+		return (1);
 	while (str[i])
 	{
-		if (str[i] == '\"' || str[i] == '\'')
+		if (str[i] && (str[i] == '\'' || str[i] == '\"'))
 			i += skip_argument(&str[i]);
-		if (is_rdir(str[i]))
+		if (str[i] && is_rdir(str[i]))
 		{
-			while (is_rdir(str[i]) || is_space(str[i]))
-			{
-				if (is_rdir(str[i]))
-					nbr++;
-				i++;
-			}
+			if (str[i + 1] && is_rdir(str[i + 1]) && str[i] != str[i + 1])
+				return (1);
+			if (str[i + 1] && str[i + 2]
+				&& is_rdir(str[i + 1]) && is_rdir(str[i + 2]))
+				return (1);
+			if (str_is_blank(&str[i]))
+				return (1);
 		}
-		if (nbr > 2)
-			return (1);
-		else
-			nbr = 0;
 		i++;
 	}
 	return (0);
