@@ -6,7 +6,7 @@
 /*   By: arforgea <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 15:04:46 by arforgea          #+#    #+#             */
-/*   Updated: 2023/04/22 11:20:22 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/04/22 16:22:05 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../../inc/minishell.h"
@@ -21,6 +21,7 @@ void	DB_print_dtt(t_data *data)
 	tmp = data->dtt;
 	printf("***** DEBUG *****\n");
 	printf("dtt: %p\n", tmp);
+	write(1, "oui", 3);
 	while(tmp)
 	{
 		printf("\n");
@@ -29,6 +30,7 @@ void	DB_print_dtt(t_data *data)
 		printf("--- **full_cmd ---\n");
 		if(tmp->full_cmd)
 		{
+			write(1, "oui", 3);
 			while(tmp->full_cmd[index])
 			{
 				printf("index[%d]: %s\n", index, tmp->full_cmd[index]);
@@ -37,7 +39,7 @@ void	DB_print_dtt(t_data *data)
 		}
 		printf("cmd = %s\n", tmp->cmd);
 		printf("dtt_next = %p\n", tmp->next);
-		printf("dtt_back = %p\n", tmp->back);
+	//	printf("dtt_back = %p\n", tmp->back);
 		tmp = tmp->next;
 	}
 	printf("***** DEBUG *****\n");

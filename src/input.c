@@ -6,7 +6,7 @@
 /*   By: axcallet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 10:42:51 by axcallet          #+#    #+#             */
-/*   Updated: 2023/04/22 14:52:28 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/04/22 15:54:21 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../inc/minishell.h"
@@ -25,6 +25,8 @@ static void	add_no_spaces(char *cmd, char *new_cmd, int *i, int *j)
 		(*j)++;
 		(*i)++;
 	}
+	if (cmd[*i] == tmp)
+		new_cmd[*j] = tmp;
 }
 
 static void	inheritance_rdir(char *cmd, char *new_cmd, int *i, int *j)
@@ -64,10 +66,10 @@ char	*add_spaces_rdir(char *cmd)
 
 static void	inheritance_pipes(char *cmd, char *res, int *i, int *j)
 {
-	while (*j > 0 && res[*j - 1] == ' ')
+	while (*j > 0 && res[(*j) - 1] == ' ')
 		(*j)--;
-	res[*j++] = '|';
-	while (cmd[*i + 1] == ' ')
+	res[(*j)++] = '|';
+	while (cmd[(*i) + 1] == ' ')
 		(*i)++;
 }
 
@@ -75,23 +77,25 @@ char	*remove_spaces_pipes(char *cmd)
 {
 	int		i;
 	int		j;
-	int		in_quotes;
 	char	*res;
 
-	i = -1;
+	i = 0;
 	j = 0;
-	in_quotes = 0;
 	res = malloc(sizeof(char) * (ft_strlen(cmd) + 1));
 	if (!res)
 		return (NULL);
-	while (cmd[i++] != '\0')
+	while (cmd[i])
 	{
-		if (cmd[i] == '\"')
-			in_quotes = !in_quotes;
-		else if (cmd[i] == '|' && !in_quotes)
+		if (cmd[i] == '\"' || cmd[i] == '\'')
+		{
+			add_no_spaces(cmd, res, &i, &j);
+			j++;
+		}
+		else if (cmd[i] == '|')
 			inheritance_pipes(cmd, res, &i, &j);
 		else
 			res[j++] = cmd[i];
+		i++;
 	}
 	res[j] = '\0';
 	return (res);

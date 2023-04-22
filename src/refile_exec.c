@@ -6,7 +6,7 @@
 /*   By: axcallet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/07 14:02:37 by axcallet          #+#    #+#             */
-/*   Updated: 2023/04/21 18:45:49 by arforgea         ###   ########.fr       */
+/*   Updated: 2023/04/22 17:14:06 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../inc/minishell.h"
@@ -43,7 +43,7 @@ static t_exec	*get_cmd(t_exec *exec, char *cmd, char **envp)
 	j = 0;
 	tab_cmd = turbo_split(cmd, ' ');
 	tmp = exec;
-	new_tab = malloc(sizeof(char *) * get_good_nb_word(tab_cmd));
+	new_tab = malloc(sizeof(char *) * (get_good_nb_word(tab_cmd) + 1));
 	while (tab_cmd[i])
 	{
 		if (tab_cmd[i][0] == '<' || tab_cmd[i][0] == '>')
@@ -68,7 +68,8 @@ static t_exec	*right_chevrons(t_exec *exec, char *cmd)
 	i = 0;
 	tmp = exec;
 	out = tmp->fd_out;
-	close (out);
+	if (out > 2)
+		close (out);
 	if (cmd[i] && cmd[i + 1] == '>')
 	{
 		file = get_next_word(&cmd[i]);
@@ -98,7 +99,8 @@ static t_exec	*change_fds(t_exec *exec, char *cmd)
 	{
 		if (cmd[i] && cmd[i] == '<')
 		{
-			close (in);
+			if (in > 2)
+				close (in);
 			file = get_next_word(&cmd[i]);
 			in = open(file, O_RDONLY);
 			free(file);

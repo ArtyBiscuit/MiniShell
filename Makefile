@@ -6,7 +6,7 @@
 #    By: axcallet <axcallet@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/13 13:47:21 by axcallet          #+#    #+#              #
-#    Updated: 2023/04/21 15:17:53 by arforgea         ###   ########.fr        #
+#    Updated: 2023/04/22 15:03:24 by axcallet         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,6 +45,7 @@ SRC			= src/get_everything_nbr/char_number.c		\
 			src/free.c									\
 			src/get_abs_path.c							\
 			src/input.c									\
+			src/input_2.c								\
 			src/main.c									\
 			src/refile_exec.c							\
 			src/skip_argument.c							\
