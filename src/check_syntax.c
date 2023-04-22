@@ -6,15 +6,10 @@
 /*   By: arforgea <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 14:41:40 by arforgea          #+#    #+#             */
-/*   Updated: 2023/04/19 15:52:05 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/04/22 13:10:48 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../inc/minishell.h"
-
-static int	is_space(char c)
-{
-	return (c == ' ' || c == '	' || c == '\n');
-}
 
 static int	str_is_blank(char *str)
 {

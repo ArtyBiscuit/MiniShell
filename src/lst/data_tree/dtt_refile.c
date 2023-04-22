@@ -6,7 +6,7 @@
 /*   By: axcallet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/05 16:56:54 by axcallet          #+#    #+#             */
-/*   Updated: 2023/04/21 18:42:02 by arforgea         ###   ########.fr       */
+/*   Updated: 2023/04/22 12:27:45 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../../../inc/minishell.h"
@@ -15,13 +15,11 @@ t_data	*dtt_refile(t_data *data)
 {
 	int		i;
 	char	**tab;
-	t_exec	*dtt_tmp;
 	t_exec	*tmp;
 
 	i = 0;
-	dtt_tmp = data->dtt;
-	tab = turbo_split(data->input, '|');
-	//tab = input_to_tab(data->input);
+	//tab = turbo_split(data->input, '|');
+	tab = input_to_tab(data->input);
 	tmp = data->dtt;
 	while (tab[i])
 	{
@@ -35,7 +33,6 @@ t_data	*dtt_refile(t_data *data)
 		tmp = tmp->next;
 		i++;
 	}
-	data->dtt = dtt_tmp;
 	free_tab(tab);
 	return (data);
 }

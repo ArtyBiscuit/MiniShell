@@ -6,7 +6,7 @@
 /*   By: arforgea <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 14:22:32 by arforgea          #+#    #+#             */
-/*   Updated: 2023/04/21 18:41:33 by arforgea         ###   ########.fr       */
+/*   Updated: 2023/04/22 13:20:02 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,11 @@ int		check_chevrons(char *str);
 //	other...
 char	*get_abs_path(char *cmd, char **envp);
 
-char	*add_spaces(char *str);
+char	*add_spaces_rdir(char *str);
+
+char	*remove_spaces_pipes(char *cmd);
+
+int		is_space(char c);
 
 int		check_syntax(char *str);
 

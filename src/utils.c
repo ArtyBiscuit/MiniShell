@@ -6,7 +6,7 @@
 /*   By: axcallet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/24 09:53:43 by axcallet          #+#    #+#             */
-/*   Updated: 2023/04/18 13:35:44 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/04/22 13:08:23 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../inc/minishell.h"
@@ -47,4 +47,9 @@ char	*get_next_word(char *str)
 		}
 	}
 	return (NULL);
+}
+
+int	is_space(char c)
+{
+	return (c == ' ' || c == '\t' || c == '\n');
 }
