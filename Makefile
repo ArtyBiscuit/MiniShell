@@ -6,7 +6,7 @@
 #    By: axcallet <axcallet@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/13 13:47:21 by axcallet          #+#    #+#              #
-#    Updated: 2023/04/22 15:03:24 by axcallet         ###   ########.fr        #
+#    Updated: 2023/04/22 19:41:23 by arforgea         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -54,6 +54,9 @@ SRC			= src/get_everything_nbr/char_number.c		\
 			src/input_to_tab.c							\
 			src/DEBUG/print_tab.c						\
 			src/DEBUG/print_dtt.c						\
+			src/pipex_reborn/exec_pipe.c				\
+			src/pipex_reborn/file_utils.c				\
+			src/pipex_reborn/path.c						\
 
 OBJ			= $(SRC:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 LIBFT		= src/libft

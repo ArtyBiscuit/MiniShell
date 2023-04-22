@@ -6,10 +6,11 @@
 /*   By: axcallet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 15:30:39 by axcallet          #+#    #+#             */
-/*   Updated: 2023/04/22 16:23:03 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/04/22 19:42:38 by arforgea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../inc/minishell.h"
+#include "pipex_reborn/pipex.h"
 
 int	main(int argc, char **argv, char **envp)
 {
@@ -38,8 +39,8 @@ int	main(int argc, char **argv, char **envp)
 	//	DB_print_tab(input_to_tab(data->input));
 		data = dtt_init(data);
 		data = dtt_refile(data);
-		write(1, "oui", 3);
 		DB_print_dtt(data);
+		exec_pipeline(data);
 		free(data->input);
 	}
 	return (0);

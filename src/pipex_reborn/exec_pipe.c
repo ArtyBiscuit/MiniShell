@@ -6,10 +6,11 @@
 /*   By: arforgea <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 08:28:36 by arforgea          #+#    #+#             */
-/*   Updated: 2023/04/17 15:43:12 by arforgea         ###   ########.fr       */
+/*   Updated: 2023/04/22 19:46:25 by arforgea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "pipex.h"
+#include "../../inc/minishell.h"
 #include <stdlib.h>
 #include <unistd.h>
 
@@ -34,16 +35,14 @@ void	free_pipe_utils(char **lst_path, char **cmd_flags, char *path_bin)
 	free(lst_path);
 }
 
-void	exec_cmd(char *envp[], char *cmd, int fd_in, int *fd_out)
+void	exec_cmd(char *envp[], t_exec *dtt, int fd_in, int *fd_out)
 {
-	char	**lst_path;
 	char	**cmd_flags;
 	char	*path_bin;
 	pid_t	pid;
 
-	lst_path = get_path_var(envp);
-	cmd_flags = split_cmd_flags(cmd);
-	path_bin = get_good_path(cmd_flags[0], lst_path);
+	cmd_flags = dtt->full_cmd;
+	path_bin = dtt->abs_path;
 	pid = 1;
 	if (cmd_flags && path_bin)
 		pid = fork();
@@ -56,35 +55,33 @@ void	exec_cmd(char *envp[], char *cmd, int fd_in, int *fd_out)
 		dup2(fd_in, 0);
 		dup2(fd_out[1], 1);
 		execve(path_bin, cmd_flags, envp);
-		free_pipe_utils(lst_path, cmd_flags, path_bin);
 		exit(0);
 	}
-	free_pipe_utils(lst_path, cmd_flags, path_bin);
 }
 
-int	exec_pipeline(int argc, char *argv[], char *envp[])
+int	exec_pipeline(t_data *data)
 {
 	int	fds[2];
-	int	index;
 	int	fd_tmp;
+	t_exec	*dtt;
 
-	fd_tmp = open_file(argv[1], 0);
-	index = 2;
-	while (index < argc - 2)
+	dtt = data->dtt;
+	fd_tmp = dtt->fd_out;
+	while (dtt->next)
 	{
 		if (pipe(fds) < 0)
 			return (1);
-		exec_cmd(envp, argv[index], fd_tmp, fds);
+		exec_cmd(data->envp, dtt, fd_tmp, fds);
 		wait(NULL);
 		close(fds[1]);
 		close(fd_tmp);
 		fd_tmp = fds[0];
 		//close(fds[0]);
-		index++;
+		dtt = dtt->next;
 	}
-	fds[1] = open_file(argv[argc - 1], 1);
+	fds[1] = dtt->fd_out;
 	fds[0] = -1;
-	exec_cmd(envp, argv[index], fd_tmp, fds);
+	exec_cmd(data->envp, dtt, fd_tmp, fds);
 	close(fd_tmp);
 	close(fds[1]);
 	return (0);

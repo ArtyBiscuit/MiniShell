@@ -6,14 +6,15 @@
 /*   By: arforgea <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/21 17:39:05 by arforgea          #+#    #+#             */
-/*   Updated: 2023/01/25 03:17:08 by arforgea         ###   ########.fr       */
+/*   Updated: 2023/04/22 19:37:08 by arforgea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PIPEX_H
 # define PIPEX_H
 
-# include "libft/libft.h"
+# include "../../inc/minishell.h"
+# include "../libft/libft.h"
 # include <stddef.h>
 # include <stdio.h>
 # include <stdlib.h>
@@ -24,7 +25,7 @@
 # include <sys/types.h>
 
 void	ft_perror(char *msg, char **error, char *error_2);
-int		exec_pipeline(int argc, char *argv[], char *envp[]);
+int		exec_pipeline(t_data *data);
 char	**split_cmd_flags(char *all_cmd);
 int		open_file(char *file_path, int flags);
 char	**get_path_var(char *envp[]);
