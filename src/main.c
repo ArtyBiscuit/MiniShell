@@ -6,7 +6,7 @@
 /*   By: axcallet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 15:30:39 by axcallet          #+#    #+#             */
-/*   Updated: 2023/04/24 12:05:56 by arforgea         ###   ########.fr       */
+/*   Updated: 2023/04/24 13:22:03 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../inc/minishell.h"
@@ -51,7 +51,7 @@ int	main(int argc, char **argv, char **envp)
 		exec_pipeline(data);
 		lst_destroy(data->dtt);
 		free(data->input);
-		free(data);
+	//	free(data);
 	}
 	return (0);
 }

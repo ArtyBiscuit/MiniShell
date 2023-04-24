@@ -6,7 +6,7 @@
 /*   By: arforgea <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 08:28:36 by arforgea          #+#    #+#             */
-/*   Updated: 2023/04/24 12:58:40 by arforgea         ###   ########.fr       */
+/*   Updated: 2023/04/24 13:20:28 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "pipex.h"
@@ -62,6 +62,7 @@ void	exec_cmd(char *envp[], t_exec *dtt, int fd_in, int *fd_out)
 
 int	exec_pipeline(t_data *data)
 {
+	int	opif = 0;
 	int	fds[2];
 	int	fd_tmp;
 	t_exec	*dtt;
@@ -70,6 +71,7 @@ int	exec_pipeline(t_data *data)
 	fd_tmp = dtt->fd_in;
 	while (dtt->next)
 	{
+		opif = -1;
 		if (pipe(fds) < 0)
 			return (1);
 		exec_cmd(data->envp, dtt, fd_tmp, fds);
@@ -82,6 +84,7 @@ int	exec_pipeline(t_data *data)
 	fds[0] = -1;
 	exec_cmd(data->envp, dtt, fd_tmp, fds);
 	wait(NULL);
-	close(fd_tmp);
+	if (opif == -1)
+		close(fd_tmp);
 	return (0);
 }

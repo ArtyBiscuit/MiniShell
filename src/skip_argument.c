@@ -6,11 +6,10 @@
 /*   By: arforgea <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 10:18:14 by arforgea          #+#    #+#             */
-/*   Updated: 2023/04/05 09:37:08 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/04/24 15:55:08 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../inc/minishell.h"
-#include <stdio.h>
 
 int	skip_argument(char *c)
 {
