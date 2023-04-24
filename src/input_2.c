@@ -6,7 +6,7 @@
 /*   By: axcallet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/22 14:58:12 by axcallet          #+#    #+#             */
-/*   Updated: 2023/04/22 15:02:39 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/04/24 12:02:37 by arforgea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../inc/minishell.h"
@@ -27,6 +27,8 @@ char	*remove_extra_spaces(char *cmd)
         i++;
     }
     res[j] = '\0';
+	if (cmd)
+		free(cmd);
     return res;
 }
 

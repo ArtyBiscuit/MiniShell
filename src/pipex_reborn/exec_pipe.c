@@ -6,12 +6,13 @@
 /*   By: arforgea <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 08:28:36 by arforgea          #+#    #+#             */
-/*   Updated: 2023/04/22 19:46:25 by arforgea         ###   ########.fr       */
+/*   Updated: 2023/04/24 12:58:40 by arforgea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "pipex.h"
 #include "../../inc/minishell.h"
 #include <stdlib.h>
+#include <sys/wait.h>
 #include <unistd.h>
 
 void	free_pipe_utils(char **lst_path, char **cmd_flags, char *path_bin)
@@ -66,7 +67,7 @@ int	exec_pipeline(t_data *data)
 	t_exec	*dtt;
 
 	dtt = data->dtt;
-	fd_tmp = dtt->fd_out;
+	fd_tmp = dtt->fd_in;
 	while (dtt->next)
 	{
 		if (pipe(fds) < 0)
@@ -74,15 +75,13 @@ int	exec_pipeline(t_data *data)
 		exec_cmd(data->envp, dtt, fd_tmp, fds);
 		wait(NULL);
 		close(fds[1]);
-		close(fd_tmp);
 		fd_tmp = fds[0];
-		//close(fds[0]);
 		dtt = dtt->next;
 	}
 	fds[1] = dtt->fd_out;
 	fds[0] = -1;
 	exec_cmd(data->envp, dtt, fd_tmp, fds);
+	wait(NULL);
 	close(fd_tmp);
-	close(fds[1]);
 	return (0);
 }

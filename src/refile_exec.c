@@ -6,7 +6,7 @@
 /*   By: axcallet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/07 14:02:37 by axcallet          #+#    #+#             */
-/*   Updated: 2023/04/22 17:14:06 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/04/24 12:54:28 by arforgea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../inc/minishell.h"
@@ -55,6 +55,7 @@ static t_exec	*get_cmd(t_exec *exec, char *cmd, char **envp)
 	tmp->full_cmd = new_tab;
 	tmp->cmd = new_tab[0];
 	tmp->abs_path = get_abs_path(new_tab[0], envp);
+	free_tab(tab_cmd);
 	return (tmp);
 }
 
