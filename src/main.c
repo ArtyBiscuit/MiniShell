@@ -6,7 +6,7 @@
 /*   By: axcallet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 15:30:39 by axcallet          #+#    #+#             */
-/*   Updated: 2023/04/24 19:44:08 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/04/25 17:21:56 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../inc/minishell.h"
@@ -35,8 +35,6 @@ int	main(int argc, char **argv, char **envp)
 				break;
 		}
 		data->input = input_mod_var(data);
-		printf("%s\n", data->input);
-		/*
 		data->input = remove_extra_spaces(data->input);
 		data->input = add_spaces_rdir(data->input);	
 		data->input = remove_spaces_pipes(data->input);
@@ -54,7 +52,7 @@ int	main(int argc, char **argv, char **envp)
 		exec_pipeline(data);
 		lst_destroy(data->dtt);
 		free(data->input);
-	//	free(data);*/
+	//	free(data);
 	}
 	return (0);
 }
