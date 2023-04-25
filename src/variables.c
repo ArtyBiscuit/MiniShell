@@ -6,22 +6,23 @@
 /*   By: axcallet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 18:19:37 by axcallet          #+#    #+#             */
-/*   Updated: 2023/04/24 22:30:59 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/04/25 12:30:47 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../inc/minishell.h"
-#include <string.h>
-static void    is_in_quote(int *c_quote, char c)
+#include "libft/libft.h"
+
+static void	is_in_quote(int *c_quote, char c)
 {
-    if (c == '\'' && c_quote[1] == 0)
-        c_quote[0] = 1;
-    if (c == '\"' && c_quote[0] == 0)
-        c_quote[1] = 1;
-    if (c == '\'' && c_quote[0] == 1)
-        c_quote = 0;
-    if (c == '\"' && c_quote[1] == 1)
-        c_quote = 0;
-    return ;
+	if (c == '\'' && c_quote[1] == 0)
+		c_quote[0] = 1;
+	if (c == '\"' && c_quote[0] == 0)
+		c_quote[1] = 1;
+	if (c == '\'' && c_quote[0] == 1)
+		c_quote = 0;
+	if (c == '\"' && c_quote[1] == 1)
+		c_quote = 0;
+	return ;
 }
 
 static char	*get_variable(t_data *data, int index)
@@ -42,10 +43,8 @@ static char	*get_variable(t_data *data, int index)
 			{
 				tmp = ft_strnstr(data->envp[j], var, i);
 				if (tmp != NULL)
-				{
-					index = (ft_strlen(data->envp[j]) - i);
-					return (ft_substr(data->envp[j], i, index));
-				}
+					return (ft_substr(data->envp[j], i,
+							ft_strlen(data->envp[j]) - i));
 				j++;
 			}
 		}
@@ -54,7 +53,7 @@ static char	*get_variable(t_data *data, int index)
 	return (NULL);
 }
 
-static char	*add_variable(t_data *data, char *tmp)
+static char	*add_variable(t_data *data, char *tmp, char *new_input)
 {
 	int		i;
 	char	*new_str;
@@ -63,10 +62,21 @@ static char	*add_variable(t_data *data, char *tmp)
 	while (data->input[i])
 	{
 		if (data->input[i] && data->input[i] == '$')
-			new_str = ft_secur_cat(tmp, get_variable(data, i));
+		{
+			new_str = ft_secur_cat(new_input, tmp);
+			new_str = ft_secur_cat(new_str, get_variable(data, i));
+		}
 		i++;
 	}
 	return (new_str);
+}
+
+static int	ft_strlen_separator(char *str, int i)
+{
+	i++;
+	while (!is_separator(str[i]))
+		i++;
+	return (i);
 }
 
 char	*input_mod_var(t_data *data)
@@ -74,7 +84,7 @@ char	*input_mod_var(t_data *data)
 	int		i;
 	int		j;
 	int		q_flag[2];
-	char 	*new_input;
+	char	*new_input;
 
 	q_flag[0] = 0;
 	q_flag[1] = 0;
@@ -84,24 +94,21 @@ char	*input_mod_var(t_data *data)
 	while (data->input[i])
 	{
 		is_in_quote(q_flag, data->input[i]);
-		if ((data->input[i] == '$' || data->input[i] == '\0') && q_flag[1] == 1)
+		if (data->input[i] == '$' && q_flag[1] == 1)
 		{
-			new_input = ft_substr(data->input, j, i);
-			new_input = add_variable(data, new_input);
+			new_input = add_variable(data,
+					ft_substr(data->input, j, i - j), new_input);
+			i += ft_strlen_separator(data->input, i);
+			/*
 			i++;
 			while (!is_separator(data->input[i]))
 				i++;
+			*/
+			j = i;
 		}
-		/*
-		if (new_input)
-		{
-			free(data->input);
-			data->input = new_input;
-		}
-		*/
-
+		if (data->input[i + 1] == '\0')
+			new_input = ft_secur_cat(new_input, ft_substr(data->input, j, i));
 		i++;
 	}
-	
 	return (new_input);
 }
