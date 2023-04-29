@@ -6,7 +6,7 @@
 /*   By: arforgea <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 14:22:32 by arforgea          #+#    #+#             */
-/*   Updated: 2023/04/24 19:40:03 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/04/29 15:02:57 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ struct	s_exec
 
 struct s_data
 {
+	int		nb_cmd;
 	char	*input;
 	char	**envp;
 	t_exec	*dtt;

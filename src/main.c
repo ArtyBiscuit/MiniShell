@@ -6,11 +6,12 @@
 /*   By: axcallet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 15:30:39 by axcallet          #+#    #+#             */
-/*   Updated: 2023/04/25 17:54:53 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/04/29 13:25:25 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../inc/minishell.h"
 #include "pipex_reborn/pipex.h"
+#include <stdio.h>
 
 int	main(int argc, char **argv, char **envp)
 {
@@ -26,7 +27,7 @@ int	main(int argc, char **argv, char **envp)
 		{
 			data->input = readline("MiniShell $: ");
 			add_history(data->input);
-			if (data->input == NULL || data->input[0] == '\0')
+			if (data->input[0] == '\0')
 			{
 				printf("%s", data->input);
 				continue;
@@ -48,11 +49,13 @@ int	main(int argc, char **argv, char **envp)
 	//	DB_print_tab(input_to_tab(data->input));
 		data = dtt_init(data);
 		data = dtt_refile(data);
-		//DB_print_dtt(data);
+//		DB_print_dtt(data);
 		exec_pipeline(data);
 		lst_destroy(data->dtt);
-		free(data->input);
-	//	free(data);
+		if (data->input)
+			free(data->input);
 	}
+	if (data)
+		free(data);
 	return (0);
 }

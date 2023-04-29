@@ -6,7 +6,7 @@
 /*   By: axcallet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 18:19:37 by axcallet          #+#    #+#             */
-/*   Updated: 2023/04/25 17:27:00 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/04/28 18:18:58 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../inc/minishell.h"
@@ -88,10 +88,11 @@ char	*input_mod_var(t_data *data)
 	char	*new;
 
 	i = 0;
+	new = NULL;
 	j = 0;
 	q_flag[0] = 0;
 	q_flag[1] = 0;
-	while (data->input[i])
+	while (data->input && data->input[i])
 	{
 		is_in_quote(q_flag, data->input[i]);
 		if (data->input[i] == '$' && (q_flag[1] == 1

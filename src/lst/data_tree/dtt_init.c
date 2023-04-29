@@ -6,7 +6,7 @@
 /*   By: axcallet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/05 09:49:35 by axcallet          #+#    #+#             */
-/*   Updated: 2023/04/21 18:02:57 by arforgea         ###   ########.fr       */
+/*   Updated: 2023/04/29 15:06:54 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../../../inc/minishell.h"
@@ -30,10 +30,12 @@ t_data	*dtt_init(t_data *data)
 	{
 		 	if(!(tmp->next = malloc(sizeof(t_exec) * 1)))
 				return (NULL);
+			tmp->next->back = tmp;
 			tmp = tmp->next;
 			cmp++;
 	}
 	tmp->next = NULL;
 	data->dtt = dtt;
+	data->nb_cmd = dtt_size;
 	return (data);
 }
