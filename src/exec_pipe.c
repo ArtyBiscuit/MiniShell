@@ -6,13 +6,10 @@
 /*   By: arforgea <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 08:28:36 by arforgea          #+#    #+#             */
-/*   Updated: 2023/04/29 16:08:29 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/05/02 10:38:25 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "pipex.h"
-#include "../../inc/minishell.h"
-#include <stdio.h>
-#include <unistd.h>
+#include "../inc/minishell.h"
 /*
 int	exec_cmd(char *envp[], t_exec *dtt, int *fds)
 {
@@ -76,21 +73,33 @@ int	exec_pipeline(t_data *data)
 	return (0);
 }
 */
-void	free_pipe_utils(char **tab_cmd, char *path_bin)
+static void	all_dup2(t_exec *dtt, int *fds, int fd_tmp)
 {
-	int	index;
-
-	index = 0;
-	free(path_bin);
-	while (tab_cmd[index])
+	if (dtt->fd_in > 2)
 	{
-		free(tab_cmd[index]);
-		index++;
+		dup2(dtt->fd_in, 0);
+		close(dtt->fd_in);
 	}
-	free(tab_cmd);
+	else if (dtt->back)
+	{
+		dup2(fd_tmp, 0);
+		if (fd_tmp != -1)
+			close(fd_tmp);
+	}
+	if (dtt->fd_out > 2)
+	{
+		dup2(dtt->fd_out, 1);
+		close (dtt->fd_out);
+	}
+	else if (dtt->next)
+	{
+		dup2(fds[1], 1);
+		close(fds[1]);
+		close(fds[0]);
+	}
 }
 
-int	exec_cmd(char *envp[], t_exec *dtt, int *fds, int fd_tmp)
+static int	exec_cmd(char *envp[], t_exec *dtt, int *fds, int fd_tmp)
 {
 	char	**tab_cmd;
 	char	*path_bin;
@@ -102,39 +111,36 @@ int	exec_cmd(char *envp[], t_exec *dtt, int *fds, int fd_tmp)
 	if (tab_cmd && path_bin)
 		pid = fork();
 	else
-		ft_perror("command not found: ", tab_cmd, "Empty");
+		printf("walla ça marche pas !");
 	if (!pid)
 	{
-		if (dtt->fd_in > 2)
-		{
-			printf("0");
-			dup2(dtt->fd_in, 0);
-			close(dtt->fd_in);
-		}
-		else if (dtt->back)
-		{
-			printf("1");
-			dup2(fd_tmp, 0);
-			if (fd_tmp != -1)
-				close(fd_tmp);
-		}
-		if (dtt->fd_out > 2)
-		{
-			printf("2");
-			dup2(dtt->fd_out, 1);
-			close (dtt->fd_out);
-		}
-		else if (dtt->next)
-		{
-			printf("3");
-			dup2(fds[1], 1);
-			close(fds[1]);
-			close(fds[0]);
-		}
+		all_dup2(dtt, fds, fd_tmp);
 		execve(path_bin, tab_cmd, envp);
 		exit(0);
 	}
 	return (pid);
+}
+
+static void	close_fds_cmd(t_exec *dtt, int fd_tmp)
+{
+	if (dtt->fd_in > 2)
+		close(dtt->fd_in);
+	if (dtt->fd_out > 2)
+		close(dtt->fd_out);
+	if (dtt->back)
+		close(fd_tmp);
+}
+
+static void	wait_all_pid(t_data *data, int *tab_pid)
+{
+	int	i;
+
+	i = 0;
+	while (i != data->nb_cmd)
+	{
+		waitpid(tab_pid[i], NULL, 0);
+		i++;
+	}
 }
 
 int	exec_pipeline(t_data *data)
@@ -145,35 +151,22 @@ int	exec_pipeline(t_data *data)
 	int		*tab_pid;
 	t_exec	*tmp;
 
-	index = 0;
 	tmp = data->dtt;
+	index = 0;
 	fd_tmp = -1;
 	tab_pid = malloc(sizeof(int) * data->nb_cmd);
-	while (tmp->next)
+	while (tmp)
 	{
 		if (pipe(fds) < 0)
 			return (1);
-		tab_pid[index] = exec_cmd(data->envp, tmp, fds, fd_tmp);
+		tab_pid[index++] = exec_cmd(data->envp, tmp, fds, fd_tmp);
 		close(fds[1]);
-		if (tmp->fd_in > 2)
-			close(tmp->fd_in);
-		if (tmp->fd_out > 2)
-			close(tmp->fd_out);
-		if (tmp->back)
-			close(fd_tmp);
+		close_fds_cmd(tmp, fd_tmp);
 		fd_tmp = fds[0];
 		tmp = tmp->next;
-		index++;	
 	}
-	tab_pid[index] = exec_cmd(data->envp, tmp, fds, fd_tmp);
 	if (fd_tmp != -1)
 		close(fd_tmp);
-	if (tmp->fd_in > 2)
-		close(tmp->fd_in);
-	if (tmp->fd_out > 2)
-		close(tmp->fd_out);
-	index = 0;
-	while (index != data->nb_cmd)
-		waitpid(tab_pid[index++], NULL, 0);
+	wait_all_pid(data, tab_pid);
 	return (0);
 }

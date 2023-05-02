@@ -6,7 +6,7 @@
 #    By: axcallet <axcallet@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/13 13:47:21 by axcallet          #+#    #+#              #
-#    Updated: 2023/04/24 19:42:11 by axcallet         ###   ########.fr        #
+#    Updated: 2023/04/29 17:15:54 by axcallet         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,6 +42,7 @@ SRC			= src/get_everything_nbr/char_number.c		\
 			src/check_syntax.c							\
 			src/chevrons.c								\
 			src/echo.c									\
+			src/exec_pipe.c								\
 			src/free.c									\
 			src/get_abs_path.c							\
 			src/input.c									\
@@ -54,9 +55,6 @@ SRC			= src/get_everything_nbr/char_number.c		\
 			src/input_to_tab.c							\
 			src/DEBUG/print_tab.c						\
 			src/DEBUG/print_dtt.c						\
-			src/pipex_reborn/exec_pipe.c				\
-			src/pipex_reborn/file_utils.c				\
-			src/pipex_reborn/path.c						\
 			src/variables.c								\
 
 OBJ			= $(SRC:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)

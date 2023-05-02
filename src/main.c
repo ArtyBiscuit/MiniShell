@@ -6,12 +6,10 @@
 /*   By: axcallet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 15:30:39 by axcallet          #+#    #+#             */
-/*   Updated: 2023/04/29 13:25:25 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/04/29 17:14:02 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../inc/minishell.h"
-#include "pipex_reborn/pipex.h"
-#include <stdio.h>
 
 int	main(int argc, char **argv, char **envp)
 {

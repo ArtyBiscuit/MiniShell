@@ -6,7 +6,7 @@
 /*   By: arforgea <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 14:22:32 by arforgea          #+#    #+#             */
-/*   Updated: 2023/04/29 15:02:57 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/05/02 10:46:52 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,8 +105,16 @@ char	*get_next_word(char *str);
 
 int		skip_argument(char *c);
 
+t_exec	*left_chevrons(t_exec *dtt, char *cmd);
+
+t_exec	*right_chevrons(t_exec *dtt, char *cmd);
+
 void	free_tab(char **tab);
+
 void	echo(char *str, char *flags);
+//	execution
+
+int	exec_pipeline(t_data *data);
 
 //	########## END ##########
 

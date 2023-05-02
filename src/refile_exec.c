@@ -6,7 +6,7 @@
 /*   By: axcallet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/07 14:02:37 by axcallet          #+#    #+#             */
-/*   Updated: 2023/04/25 17:53:57 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/05/02 10:44:48 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../inc/minishell.h"
@@ -59,49 +59,17 @@ static t_exec	*get_cmd(t_exec *exec, char *cmd, char **envp)
 	return (tmp);
 }
 
-static t_exec	*right_chevrons(t_exec *exec, char *cmd)
+static t_exec	*change_fds(t_exec *dtt, char *cmd)
 {
 	int		i;
-	char	*file;
 	t_exec	*tmp;
 
 	i = 0;
-	tmp = exec;
-	if (tmp->fd_out > 2)
-		close (tmp->fd_out);
-	if (cmd[i] && cmd[i + 1] == '>')
-	{
-		file = get_next_word(&cmd[i]);
-		tmp->fd_out = open(file, O_CREAT | O_WRONLY | 0644);
-		free(file);
-	}
-	else
-	{
-		file = get_next_word(&cmd[i]);
-		tmp->fd_out = open(file, O_CREAT | O_WRONLY | O_TRUNC, 0644);
-		free(file);
-	}
-	return (tmp);
-}
-
-static t_exec	*change_fds(t_exec *exec, char *cmd)
-{
-	int		i;
-	char	*file;
-	t_exec	*tmp;
-
-	i = 0;
-	tmp = exec;
+	tmp = dtt;
 	while (cmd[i])
 	{
 		if (cmd[i] && cmd[i] == '<')
-		{
-			if (tmp->fd_in > 2)
-				close (tmp->fd_in);
-			file = get_next_word(&cmd[i]);
-			tmp->fd_in = open(file, O_RDONLY);
-			free(file);
-		}
+			tmp = left_chevrons(tmp, &cmd[i]);
 		else if (cmd[i] && cmd[i] == '>')
 			tmp = right_chevrons(tmp, &cmd[i]);
 		i++;
@@ -110,8 +78,7 @@ static t_exec	*change_fds(t_exec *exec, char *cmd)
 }
 
 t_exec	*refile_exec(t_data *data, t_exec *dtt, char *cmd)
-{
-	// ta mere la pute! c'est pas "data->dtt" c'est le "tmp" ! pas DATA->DTT !!!!!!
+{	
 	t_exec	*tmp;
 
 	tmp = dtt;
