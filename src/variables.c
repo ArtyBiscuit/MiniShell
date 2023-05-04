@@ -6,7 +6,7 @@
 /*   By: axcallet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 18:19:37 by axcallet          #+#    #+#             */
-/*   Updated: 2023/04/28 18:18:58 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/05/03 11:20:07 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../inc/minishell.h"
@@ -31,9 +31,9 @@ static char	*get_variable(t_data *data, int index)
 	char	*var;
 	char	*tmp;
 
-	i = 1;
+	i = 0;
 	j = 0;
-	while (data->input[index + i])
+	while (data->input[index + i++])
 	{
 		if (data->input[index + i] && is_separator(data->input[index + i + 1]))
 		{
@@ -49,7 +49,6 @@ static char	*get_variable(t_data *data, int index)
 			if (data->envp[j] == NULL)
 				return (var);
 		}
-		i++;
 	}
 	return (NULL);
 }
@@ -87,12 +86,12 @@ char	*input_mod_var(t_data *data)
 	int		q_flag[2];
 	char	*new;
 
-	i = 0;
-	new = NULL;
+	i = -1;
 	j = 0;
 	q_flag[0] = 0;
 	q_flag[1] = 0;
-	while (data->input && data->input[i])
+	new = NULL;
+	while (data->input && data->input[i++])
 	{
 		is_in_quote(q_flag, data->input[i]);
 		if (data->input[i] == '$' && (q_flag[1] == 1
@@ -105,7 +104,6 @@ char	*input_mod_var(t_data *data)
 		}
 		if (data->input[i + 1] == '\0')
 			new = ft_secur_cat(new, ft_substr(data->input, j, i + 1));
-		i++;
 	}
 	return (new);
 }

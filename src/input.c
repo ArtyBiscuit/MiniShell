@@ -6,7 +6,7 @@
 /*   By: axcallet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 10:42:51 by axcallet          #+#    #+#             */
-/*   Updated: 2023/04/24 12:05:04 by arforgea         ###   ########.fr       */
+/*   Updated: 2023/05/03 10:04:29 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../inc/minishell.h"
@@ -31,7 +31,7 @@ static void	add_no_spaces(char *cmd, char *new_cmd, int *i, int *j)
 
 static void	inheritance_rdir(char *cmd, char *new_cmd, int *i, int *j)
 {
-	if (i > 0 && cmd[*i - 1] != ' ' && !is_rdir(cmd[*i - 1])
+	if (*i > 0 && cmd[*i - 1] != ' ' && !is_rdir(cmd[*i - 1])
 		&& cmd[*i - 1] != '|')
 		new_cmd[*j++] = ' ';
 	new_cmd[*j++] = cmd[*i++];

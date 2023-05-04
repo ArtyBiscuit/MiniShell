@@ -6,7 +6,7 @@
 /*   By: arforgea <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/26 11:37:47 by arforgea          #+#    #+#             */
-/*   Updated: 2023/04/29 16:26:38 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/05/03 11:12:12 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../../inc/minishell.h"
@@ -19,8 +19,6 @@ void	cmd_link_value_free(t_exec *ptr)
 		free(ptr->abs_path);
 	if (ptr->full_cmd)
 		free_tab(ptr->full_cmd);
-	//if (ptr->cmd)
-	//	free(ptr->cmd);
 	return ;
 }
 
@@ -52,6 +50,5 @@ void	lst_destroy(t_exec *ptr)
 		free(current);
 		current = next;
 	}
-	//exec_lst_free(ptr);
 	return ;
 }

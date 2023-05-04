@@ -6,73 +6,11 @@
 /*   By: arforgea <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 08:28:36 by arforgea          #+#    #+#             */
-/*   Updated: 2023/05/02 10:38:25 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/05/03 08:53:32 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../inc/minishell.h"
-/*
-int	exec_cmd(char *envp[], t_exec *dtt, int *fds)
-{
-	char	**cmd_flags;
-	char	*path_bin;
-	pid_t	pid;
 
-	cmd_flags = dtt->full_cmd;
-	path_bin = dtt->abs_path;
-	pid = 1;
-	if (cmd_flags && path_bin)
-		pid = fork();
-	else
-		ft_perror("command not found: ", cmd_flags, "Empty");
-	if (pid == 0)
-	{
-		if (dtt->fd_in > 2)
-		{
-			dup2(dtt->fd_in, 0);
-			close(dtt->fd_in);
-		}
-		else if (dtt->back)
-		{
-			dup2(fds[0], 0);
-		}
-		if (dtt->fd_out > 2)
-		{
-			dup2(dtt->fd_out, 1);
-			close (dtt->fd_out);
-		}
-		else if (dtt->next)
-		{
-			dup2(fds[1], 1);
-		}
-		execve(path_bin, cmd_flags, envp);
-		exit(0);
-	}
-	return (pid);
-}
-
-int	exec_pipeline(t_data *data)
-{
-	int	fds[2];
-	t_exec	*dtt;
-	int i;
-
-	i = 0;
-	dtt = data->dtt;
-	while (dtt)
-	{
-		if (dtt->next && pipe(fds) < 0)
-			return (1);
-		exec_cmd(data->envp, dtt, fds);
-		dtt = dtt->next;
-		i++;
-	}
-	close (fds[0]);
-	close (fds[1]);
-	while (i-- > 0)
-		waitpid(-1, NULL, 0);
-	return (0);
-}
-*/
 static void	all_dup2(t_exec *dtt, int *fds, int fd_tmp)
 {
 	if (dtt->fd_in > 2)
