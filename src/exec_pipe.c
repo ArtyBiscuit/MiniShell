@@ -6,10 +6,13 @@
 /*   By: arforgea <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 08:28:36 by arforgea          #+#    #+#             */
-/*   Updated: 2023/05/03 08:53:32 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/05/09 10:04:03 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../inc/minishell.h"
+#include "libft/libft.h"
+#include <signal.h>
+#include <stdlib.h>
 
 static void	all_dup2(t_exec *dtt, int *fds, int fd_tmp)
 {
@@ -47,9 +50,14 @@ static int	exec_cmd(char *envp[], t_exec *dtt, int *fds, int fd_tmp)
 	path_bin = dtt->abs_path;
 	pid = 1;
 	if (tab_cmd && path_bin)
+	{
+		signal(SIGINT, SIG_IGN);
 		pid = fork();
+		signal(SIGINT, mini_sigint_fork);
+		signal(SIGQUIT, mini_sigquit_fork);
+	}
 	else
-		printf("walla ça marche pas !");
+		printf("walla ça marche pas !\n");
 	if (!pid)
 	{
 		all_dup2(dtt, fds, fd_tmp);
@@ -72,13 +80,18 @@ static void	close_fds_cmd(t_exec *dtt, int fd_tmp)
 static void	wait_all_pid(t_data *data, int *tab_pid)
 {
 	int	i;
+	int	status;
 
 	i = 0;
 	while (i != data->nb_cmd)
 	{
-		waitpid(tab_pid[i], NULL, 0);
+		waitpid(tab_pid[i], &status, 0);
+		if (g_status == 131)
+			ft_putstr_fd("Quit core dumped\n", 2);
+		g_status = WEXITSTATUS(status);
 		i++;
 	}
+	signal(SIGINT, mini_sigint);
 }
 
 int	exec_pipeline(t_data *data)

@@ -6,7 +6,7 @@
 /*   By: axcallet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 18:19:37 by axcallet          #+#    #+#             */
-/*   Updated: 2023/05/03 11:20:07 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/05/05 13:41:48 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../inc/minishell.h"
@@ -71,12 +71,14 @@ static char	*add_variable(t_data *data, char *tmp, char *new_input)
 	return (new_str);
 }
 
-static int	ft_strlen_separator(char *str, int i)
+static void	change_variables(t_data *data, char *new, int *i, int *j)
 {
-	i++;
-	while (!is_separator(str[i]))
-		i++;
-	return (i);
+	new = add_variable(data,
+			ft_substr(data->input, (*j), (*i) - (*j)), new);
+	(*i)++;
+	while (!is_separator(data->input[*i]))
+		(*i)++;
+	(*j) = (*i);
 }
 
 char	*input_mod_var(t_data *data)
@@ -91,16 +93,16 @@ char	*input_mod_var(t_data *data)
 	q_flag[0] = 0;
 	q_flag[1] = 0;
 	new = NULL;
-	while (data->input && data->input[i++])
+	while (data->input && data->input[++i])
 	{
 		is_in_quote(q_flag, data->input[i]);
+		if (data->input[i - 2] && data->input[i] == '$'
+				&&(data->input[i - 1] == '<' && data->input[i - 2] == '<'))
+			i++;
 		if (data->input[i] == '$' && (q_flag[1] == 1
 				|| (q_flag[0] == 0 && q_flag[1] == 0)))
 		{
-			new = add_variable(data,
-					ft_substr(data->input, j, i - j), new);
-			i = ft_strlen_separator(data->input, i);
-			j = i;
+			change_variables(data, new, &i, &j);
 		}
 		if (data->input[i + 1] == '\0')
 			new = ft_secur_cat(new, ft_substr(data->input, j, i + 1));

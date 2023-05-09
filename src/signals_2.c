@@ -1,25 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   signals_2.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: axcallet <axcallet@student.42.fr>          +#+  +:+       +#+        */
+/*   By: axcallet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/26 13:15:30 by axcallet          #+#    #+#             */
-/*   Updated: 2023/05/05 10:50:43 by axcallet         ###   ########.fr       */
+/*   Created: 2023/05/09 17:17:37 by axcallet          #+#    #+#             */
+/*   Updated: 2023/05/09 17:18:01 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+#include "../inc/minishell.h"
 
-#include "libft.h"
-
-size_t	ft_strlen(const char *s)
+void	signals_disabled(void)
 {
-	size_t	i;
+	signal(SIGINT, SIG_IGN);
+	signal(SIGQUIT, SIG_IGN);
+}
 
-	i = 0;
-	while (s && s[i] != '\0')
-	{
-		i++;
-	}
-	return (i);
+void	signals_heredoc(void)
+{
+	signal(SIGINT, mini_sigint_heredoc);
+	signal(SIGQUIT, SIG_IGN);
 }

@@ -6,7 +6,7 @@
 /*   By: axcallet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/05 09:49:35 by axcallet          #+#    #+#             */
-/*   Updated: 2023/05/03 11:11:49 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/05/05 10:42:06 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../../../inc/minishell.h"
@@ -16,7 +16,7 @@ t_data	*dtt_init(t_data *data)
 {
 	t_exec			*dtt;
 	t_exec			*tmp;
-	unsigned int	cmp;
+	int	cmp;
 
 	dtt = NULL;
 	dtt = malloc(sizeof(t_exec));

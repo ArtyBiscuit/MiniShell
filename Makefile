@@ -6,7 +6,7 @@
 #    By: axcallet <axcallet@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/13 13:47:21 by axcallet          #+#    #+#              #
-#    Updated: 2023/04/29 17:15:54 by axcallet         ###   ########.fr        #
+#    Updated: 2023/05/09 17:17:27 by axcallet         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,10 +45,13 @@ SRC			= src/get_everything_nbr/char_number.c		\
 			src/exec_pipe.c								\
 			src/free.c									\
 			src/get_abs_path.c							\
+			src/heredoc.c								\
 			src/input.c									\
 			src/input_2.c								\
 			src/main.c									\
 			src/refile_exec.c							\
+			src/signals.c								\
+			src/signals_2.c								\
 			src/skip_argument.c							\
 			src/split.c									\
 			src/utils.c									\
