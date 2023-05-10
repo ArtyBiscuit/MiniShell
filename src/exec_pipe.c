@@ -6,7 +6,7 @@
 /*   By: arforgea <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 08:28:36 by arforgea          #+#    #+#             */
-/*   Updated: 2023/05/09 10:04:03 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/05/10 10:12:48 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../inc/minishell.h"
@@ -119,5 +119,6 @@ int	exec_pipeline(t_data *data)
 	if (fd_tmp != -1)
 		close(fd_tmp);
 	wait_all_pid(data, tab_pid);
+	free(tab_pid);
 	return (0);
 }

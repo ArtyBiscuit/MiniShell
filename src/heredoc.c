@@ -6,10 +6,11 @@
 /*   By: axcallet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 16:48:51 by axcallet          #+#    #+#             */
-/*   Updated: 2023/05/09 17:07:03 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/05/10 10:26:53 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../inc/minishell.h"
+#include "libft/libft.h"
 
 static t_exec	*write_heredoc(t_exec *dtt, char *word)
 {
@@ -21,7 +22,8 @@ static t_exec	*write_heredoc(t_exec *dtt, char *word)
 	new_input = readline("> ");
 	while (new_input && ft_strncmp(new_input, word, ft_strlen(word) + 1))
 	{
-		ft_putstr_fd(ft_strjoin(new_input, "\n"), tmp->fd_in);
+		ft_putstr_fd(new_input, tmp->fd_in);
+		ft_putstr_fd("\n", tmp->fd_in);
 		free(new_input);
 		new_input = readline("> ");
 	}
@@ -38,8 +40,8 @@ static t_exec	*write_heredoc(t_exec *dtt, char *word)
 	else
 		free(new_input);
 	close(tmp->fd_in);
-	return (tmp);
-	//exit(0);
+	//return (tmp);
+	exit(0);
 }
 
 t_exec	*heredoc(t_exec *dtt, char *cmd)
@@ -51,6 +53,7 @@ t_exec	*heredoc(t_exec *dtt, char *cmd)
 	t_exec	*tmp;
 
 	i = 0;
+	status = 0;
 	tmp = dtt;
 	tmp->fd_in = open("/tmp/.heredocc", O_CREAT | O_WRONLY | O_TRUNC, 0644);
 	if (!tmp->fd_in)
@@ -65,6 +68,7 @@ t_exec	*heredoc(t_exec *dtt, char *cmd)
 		exit(130);
 	close(tmp->fd_in);
 	tmp->fd_in = open("/tmp/.heredocc", O_RDONLY, 0644);
+	free(word);
 	return (tmp);
 }
 
