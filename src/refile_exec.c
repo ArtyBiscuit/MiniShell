@@ -6,7 +6,7 @@
 /*   By: axcallet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/07 14:02:37 by axcallet          #+#    #+#             */
-/*   Updated: 2023/05/03 09:37:38 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/05/10 15:16:52 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../inc/minishell.h"
@@ -71,7 +71,7 @@ static t_exec	*change_fds(t_exec *dtt, char *cmd)
 		if (cmd[i] && cmd[i] == '<')
 		{
 			tmp = left_chevrons(tmp, &cmd[i]);
-			if (cmd[i] && cmd[i + 1 ] == '<')
+			if (cmd[i] && cmd[i + 1] == '<')
 				i++;
 		}
 		else if (cmd[i] && cmd[i] == '>')

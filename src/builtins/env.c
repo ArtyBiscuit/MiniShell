@@ -1,25 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_str_isdigit.c                                   :+:      :+:    :+:   */
+/*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: axcallet <axcallet@student.42.fr>          +#+  +:+       +#+        */
+/*   By: axcallet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/06 11:22:04 by axcallet          #+#    #+#             */
-/*   Updated: 2023/05/12 14:49:31 by axcallet         ###   ########.fr       */
+/*   Created: 2023/05/15 17:04:56 by axcallet          #+#    #+#             */
+/*   Updated: 2023/05/15 17:10:07 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+#include "../../inc/minishell.h"
 
-int	ft_str_isdigit(char *str)
+int ft_env(t_exec *dtt, char **envp)
 {
-	int	i;
-
-	i = 0;
-	while (str[i] != '\0')
+	if (dtt->full_cmd[1])
 	{
-		if (str[i] < '0' || str[i] > '9')
-			return (1);
-		i++;
+		perror(dtt->full_cmd[1]);
+		g_status = 1;
+		return (1);
 	}
+	print_tab(envp);
 	return (0);
 }

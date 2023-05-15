@@ -6,7 +6,7 @@
 /*   By: axcallet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 15:24:03 by axcallet          #+#    #+#             */
-/*   Updated: 2023/04/07 18:05:42 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/05/12 17:17:09 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../inc/minishell.h"
@@ -37,6 +37,7 @@ static char	*get_good_path(char *cmd, char **envp_path)
 		}
 		free(path_bin);
 	}
+	free_tab(envp_path);
 	return (NULL);
 }
 

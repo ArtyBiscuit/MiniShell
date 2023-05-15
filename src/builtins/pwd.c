@@ -1,24 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   signals_2.c                                        :+:      :+:    :+:   */
+/*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: axcallet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/09 17:17:37 by axcallet          #+#    #+#             */
-/*   Updated: 2023/05/10 15:29:27 by axcallet         ###   ########.fr       */
+/*   Created: 2023/05/12 17:23:52 by axcallet          #+#    #+#             */
+/*   Updated: 2023/05/15 11:33:25 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "../inc/minishell.h"
+#include "../../inc/minishell.h"
 
-void	signals_disabled(void)
+int	ft_pwd(t_exec *dtt)
 {
-	signal(SIGINT, SIG_IGN);
-	signal(SIGQUIT, SIG_IGN);
-}
-
-void	signals_heredoc(void)
-{
-	signal(SIGINT, mini_sigint_heredoc);
-	signal(SIGQUIT, SIG_IGN);
+	char	pwd[PATH_MAX];	
+	
+	if (dtt->full_cmd[1])
+	{
+		ft_putstr_fd("pwd: too many arguments\n", 2);
+		g_status = 0;
+		return (1);
+	}
+	getcwd(pwd, sizeof(pwd));
+	ft_putstr_fd(pwd, 1);
+	ft_putstr_fd("\n", 1);
+	g_status = 0;
+	return (1);
 }

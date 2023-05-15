@@ -6,12 +6,12 @@
 /*   By: axcallet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 13:47:39 by axcallet          #+#    #+#             */
-/*   Updated: 2023/05/09 17:27:23 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/05/10 15:16:07 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../inc/minishell.h"
 
-void	mini_sigint(int	signal)
+void	mini_sigint(int signal)
 {
 	if (signal == SIGINT)
 	{
@@ -19,7 +19,7 @@ void	mini_sigint(int	signal)
 		rl_replace_line("", 0);
 		rl_on_new_line();
 		rl_redisplay();
-		g_status = 130;	
+		g_status = 130;
 	}
 	return ;
 }
@@ -30,7 +30,7 @@ void	mini_sigint_fork(int signal)
 	{
 		ft_putstr_fd("\n", STDERR_FILENO);
 	}
-	g_status = 130;	
+	g_status = 130;
 }
 
 void	mini_sigquit_fork(int signal)

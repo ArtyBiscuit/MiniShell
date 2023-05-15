@@ -6,7 +6,7 @@
 /*   By: arforgea <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 14:22:32 by arforgea          #+#    #+#             */
-/*   Updated: 2023/05/09 17:19:59 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/05/15 17:10:40 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@
 extern int	g_status;
 
 //	########## STRCTURE ##########
+
 typedef struct s_exec	t_exec;
 typedef struct s_data	t_data;
 
@@ -73,6 +74,11 @@ t_data	*dtt_refile(t_data *data);
 void	exec_lst_free(t_exec *ptr);
 t_exec	*refile_exec(t_data *data, t_exec *dtt, char *cmd);
 
+//	input restructuration
+
+void	input_restructure(t_data *data);
+void	add_no_spaces(char *cmd, char *new_cmd, int *i, int *j); 
+
 //	parsing
 
 int		is_rdir(char c);
@@ -97,7 +103,25 @@ void	mini_sigint_heredoc(int signal);
 
 t_exec	*heredoc(t_exec *dtt, char *cmd);
 
+//	builtins
+
+int 	ft_env(t_exec *dtt, char **envp);
+int		ft_unset(char ***envp, char *str);
+int		ft_export(char ***envp, char *var);
+int		ft_pwd(t_exec *dtt);
+int		ft_cd(t_data *data, t_exec *dtt);
+int		ft_exit(t_data *data, t_exec *dtt);
+int		check_builtins(t_data *data, t_exec *dtt);
+
 //	other...
+
+void	print_tab(char **arrey);
+
+void	print_tab_sort(char **tab);
+
+int		get_var_size(char *str);
+
+int 	get_env_size(char **envp);
 
 char	*get_abs_path(char *cmd, char **envp);
 

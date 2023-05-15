@@ -6,11 +6,10 @@
 /*   By: axcallet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 16:48:51 by axcallet          #+#    #+#             */
-/*   Updated: 2023/05/10 10:26:53 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/05/10 10:34:08 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../inc/minishell.h"
-#include "libft/libft.h"
 
 static t_exec	*write_heredoc(t_exec *dtt, char *word)
 {
@@ -40,7 +39,6 @@ static t_exec	*write_heredoc(t_exec *dtt, char *word)
 	else
 		free(new_input);
 	close(tmp->fd_in);
-	//return (tmp);
 	exit(0);
 }
 

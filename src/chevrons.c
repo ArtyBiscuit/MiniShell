@@ -6,7 +6,7 @@
 /*   By: axcallet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 11:35:54 by axcallet          #+#    #+#             */
-/*   Updated: 2023/05/09 16:53:39 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/05/10 15:21:33 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../inc/minishell.h"
@@ -29,7 +29,6 @@ int	is_rdir(char c)
 {
 	return (c == '<' || c == '>');
 }
-
 
 t_exec	*left_chevrons(t_exec *dtt, char *cmd)
 {
@@ -76,4 +75,3 @@ t_exec	*right_chevrons(t_exec *dtt, char *cmd)
 	}
 	return (tmp);
 }
-

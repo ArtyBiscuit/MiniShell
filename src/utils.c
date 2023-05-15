@@ -6,7 +6,7 @@
 /*   By: axcallet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/24 09:53:43 by axcallet          #+#    #+#             */
-/*   Updated: 2023/05/10 10:08:51 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/05/10 15:14:40 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../inc/minishell.h"
@@ -14,7 +14,7 @@
 int	is_separator(char c)
 {
 	return (is_space(c) || c == '|' || c == '\''
-			|| c == '\"' || c == '$' || c == '\0');
+		|| c == '\"' || c == '$' || c == '\0');
 }
 
 int	strlen_word(char *str)
@@ -60,30 +60,30 @@ int	is_space(char c)
 	return (c == ' ' || c == '\t' || c == '\n');
 }
 
-char    *ft_secur_cat(char *s1, char *s2)
+char	*ft_secur_cat(char *s1, char *s2)
 {
-    int        s_s1;
-    int        s_s2;
-    char    *f_str;
+	int		s_s1;
+	int		s_s2;
+	char	*f_str;
 
-    s_s1 = 0;
-    s_s2 = 0;
-    if (s1)
-        s_s1 = ft_strlen(s1);
-    if (s2)
-        s_s2 = ft_strlen(s2);
-    f_str = malloc(sizeof(char) * (s_s1 + s_s2) + 1);
-    if (s1)
-    {
-        ft_strlcpy(f_str, s1, s_s1 + 1);
-       // free(s1);
-        s1 = NULL;
-    }
-    if (s2)
-    {
-        ft_strlcpy(f_str + s_s1, s2, s_s2 + 1);
-        free(s2);
-        s2 = NULL;
-    }
-    return (f_str);
+	s_s1 = 0;
+	s_s2 = 0;
+	if (s1)
+		s_s1 = ft_strlen(s1);
+	if (s2)
+		s_s2 = ft_strlen(s2);
+	f_str = malloc(sizeof(char) * (s_s1 + s_s2) + 1);
+	if (s1)
+	{
+		ft_strlcpy(f_str, s1, s_s1 + 1);
+//		free(s1);
+		s1 = NULL;
+	}
+	if (s2)
+	{
+		ft_strlcpy(f_str + s_s1, s2, s_s2 + 1);
+		free(s2);
+		s2 = NULL;
+	}
+	return (f_str);
 }

@@ -6,13 +6,10 @@
 /*   By: arforgea <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 08:28:36 by arforgea          #+#    #+#             */
-/*   Updated: 2023/05/10 10:12:48 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/05/15 18:57:49 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../inc/minishell.h"
-#include "libft/libft.h"
-#include <signal.h>
-#include <stdlib.h>
 
 static void	all_dup2(t_exec *dtt, int *fds, int fd_tmp)
 {
@@ -57,7 +54,7 @@ static int	exec_cmd(char *envp[], t_exec *dtt, int *fds, int fd_tmp)
 		signal(SIGQUIT, mini_sigquit_fork);
 	}
 	else
-		printf("walla ça marche pas !\n");
+		printf("wallah ça marche pas !\n");
 	if (!pid)
 	{
 		all_dup2(dtt, fds, fd_tmp);
@@ -108,12 +105,22 @@ int	exec_pipeline(t_data *data)
 	tab_pid = malloc(sizeof(int) * data->nb_cmd);
 	while (tmp)
 	{
-		if (pipe(fds) < 0)
-			return (1);
-		tab_pid[index++] = exec_cmd(data->envp, tmp, fds, fd_tmp);
-		close(fds[1]);
-		close_fds_cmd(tmp, fd_tmp);
-		fd_tmp = fds[0];
+		if (!ft_strncmp(tmp->cmd, "exit", 4))
+		{
+			free(tab_pid);
+			ft_exit(data, data->dtt);
+		}
+		if (check_builtins(data, tmp) == 0)
+		{
+			if (pipe(fds) < 0)
+				return (1);
+			tab_pid[index++] = exec_cmd(data->envp, tmp, fds, fd_tmp);
+			close(fds[1]);
+			close_fds_cmd(tmp, fd_tmp);
+			fd_tmp = fds[0];
+		}
+		else
+			tab_pid[index++] = 0;
 		tmp = tmp->next;
 	}
 	if (fd_tmp != -1)

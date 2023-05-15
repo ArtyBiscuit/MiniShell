@@ -6,17 +6,16 @@
 /*   By: axcallet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/05 09:49:35 by axcallet          #+#    #+#             */
-/*   Updated: 2023/05/05 10:42:06 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/05/10 15:12:11 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../../../inc/minishell.h"
-#include <stdlib.h>
 
 t_data	*dtt_init(t_data *data)
 {
-	t_exec			*dtt;
-	t_exec			*tmp;
-	int	cmp;
+	t_exec	*dtt;
+	t_exec	*tmp;
+	int		cmp;
 
 	dtt = NULL;
 	dtt = malloc(sizeof(t_exec));

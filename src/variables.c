@@ -6,7 +6,7 @@
 /*   By: axcallet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 18:19:37 by axcallet          #+#    #+#             */
-/*   Updated: 2023/05/10 10:03:13 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/05/15 11:20:44 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../inc/minishell.h"
@@ -97,7 +97,7 @@ char	*input_mod_var(t_data *data)
 	{
 		is_in_quote(q_flag, data->input[i]);
 		if (i > 1 && data->input[i - 2] && data->input[i] == '$'
-				&&(data->input[i - 1] == '<' && data->input[i - 2] == '<'))
+			&& (data->input[i - 1] == '<' && data->input[i - 2] == '<'))
 			i++;
 		if (data->input[i] == '$' && (q_flag[1] == 1
 				|| (q_flag[0] == 0 && q_flag[1] == 0)))
@@ -107,5 +107,6 @@ char	*input_mod_var(t_data *data)
 		if (data->input[i + 1] == '\0')
 			new = ft_secur_cat(new, ft_substr(data->input, j, i + 1));
 	}
+	free(data->input);
 	return (new);
 }

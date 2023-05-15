@@ -6,7 +6,7 @@
 /*   By: axcallet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/22 14:58:12 by axcallet          #+#    #+#             */
-/*   Updated: 2023/04/28 16:02:19 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/05/10 13:24:36 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../inc/minishell.h"
@@ -30,5 +30,23 @@ char	*remove_extra_spaces(char *cmd)
 	if (cmd)
 		free(cmd);
     return (res);
+}
+
+void	add_no_spaces(char *cmd, char *new_cmd, int *i, int *j)
+{
+	char	tmp;
+
+	tmp = cmd[*i];
+	new_cmd[*j] = cmd[*i];
+	(*j)++;
+	(*i)++;
+	while (cmd[*i] && cmd[*i] != tmp)
+	{
+		new_cmd[*j] = cmd[*i];
+		(*j)++;
+		(*i)++;
+	}
+	if (cmd[*i] == tmp)
+		new_cmd[*j] = tmp;
 }
 
