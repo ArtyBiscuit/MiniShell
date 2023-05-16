@@ -6,10 +6,10 @@ static char	*get_format_var(char *var)
 	int		i;
 	int		j;
 	
-	new_var = malloc(sizeof(char) * get_var_size(var) + 1);
+	new_var = malloc(sizeof(char) * get_var_size(var) + 2);
 	i = 0;
 	j = 0;
-	while (var[i])
+	while (var[i] != '=' && var[i])
 	{
 		if (var[i] == '\'' || var[i] == '"')
 		{
@@ -20,7 +20,8 @@ static char	*get_format_var(char *var)
 		j++;
 		i++;
 	}
-	new_var[j] = '\0';
+	new_var[j] = '=';
+	new_var[j + 1] = '\0';
 	return (new_var);
 }
 
