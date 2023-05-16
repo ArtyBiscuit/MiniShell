@@ -6,7 +6,7 @@
 /*   By: arforgea <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 14:05:00 by arforgea          #+#    #+#             */
-/*   Updated: 2023/05/16 14:05:06 by arforgea         ###   ########.fr       */
+/*   Updated: 2023/05/16 17:13:43 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../../inc/minishell.h"
@@ -17,10 +17,10 @@ static char	*get_format_var(char *var)
 	int		i;
 	int		j;
 	
-	new_var = malloc(sizeof(char) * get_var_size(var) + 2);
+	new_var = malloc(sizeof(char) * get_var_size(var) + 1);
 	i = 0;
 	j = 0;
-	while (var[i] != '=' && var[i])
+	while (var[i])
 	{
 		if (var[i] == '\'' || var[i] == '"')
 		{
@@ -31,8 +31,7 @@ static char	*get_format_var(char *var)
 		j++;
 		i++;
 	}
-	new_var[j] = '=';
-	new_var[j + 1] = '\0';
+	new_var[j] = '\0';
 	return (new_var);
 }
 

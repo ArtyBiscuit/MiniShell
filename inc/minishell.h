@@ -6,7 +6,7 @@
 /*   By: arforgea <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 14:22:32 by arforgea          #+#    #+#             */
-/*   Updated: 2023/05/15 17:10:40 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/05/16 18:07:12 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,15 +105,19 @@ t_exec	*heredoc(t_exec *dtt, char *cmd);
 
 //	builtins
 
+void	ft_echo(char *str, char *flags);
+int		ft_pwd(t_exec *dtt);
 int 	ft_env(t_exec *dtt, char **envp);
+int		ft_cd(t_data *data, t_exec *dtt);
 int		ft_unset(char ***envp, char *str);
 int		ft_export(char ***envp, char *var);
-int		ft_pwd(t_exec *dtt);
-int		ft_cd(t_data *data, t_exec *dtt);
 int		ft_exit(t_data *data, t_exec *dtt);
-int		check_builtins(t_data *data, t_exec *dtt);
+int		check_after_fork(t_data *data, t_exec *dtt);
+int		check_before_fork(t_data *data, t_exec *dtt);
 
 //	other...
+
+char	**ft_tab_dup(char **tab);
 
 void	print_tab(char **arrey);
 

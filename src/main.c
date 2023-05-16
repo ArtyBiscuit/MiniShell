@@ -6,7 +6,7 @@
 /*   By: axcallet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 15:30:39 by axcallet          #+#    #+#             */
-/*   Updated: 2023/05/15 18:54:41 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/05/16 17:16:21 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../inc/minishell.h"
@@ -41,7 +41,7 @@ static void	minishell_process(t_data *data)
 	}
 }
 
-static char	**ft_tab_dup(char **tab)
+char	**ft_tab_dup(char **tab)
 {
 	int		i;
 	char	**new;

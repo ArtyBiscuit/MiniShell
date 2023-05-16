@@ -6,7 +6,7 @@
 /*   By: axcallet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 09:23:01 by axcallet          #+#    #+#             */
-/*   Updated: 2023/05/15 11:21:24 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/05/16 14:53:19 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../../inc/minishell.h"
@@ -37,6 +37,8 @@ int	ft_exit(t_data *data, t_exec *dtt)
 	clear_history();
 	if (data->input)
 		free(data->input);
+	if (data->envp)
+		free_tab(data->envp);
 	if (data)
 		free(data);
 	ft_putstr_fd("exit\n", 1);

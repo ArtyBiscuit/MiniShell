@@ -6,10 +6,11 @@
 /*   By: axcallet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 18:19:37 by axcallet          #+#    #+#             */
-/*   Updated: 2023/05/15 11:20:44 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/05/16 18:10:36 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../inc/minishell.h"
+#include "libft/libft.h"
 
 static void	is_in_quote(int *c_quote, char c)
 {
@@ -38,6 +39,8 @@ static char	*get_variable(t_data *data, int index)
 		if (data->input[index + i] && is_separator(data->input[index + i + 1]))
 		{
 			var = ft_substr(data->input, index + 1, i - 1);
+			if (var[0] == '?')
+				return (ft_itoa(g_status));
 			while (data->envp[j])
 			{
 				tmp = ft_strnstr(data->envp[j], var, i);
@@ -71,10 +74,10 @@ static char	*add_variable(t_data *data, char *tmp, char *new_input)
 	return (new_str);
 }
 
-static void	change_variables(t_data *data, char *new, int *i, int *j)
+static void	change_variables(t_data *data, char **new, int *i, int *j)
 {
-	new = add_variable(data,
-			ft_substr(data->input, (*j), (*i) - (*j)), new);
+	*new = add_variable(data,
+			ft_substr(data->input, (*j), (*i) - (*j)), *new);
 	(*i)++;
 	while (!is_separator(data->input[*i]))
 		(*i)++;
@@ -102,7 +105,7 @@ char	*input_mod_var(t_data *data)
 		if (data->input[i] == '$' && (q_flag[1] == 1
 				|| (q_flag[0] == 0 && q_flag[1] == 0)))
 		{
-			change_variables(data, new, &i, &j);
+			change_variables(data, &new, &i, &j);
 		}
 		if (data->input[i + 1] == '\0')
 			new = ft_secur_cat(new, ft_substr(data->input, j, i + 1));

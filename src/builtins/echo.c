@@ -6,12 +6,12 @@
 /*   By: arforgea <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 16:17:37 by arforgea          #+#    #+#             */
-/*   Updated: 2023/05/12 09:22:30 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/05/16 18:06:34 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../../inc/minishell.h"
 
-void	echo(char *str, char *flags)
+void	ft_echo(char *str, char *flags)
 {
 	int	i;
 	int	f;
