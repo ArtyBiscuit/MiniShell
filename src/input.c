@@ -6,7 +6,7 @@
 /*   By: axcallet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 10:42:51 by axcallet          #+#    #+#             */
-/*   Updated: 2023/05/10 15:21:10 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/05/17 14:15:03 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../inc/minishell.h"
@@ -88,7 +88,7 @@ char	*remove_spaces_pipes(char *cmd)
 
 void	input_restructure(t_data *data)
 {
-	data->input = input_mod_var(data);
+	data->input = replace_variables(data);
 	data->input = remove_extra_spaces(data->input);
 	data->input = add_spaces_rdir(data->input);
 	data->input = remove_spaces_pipes(data->input);

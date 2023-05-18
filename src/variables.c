@@ -6,12 +6,13 @@
 /*   By: axcallet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 18:19:37 by axcallet          #+#    #+#             */
-/*   Updated: 2023/05/16 18:10:36 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/05/18 11:58:48 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../inc/minishell.h"
 #include "libft/libft.h"
-
+#include <unistd.h>
+/*
 static void	is_in_quote(int *c_quote, char c)
 {
 	if (c == '\'' && c_quote[1] == 0)
@@ -24,7 +25,7 @@ static void	is_in_quote(int *c_quote, char c)
 		c_quote[1] = 0;
 	return ;
 }
-
+*/
 static char	*get_variable(t_data *data, int index)
 {
 	int		i;
@@ -38,7 +39,7 @@ static char	*get_variable(t_data *data, int index)
 	{
 		if (data->input[index + i] && is_separator(data->input[index + i + 1]))
 		{
-			var = ft_substr(data->input, index + 1, i - 1);
+			var = ft_substr(data->input, index + 1, i);
 			if (var[0] == '?')
 				return (ft_itoa(g_status));
 			while (data->envp[j])
@@ -55,7 +56,7 @@ static char	*get_variable(t_data *data, int index)
 	}
 	return (NULL);
 }
-
+/*
 static char	*add_variable(t_data *data, char *tmp, char *new_input)
 {
 	int		i;
@@ -83,8 +84,60 @@ static void	change_variables(t_data *data, char **new, int *i, int *j)
 		(*i)++;
 	(*j) = (*i);
 }
+*/
 
-char	*input_mod_var(t_data *data)
+static int	check_flag(int flag, char c)
+{
+	if (c == '\'' && flag == 0)
+		flag = 1;
+	else if (c == '\'' && flag == 1)
+		flag = 0;
+	else if (c == '\"' && flag == 0)
+		flag = 2;
+	else if (c == '\"' && flag == 2)
+		flag = 0;
+	return (flag);
+}
+
+static void	change_variables(t_data *data, char **new, int *i, int *j)\
+{
+	*new = ft_substr(data->input, (*j), ((*i) - (*j)));
+	*new = ft_strjoin(*new, get_variable(data, (*i)));
+	i++;
+	while (!is_separator(data->input[*i]))
+		(*i)++;
+	(*j) = (*i);
+}
+
+char	*replace_variables(t_data *data)
+{
+	int		i;
+	int		j;
+	int		flag;
+	char	*new;
+
+	i = 0;
+	j = 0;
+	flag = 0;
+	new = NULL;
+	while (data->input[i])
+	{
+		flag = check_flag(flag, data->input[i]);
+		if (data->input[i] == '\'' && flag == 1)
+			i += (skip_argument(&data->input[i]) - 1);
+		else if (data->input[i] == '$')
+			change_variables(data, &new, &i, &j);
+		if (data->input[i + 1] == '\0')
+			new = ft_strjoin(new, ft_substr(data->input, j, (i - j) + 1));
+		i++;
+	}
+	if (data->input)
+		free(data->input);
+	return (new);
+}
+
+/*
+char	*replace_variables(t_data *data)
 {
 	int		i;
 	int		j;
@@ -113,3 +166,4 @@ char	*input_mod_var(t_data *data)
 	free(data->input);
 	return (new);
 }
+*/

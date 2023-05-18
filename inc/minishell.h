@@ -6,7 +6,7 @@
 /*   By: arforgea <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 14:22:32 by arforgea          #+#    #+#             */
-/*   Updated: 2023/05/16 18:07:12 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/05/17 14:16:09 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ t_exec	*refile_exec(t_data *data, t_exec *dtt, char *cmd);
 
 //	input restructuration
 
+char	*replace_variables(t_data *data);
 void	input_restructure(t_data *data);
 void	add_no_spaces(char *cmd, char *new_cmd, int *i, int *j); 
 
@@ -131,7 +132,7 @@ char	*get_abs_path(char *cmd, char **envp);
 
 char	*add_spaces_rdir(char *str);
 
-char	*input_mod_var(t_data *data);
+//char	*input_mod_var(t_data *data);
 
 char	*remove_extra_spaces(char *cmd);
 
