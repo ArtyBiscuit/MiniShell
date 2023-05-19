@@ -6,10 +6,11 @@
 /*   By: arforgea <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 08:28:36 by arforgea          #+#    #+#             */
-/*   Updated: 2023/05/16 17:27:14 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/05/19 16:01:36 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../inc/minishell.h"
+#include "libft/libft.h"
 
 static void	all_dup2(t_exec *dtt, int *fds, int fd_in)
 {
@@ -116,10 +117,21 @@ int	exec_pipeline(t_data *data)
 	fd_in = ptr->fd_in;
 	while (ptr)
 	{
-		if (!ft_strncmp(ptr->cmd, "exit", 4))
+		if (!ptr->abs_path && ft_strncmp(ptr->cmd, "exit", 4) == -1)
+		{
+			ft_putstr_fd("Command '", 2);
+			ft_putstr_fd(ptr->cmd, 2);
+			ft_putstr_fd("' not found\n", 2);
+			g_status = 127;
+			tab_pid[i] = 0;
+		}
+		else if (!ft_strncmp(ptr->cmd, "exit", 4))
 			ft_exit(data, data->dtt);
-		if (!check_before_fork(data, ptr))
+		else if (!check_before_fork(data, ptr))
+		{	
 			fd_in = ft_pipe(data, ptr, &tab_pid[i], fd_in);
+			g_status = 0;
+		}
 		else
 			tab_pid[i] = 0;
 		ptr = ptr->next;

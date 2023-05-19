@@ -6,7 +6,7 @@
 /*   By: axcallet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/24 09:53:43 by axcallet          #+#    #+#             */
-/*   Updated: 2023/05/10 15:14:40 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/05/18 14:10:17 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../inc/minishell.h"
@@ -76,7 +76,7 @@ char	*ft_secur_cat(char *s1, char *s2)
 	if (s1)
 	{
 		ft_strlcpy(f_str, s1, s_s1 + 1);
-//		free(s1);
+		free(s1);
 		s1 = NULL;
 	}
 	if (s2)

@@ -6,12 +6,12 @@
 /*   By: axcallet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 16:48:51 by axcallet          #+#    #+#             */
-/*   Updated: 2023/05/10 10:34:08 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/05/19 09:39:39 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../inc/minishell.h"
 
-static t_exec	*write_heredoc(t_exec *dtt, char *word)
+static t_exec	*write_heredoc(t_data *data, t_exec *dtt, char **tab, char *word)
 {
 	char 	*new_input;
 	t_exec	*tmp;
@@ -39,10 +39,19 @@ static t_exec	*write_heredoc(t_exec *dtt, char *word)
 	else
 		free(new_input);
 	close(tmp->fd_in);
+	free(word);
+	lst_destroy(dtt);
+	free_tab(tab);
+	if (data->input)
+		free(data->input);
+	if (data->envp)
+		free_tab(data->envp);
+	if (data)
+		free(data);
 	exit(0);
 }
 
-t_exec	*heredoc(t_exec *dtt, char *cmd)
+t_exec	*heredoc(t_data *data, t_exec *dtt, char **tab, char *cmd)
 {
 	int		i;
 	int		status;
@@ -60,7 +69,7 @@ t_exec	*heredoc(t_exec *dtt, char *cmd)
 	signals_disabled();
 	pid = fork();
 	if (!pid)
-		tmp = write_heredoc(tmp, word);
+		tmp = write_heredoc(data, tmp, tab, word);
 	waitpid(pid, &status, 0);
 	if (WEXITSTATUS(status) == 3)
 		exit(130);

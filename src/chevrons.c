@@ -6,7 +6,7 @@
 /*   By: axcallet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 11:35:54 by axcallet          #+#    #+#             */
-/*   Updated: 2023/05/10 15:21:33 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/05/19 09:38:55 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../inc/minishell.h"
@@ -30,7 +30,7 @@ int	is_rdir(char c)
 	return (c == '<' || c == '>');
 }
 
-t_exec	*left_chevrons(t_exec *dtt, char *cmd)
+t_exec	*left_chevrons(t_data *data, t_exec *dtt, char **tab, char *cmd)
 {
 	int		i;
 	char	*file;
@@ -41,7 +41,7 @@ t_exec	*left_chevrons(t_exec *dtt, char *cmd)
 	if (tmp->fd_in > 2)
 		close(tmp->fd_in);
 	if (cmd[i + 1] == '<')
-		tmp = heredoc(tmp, &cmd[i]);
+		tmp = heredoc(data, tmp, tab, &cmd[i]);
 	else
 	{
 		file = get_next_word(&cmd[i]);

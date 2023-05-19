@@ -6,10 +6,11 @@
 /*   By: axcallet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 15:24:03 by axcallet          #+#    #+#             */
-/*   Updated: 2023/05/12 17:17:09 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/05/18 15:10:35 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../inc/minishell.h"
+#include "libft/libft.h"
 
 static char	*get_good_path(char *cmd, char **envp_path)
 {
@@ -44,6 +45,7 @@ static char	*get_good_path(char *cmd, char **envp_path)
 char	*get_abs_path(char *cmd, char **envp)
 {
 	int		i;
+	char	*path_bin;
 	char	**envp_path;
 
 	if (!cmd || !envp)
@@ -58,5 +60,6 @@ char	*get_abs_path(char *cmd, char **envp)
 		i++;
 	}
 	envp_path = ft_split(envp[i], ':');
-	return (get_good_path(cmd, envp_path));
+	path_bin = get_good_path(cmd, envp_path);
+	return (path_bin);
 }

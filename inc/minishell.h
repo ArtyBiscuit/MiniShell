@@ -6,7 +6,7 @@
 /*   By: arforgea <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 14:22:32 by arforgea          #+#    #+#             */
-/*   Updated: 2023/05/17 14:16:09 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/05/19 09:40:56 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ t_data	*dtt_init(t_data *data);
 void	lst_destroy(t_exec *ptr);
 t_data	*dtt_refile(t_data *data);
 void	exec_lst_free(t_exec *ptr);
-t_exec	*refile_exec(t_data *data, t_exec *dtt, char *cmd);
+t_exec	*refile_exec(t_data *data, t_exec *dtt, char **tab, char *cmd);
 
 //	input restructuration
 
@@ -102,7 +102,7 @@ void	mini_sigint_heredoc(int signal);
 
 //	heredoc
 
-t_exec	*heredoc(t_exec *dtt, char *cmd);
+t_exec	*heredoc(t_data *data, t_exec *dtt, char **tab, char *cmd);
 
 //	builtins
 
@@ -154,7 +154,7 @@ char	*get_next_word(char *str);
 
 int		skip_argument(char *c);
 
-t_exec	*left_chevrons(t_exec *dtt, char *cmd);
+t_exec	*left_chevrons(t_data *data, t_exec *dtt, char **tab, char *cmd);
 
 t_exec	*right_chevrons(t_exec *dtt, char *cmd);
 

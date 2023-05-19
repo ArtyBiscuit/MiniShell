@@ -6,7 +6,7 @@
 /*   By: axcallet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/07 14:02:37 by axcallet          #+#    #+#             */
-/*   Updated: 2023/05/10 15:16:52 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/05/19 09:38:38 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../inc/minishell.h"
@@ -59,7 +59,7 @@ static t_exec	*get_cmd(t_exec *exec, char *cmd, char **envp)
 	return (tmp);
 }
 
-static t_exec	*change_fds(t_exec *dtt, char *cmd)
+static t_exec	*change_fds(t_data *data, t_exec *dtt, char **tab, char *cmd)
 {
 	int		i;
 	t_exec	*tmp;
@@ -70,7 +70,7 @@ static t_exec	*change_fds(t_exec *dtt, char *cmd)
 	{
 		if (cmd[i] && cmd[i] == '<')
 		{
-			tmp = left_chevrons(tmp, &cmd[i]);
+			tmp = left_chevrons(data, tmp, tab, &cmd[i]);
 			if (cmd[i] && cmd[i + 1] == '<')
 				i++;
 		}
@@ -85,15 +85,18 @@ static t_exec	*change_fds(t_exec *dtt, char *cmd)
 	return (tmp);
 }
 
-t_exec	*refile_exec(t_data *data, t_exec *dtt, char *cmd)
+t_exec	*refile_exec(t_data *data, t_exec *dtt, char **tab, char *cmd)
 {	
 	t_exec	*tmp;
 
 	tmp = dtt;
 	tmp->fd_in = 0;
 	tmp->fd_out = 1;
+	tmp->abs_path = NULL;
+	tmp->cmd = NULL;
+	tmp->full_cmd = NULL;
 	if (check_chevrons(cmd) == 1)
-		tmp = change_fds(tmp, cmd);
+		tmp = change_fds(data, tmp, tab, cmd);
 	tmp = get_cmd(tmp, cmd, data->envp);
 	return (tmp);
 }

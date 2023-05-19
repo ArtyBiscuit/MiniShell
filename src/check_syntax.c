@@ -6,7 +6,7 @@
 /*   By: arforgea <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 14:41:40 by arforgea          #+#    #+#             */
-/*   Updated: 2023/05/05 11:12:35 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/05/19 14:57:27 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../inc/minishell.h"
@@ -75,11 +75,35 @@ static int	check_pipes_syntax(char *str)
 	return (0);
 }
 
+static int	check_quotes(char *str)
+{
+	int		i;
+	int		check;
+	char	tmp;
+
+	i = 0;
+	check = 0;
+	while (str[i])
+	{
+		if (str[i] && (str[i] == '\'' || str[i] == '\"'))
+		{
+			tmp = str[i];
+			i++;
+			while (str[i] != tmp)
+			{
+				if (!str[i])
+					return (1);
+				i++;
+			}
+		}
+		i++;
+	}
+	return (0);
+}
+
 int	check_syntax(char *str)
 {
-	if (!str)
-		return (1);
-	if (get_chars_number(str, '"') % 2)
+	if (check_quotes(str))
 		return (1);
 	if (check_pipes_syntax(str))
 		return (1);
