@@ -6,7 +6,7 @@
 /*   By: arforgea <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 08:28:36 by arforgea          #+#    #+#             */
-/*   Updated: 2023/05/19 16:01:36 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/05/22 15:18:43 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../inc/minishell.h"
@@ -72,11 +72,15 @@ static int	fork_exec(t_data *data, t_exec *dtt, int *fds, int fd_in)
 		all_dup2(dtt, fds, fd_in);
 		if (!check_after_fork(data, dtt))
 			execve(dtt->abs_path, dtt->full_cmd, data->envp);
-		lst_destroy(dtt);
+	//	lst_destroy(dtt);
 		if (data->input)
 			free(data->input);
 		if (data->envp)
+		{
+			printf("eh oh\n");
 			free_tab(data->envp);
+		}
+		lst_destroy(data->dtt);
 		if (data)
 			free(data);
 		exit (0);
@@ -117,7 +121,10 @@ int	exec_pipeline(t_data *data)
 	fd_in = ptr->fd_in;
 	while (ptr)
 	{
-		if (!ptr->abs_path && ft_strncmp(ptr->cmd, "exit", 4) == -1)
+		if (!ptr->abs_path && ft_strncmp(ptr->cmd, "exit", 4) != 0
+				&& ft_strncmp(ptr->cmd, "cd", 2) != 0
+				&& ft_strncmp(ptr->cmd, "unset", 5) != 0
+				&& ft_strncmp(ptr->cmd, "export", 6) != 0)
 		{
 			ft_putstr_fd("Command '", 2);
 			ft_putstr_fd(ptr->cmd, 2);

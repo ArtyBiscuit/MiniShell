@@ -6,7 +6,7 @@
 /*   By: axcallet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 15:23:42 by axcallet          #+#    #+#             */
-/*   Updated: 2023/05/10 10:12:32 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/05/22 14:27:54 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../inc/minishell.h"
@@ -22,4 +22,5 @@ void	free_tab(char **tab)
 		i++;
 	}
 	free(tab);
+	tab = NULL;
 }

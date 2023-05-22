@@ -6,7 +6,7 @@
 /*   By: axcallet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 18:19:37 by axcallet          #+#    #+#             */
-/*   Updated: 2023/05/19 15:50:47 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/05/22 10:21:44 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../inc/minishell.h"
@@ -63,11 +63,16 @@ static int	check_flag(int flag, char c)
 
 static void	change_variables(t_data *data, char **new, int *i, int *j)\
 {
-	*new = ft_substr(data->input, (*j), ((*i) - (*j)));
+	*new = ft_secur_cat(*new, ft_substr(data->input, (*j), ((*i) - (*j))));
 	*new = ft_secur_cat(*new, get_variable(data, (*i)));
 	(*i)++;
-	while (!is_separator(data->input[*i]))
+	if (data->input[*i + 1])
 		(*i)++;
+	else
+	{
+		while (!is_separator(data->input[*i]))
+			(*i)++;
+	}
 	(*j) = (*i);
 }
 

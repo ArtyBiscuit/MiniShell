@@ -6,7 +6,7 @@
 /*   By: arforgea <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 14:05:00 by arforgea          #+#    #+#             */
-/*   Updated: 2023/05/16 17:13:43 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/05/22 15:28:52 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../../inc/minishell.h"
@@ -66,6 +66,7 @@ int	ft_export(char ***envp, char *str)
 		return (0);
 	}
 	new_envp = add_var(*envp, str);
+	free_tab((*envp));
 	*envp = new_envp;
 	return (0);
 }
