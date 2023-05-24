@@ -6,7 +6,7 @@
 /*   By: arforgea <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 08:28:36 by arforgea          #+#    #+#             */
-/*   Updated: 2023/05/22 15:18:43 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/05/24 15:45:04 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../inc/minishell.h"
@@ -69,20 +69,31 @@ static int	fork_exec(t_data *data, t_exec *dtt, int *fds, int fd_in)
 		perror("fork");
 	if (!pid)
 	{
-		all_dup2(dtt, fds, fd_in);
-		if (!check_after_fork(data, dtt))
-			execve(dtt->abs_path, dtt->full_cmd, data->envp);
-	//	lst_destroy(dtt);
-		if (data->input)
-			free(data->input);
-		if (data->envp)
+		if (!dtt->abs_path && dtt->cmd)
 		{
-			printf("eh oh\n");
-			free_tab(data->envp);
+			printf("Command '%s' not found\n", dtt->cmd);
+			if (data->input)
+				free(data->input);
+			if (data->envp)
+				free_tab(data->envp);
+			lst_destroy(data->dtt);
+			if (data)
+				free(data);
+			exit (127);
 		}
-		lst_destroy(data->dtt);
-		if (data)
-			free(data);
+		else
+		{
+			all_dup2(dtt, fds, fd_in);
+			if (!check_after_fork(data, dtt) && dtt->cmd)
+				execve(dtt->abs_path, dtt->full_cmd, data->envp);
+			if (data->input)
+				free(data->input);
+			if (data->envp)
+				free_tab(data->envp);
+			lst_destroy(data->dtt);
+			if (data)
+				free(data);
+		}
 		exit (0);
 	}
 	return (pid);
@@ -109,6 +120,38 @@ static int	ft_pipe(t_data *data, t_exec *dtt, int *pid, int fd_in)
 
 }
 
+static int	check_exec(char *str)
+{
+	int		i;
+	char	*exec;
+
+	i = 0;
+	if (str && ft_strlen(str) > 2)
+	{
+		exec = ft_substr(str, 2, strlen_word(&str[2]));
+		if (open(exec, O_DIRECTORY) != -1)
+		{
+			printf("minishell: %s: Is a directory\n", str);
+			g_status = 126;
+			free(exec);
+			return (1);
+		}
+		free(exec);
+	}
+	return (0);
+}
+/*
+static int	check_command(t_data *data, t_exec *ptr)
+{
+	if (!ptr->abs_path && !check_before_fork(data, ptr))
+	{
+		printf("Command '%s' not found\n", ptr->cmd);
+		g_status = 127;
+		return (1);
+	}
+	return (0);
+}
+*/
 int	exec_pipeline(t_data *data)
 {
 	int		i;
@@ -121,20 +164,13 @@ int	exec_pipeline(t_data *data)
 	fd_in = ptr->fd_in;
 	while (ptr)
 	{
-		if (!ptr->abs_path && ft_strncmp(ptr->cmd, "exit", 4) != 0
-				&& ft_strncmp(ptr->cmd, "cd", 2) != 0
-				&& ft_strncmp(ptr->cmd, "unset", 5) != 0
-				&& ft_strncmp(ptr->cmd, "export", 6) != 0)
-		{
-			ft_putstr_fd("Command '", 2);
-			ft_putstr_fd(ptr->cmd, 2);
-			ft_putstr_fd("' not found\n", 2);
-			g_status = 127;
-			tab_pid[i] = 0;
-		}
-		else if (!ft_strncmp(ptr->cmd, "exit", 4))
+		if (!ft_strncmp(ptr->cmd, "exit", 4))
 			ft_exit(data, data->dtt);
-		else if (!check_before_fork(data, ptr))
+		else if (check_exec(ptr->cmd))
+			tab_pid[i] = 0;
+	//	else if (check_command(data, ptr))
+	//		tab_pid[i] = 0;
+		else if (!check_before_fork(data, ptr) && ptr->fd_in != -1)
 		{	
 			fd_in = ft_pipe(data, ptr, &tab_pid[i], fd_in);
 			g_status = 0;

@@ -6,7 +6,7 @@
 /*   By: axcallet <axcallet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 17:38:26 by axcallet          #+#    #+#             */
-/*   Updated: 2022/10/12 11:48:33 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/05/24 14:52:37 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ char	*ft_strdup(const char *s)
 	int		i;
 
 	i = 0;
+	if (!s)
+		return (NULL);
 	size = ft_strlen(s);
 	dest = ft_calloc(sizeof(char), size + 1);
 	if (!dest)

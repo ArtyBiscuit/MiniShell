@@ -6,10 +6,30 @@
 /*   By: axcallet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 11:35:54 by axcallet          #+#    #+#             */
-/*   Updated: 2023/05/19 09:38:55 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/05/24 17:22:58 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../inc/minishell.h"
+#include "libft/libft.h"
+
+static char	*get_file(char *str)
+{
+	int		i;
+	int		j;
+	int		count;
+	char	*res;
+
+	i = 0;
+	count = 0;
+	while (str[i] && (str[i] == '<' || str[i] == '>') && count < 2)
+	{
+		i++;
+		count++;
+	}
+	j = ft_strlen(&str[i]);
+	res = ft_substr(str, i, (j - i));
+	return (res);
+}
 
 int	check_chevrons(char *str)
 {
@@ -41,11 +61,16 @@ t_exec	*left_chevrons(t_data *data, t_exec *dtt, char **tab, char *cmd)
 	if (tmp->fd_in > 2)
 		close(tmp->fd_in);
 	if (cmd[i + 1] == '<')
-		tmp = heredoc(data, tmp, tab, &cmd[i]);
+	{
+		file = get_file(&cmd[i]);
+		tmp = heredoc(data, tmp, tab, file);
+	}
 	else
 	{
-		file = get_next_word(&cmd[i]);
+		file = get_file(&cmd[i]);
 		tmp->fd_in = open(file, O_RDONLY);
+		if (tmp->fd_in == -1)
+			printf("minishell: %s: No such file or directory\n", file);
 		free(file);
 	}
 	return (tmp);
@@ -63,13 +88,13 @@ t_exec	*right_chevrons(t_exec *dtt, char *cmd)
 		close (tmp->fd_out);
 	if (cmd[i] && cmd[i + 1] == '>')
 	{
-		file = get_next_word(&cmd[i]);
+		file = get_file(&cmd[i]);
 		tmp->fd_out = open(file, O_CREAT | O_WRONLY, 0644);
 		free(file);
 	}
 	else
 	{
-		file = get_next_word(&cmd[i]);
+		file = get_file(&cmd[i]);
 		tmp->fd_out = open(file, O_CREAT | O_WRONLY | O_TRUNC, 0644);
 		free(file);
 	}

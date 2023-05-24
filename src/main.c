@@ -6,7 +6,7 @@
 /*   By: axcallet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 15:30:39 by axcallet          #+#    #+#             */
-/*   Updated: 2023/05/22 15:44:50 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/05/24 15:39:42 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../inc/minishell.h"
@@ -30,10 +30,10 @@ static void	minishell_process(t_data *data)
 				printf("Syntax error\n");
 				continue ;
 			}
-			input_restructure(data);
+			//input_restructure(data);
 			data = dtt_init(data);
 			data = dtt_refile(data);
-			//DB_print_dtt(data);
+			DB_print_dtt(data);
 			exec_pipeline(data);
 			lst_destroy(data->dtt);
 			if (data->input)

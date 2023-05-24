@@ -6,10 +6,11 @@
 /*   By: axcallet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 16:48:51 by axcallet          #+#    #+#             */
-/*   Updated: 2023/05/19 09:39:39 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/05/24 17:14:08 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../inc/minishell.h"
+#include <stdlib.h>
 
 static t_exec	*write_heredoc(t_data *data, t_exec *dtt, char **tab, char *word)
 {
@@ -26,13 +27,8 @@ static t_exec	*write_heredoc(t_data *data, t_exec *dtt, char **tab, char *word)
 		free(new_input);
 		new_input = readline("> ");
 	}
-	if (!new_input)
+	if (!new_input && g_status != 3)
 	{
-		if (g_status == 3)
-		{
-			ft_putchar_fd('\n', 1);
-			exit(0);
-		}
 		ft_putstr_fd("warning: here-document ", 2);
 		ft_putstr_fd("delimited by end-of-file\n", 2);
 	}
@@ -48,6 +44,9 @@ static t_exec	*write_heredoc(t_data *data, t_exec *dtt, char **tab, char *word)
 		free_tab(data->envp);
 	if (data)
 		free(data);
+	printf("%d\n", g_status);
+	if (g_status == 3)
+		exit (130);
 	exit(0);
 }
 
@@ -65,16 +64,19 @@ t_exec	*heredoc(t_data *data, t_exec *dtt, char **tab, char *cmd)
 	tmp->fd_in = open("/tmp/.heredocc", O_CREAT | O_WRONLY | O_TRUNC, 0644);
 	if (!tmp->fd_in)
 		return (NULL);
-	word = get_next_word(&cmd[i]);
+	word = ft_strdup(cmd);
+	printf("---\n%s\n---\n", word);
 	signals_disabled();
 	pid = fork();
 	if (!pid)
 		tmp = write_heredoc(data, tmp, tab, word);
 	waitpid(pid, &status, 0);
-	if (WEXITSTATUS(status) == 3)
-		exit(130);
+	g_status = WEXITSTATUS(status);
 	close(tmp->fd_in);
-	tmp->fd_in = open("/tmp/.heredocc", O_RDONLY, 0644);
+	if (g_status != 130)
+		tmp->fd_in = open("/tmp/.heredocc", O_RDONLY, 0644);
+	else
+		tmp->fd_in = -1;
 	free(word);
 	return (tmp);
 }

@@ -6,7 +6,7 @@
 /*   By: axcallet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 18:19:37 by axcallet          #+#    #+#             */
-/*   Updated: 2023/05/22 10:21:44 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/05/24 14:39:15 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../inc/minishell.h"
@@ -66,7 +66,7 @@ static void	change_variables(t_data *data, char **new, int *i, int *j)\
 	*new = ft_secur_cat(*new, ft_substr(data->input, (*j), ((*i) - (*j))));
 	*new = ft_secur_cat(*new, get_variable(data, (*i)));
 	(*i)++;
-	if (data->input[*i + 1])
+	if (!data->input[*i + 1])
 		(*i)++;
 	else
 	{
@@ -74,6 +74,17 @@ static void	change_variables(t_data *data, char **new, int *i, int *j)\
 			(*i)++;
 	}
 	(*j) = (*i);
+}
+
+static int	check_heredoc(char *str, int i)
+{
+	while (i != 0 || str[i] == '|')
+	{
+		if (str[i] == '<' && str[i - 1] == '<')
+			return (1);
+		i--;
+	}
+	return (0);
 }
 
 char	*replace_variables(t_data *data)
@@ -92,7 +103,7 @@ char	*replace_variables(t_data *data)
 		flag = check_flag(flag, data->input[i]);
 		if (data->input[i] == '\'' && flag == 1)
 			i += (skip_argument(&data->input[i]) - 1);
-		else if (data->input[i] == '$')
+		else if (data->input[i] == '$' && !check_heredoc(data->input, i))
 			change_variables(data, &new, &i, &j);
 		if (data->input[i] == '\0' || data->input[i + 1] == '\0')
 			new = ft_secur_cat(new, ft_substr(data->input, j, (i - j) + 1));

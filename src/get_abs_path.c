@@ -6,7 +6,7 @@
 /*   By: axcallet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 15:24:03 by axcallet          #+#    #+#             */
-/*   Updated: 2023/05/18 15:10:35 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/05/24 09:49:30 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../inc/minishell.h"
@@ -19,8 +19,6 @@ static char	*get_good_path(char *cmd, char **envp_path)
 	int		index;
 
 	index = -1;
-	if (!cmd)
-		return (NULL);
 	while (envp_path && envp_path[++index])
 	{
 		if (envp_path[index][ft_strlen(envp_path[index]) - 1] == '/')
@@ -51,7 +49,7 @@ char	*get_abs_path(char *cmd, char **envp)
 	if (!cmd || !envp)
 		return (NULL);
 	if (!access(cmd, F_OK))
-		return (cmd);
+		return (NULL);
 	i = 0;
 	while (ft_strncmp(envp[i], "PATH=", 5))
 	{

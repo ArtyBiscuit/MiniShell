@@ -6,7 +6,7 @@
 /*   By: axcallet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 13:47:39 by axcallet          #+#    #+#             */
-/*   Updated: 2023/05/10 15:16:07 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/05/24 15:36:58 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../inc/minishell.h"
@@ -44,6 +44,7 @@ void	mini_sigint_heredoc(int signal)
 	if (signal == SIGINT)
 	{
 		close(0);
+		printf("\n");
 		g_status = 3;
 	}
 }
