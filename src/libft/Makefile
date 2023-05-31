@@ -6,13 +6,14 @@
 #    By: axcallet <axcallet@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/28 11:03:06 by axcallet          #+#    #+#              #
-#    Updated: 2023/03/14 10:52:02 by axcallet         ###   ########.fr        #
+#    Updated: 2023/05/31 11:33:01 by axcallet         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME =	libft.a
 
 SRCS =	ft_atoi.c \
+		ft_atoll.c \
 		ft_bzero.c \
 		ft_calloc.c \
 		ft_isalnum.c \

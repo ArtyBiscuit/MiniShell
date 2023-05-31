@@ -6,7 +6,7 @@
 /*   By: axcallet <axcallet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 18:11:43 by axcallet          #+#    #+#             */
-/*   Updated: 2022/09/30 16:37:13 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/05/31 09:30:41 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
 	char	*stock;
 
-	if (s == NULL)
+	if (s == NULL || len < 1)
 		return (NULL);
 	if (start > ft_strlen(s))
 	{
@@ -32,5 +32,10 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	if (!stock)
 		return (NULL);
 	ft_strlcpy(stock, s + start, len + 1);
+	if (stock[0] == '\0')
+	{
+		free(stock);
+		return (NULL);
+	}
 	return (stock);
 }

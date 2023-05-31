@@ -6,7 +6,7 @@
 #    By: axcallet <axcallet@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/13 13:47:21 by axcallet          #+#    #+#              #
-#    Updated: 2023/05/15 17:12:31 by axcallet         ###   ########.fr        #
+#    Updated: 2023/05/26 15:55:14 by axcallet         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,6 +34,7 @@ BIN_DIR		= bin
 MAKEFLAGS	+= --no-print-directory
 SRC			= src/builtins/cd.c							\
 			src/builtins/check_builtins.c				\
+			src/builtins/echo.c							\
 			src/builtins/env.c							\
 			src/builtins/exit.c							\
 			src/builtins/export.c						\

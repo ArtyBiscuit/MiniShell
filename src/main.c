@@ -6,11 +6,12 @@
 /*   By: axcallet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 15:30:39 by axcallet          #+#    #+#             */
-/*   Updated: 2023/05/24 15:39:42 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/05/31 09:55:40 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../inc/minishell.h"
 #include <stdlib.h>
+#include <unistd.h>
 
 int	g_status;
 
@@ -25,9 +26,14 @@ static void	minishell_process(t_data *data)
 		{
 			add_history(data->input);
 			input_restructure(data);
+			printf("%s\n", data->input);
+			if (!data->input)
+				continue ;
 			if (check_syntax(data->input))
 			{
 				printf("Syntax error\n");
+				g_status = 2;
+				free(data->input);
 				continue ;
 			}
 			//input_restructure(data);

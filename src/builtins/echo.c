@@ -6,26 +6,29 @@
 /*   By: arforgea <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 16:17:37 by arforgea          #+#    #+#             */
-/*   Updated: 2023/05/16 18:06:34 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/05/31 10:17:58 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../../inc/minishell.h"
 
-void	ft_echo(char *str, char *flags)
+void	ft_echo(char **tab)
 {
 	int	i;
 	int	f;
 
-	i = 0;
+	i = 1;
 	f = 0;
-	while (flags && flags[i])
+	while (!ft_strncmp(tab[i], "-n", 2))
 	{
-		if (flags[i] == 'n')
-			f = 1;
+		f = 1;
 		i++;
 	}
-	ft_putstr_fd(str, 1);
-	if (f)
-		return ;
-	write(1, "\n", 1);
+	while (tab[i])
+	{
+		printf("%s", tab[i]);
+		printf(" ");
+		i++;
+	}
+	if (f != 1)
+		printf("\n");
 }

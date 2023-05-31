@@ -6,7 +6,7 @@
 /*   By: arforgea <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 08:28:36 by arforgea          #+#    #+#             */
-/*   Updated: 2023/05/24 15:45:04 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/05/26 13:33:45 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../inc/minishell.h"
@@ -173,7 +173,8 @@ int	exec_pipeline(t_data *data)
 		else if (!check_before_fork(data, ptr) && ptr->fd_in != -1)
 		{	
 			fd_in = ft_pipe(data, ptr, &tab_pid[i], fd_in);
-			g_status = 0;
+			if (g_status != 130)
+				g_status = 0;
 		}
 		else
 			tab_pid[i] = 0;

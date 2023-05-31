@@ -6,7 +6,7 @@
 /*   By: arforgea <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 14:22:32 by arforgea          #+#    #+#             */
-/*   Updated: 2023/05/19 09:40:56 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/05/31 11:16:31 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
+# include <limits.h>
 # include <sys/types.h>
 # include <sys/wait.h>
 # include <readline/readline.h>
@@ -72,7 +73,7 @@ t_data	*dtt_init(t_data *data);
 void	lst_destroy(t_exec *ptr);
 t_data	*dtt_refile(t_data *data);
 void	exec_lst_free(t_exec *ptr);
-t_exec	*refile_exec(t_data *data, t_exec *dtt, char **tab, char *cmd);
+t_exec	*refile_exec(t_data *data, t_exec *dtt, char **tab, char **cmd);
 
 //	input restructuration
 
@@ -106,7 +107,7 @@ t_exec	*heredoc(t_data *data, t_exec *dtt, char **tab, char *cmd);
 
 //	builtins
 
-void	ft_echo(char *str, char *flags);
+void	ft_echo(char **tab);
 int		ft_pwd(t_exec *dtt);
 int 	ft_env(t_exec *dtt, char **envp);
 int		ft_cd(t_data *data, t_exec *dtt);
@@ -117,6 +118,10 @@ int		check_after_fork(t_data *data, t_exec *dtt);
 int		check_before_fork(t_data *data, t_exec *dtt);
 
 //	other...
+
+t_exec	*heredoc_call(t_data *data, t_exec *dtt, char **tab, char *cmd);
+
+char	*get_file(char *str);
 
 char	**ft_tab_dup(char **tab);
 
@@ -154,7 +159,7 @@ char	*get_next_word(char *str);
 
 int		skip_argument(char *c);
 
-t_exec	*left_chevrons(t_data *data, t_exec *dtt, char **tab, char *cmd);
+t_exec	*left_chevrons(t_exec *dtt, char *cmd);
 
 t_exec	*right_chevrons(t_exec *dtt, char *cmd);
 

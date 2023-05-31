@@ -6,7 +6,7 @@
 /*   By: axcallet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/07 14:02:37 by axcallet          #+#    #+#             */
-/*   Updated: 2023/05/24 11:47:42 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/05/26 13:28:56 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../inc/minishell.h"
@@ -20,7 +20,7 @@ static int	get_good_nb_word(char **tab_cmd)
 	res = 0;
 	while (tab_cmd[i])
 	{
-		if (tab_cmd[i][0] == '<' || tab_cmd[i][0] == '>')
+		if (tab_cmd[i + 1] && (tab_cmd[i][0] == '<' || tab_cmd[i][0] == '>'))
 			i += 2;
 		else
 		{
@@ -31,7 +31,7 @@ static int	get_good_nb_word(char **tab_cmd)
 	return (res);
 }
 
-static t_exec	*get_cmd(t_exec *exec, char *cmd, char **envp)
+static t_exec	*get_cmd(t_exec *exec, char **cmd, char **envp)
 {
 	int		i;
 	int		j;
@@ -41,12 +41,13 @@ static t_exec	*get_cmd(t_exec *exec, char *cmd, char **envp)
 
 	i = 0;
 	j = 0;
-	tab_cmd = turbo_split(cmd, ' ');
+	*cmd = add_spaces_rdir(*cmd);
+	tab_cmd = turbo_split(*cmd, ' ');
 	tmp = exec;
 	new_tab = malloc(sizeof(char *) * (get_good_nb_word(tab_cmd) + 1));
 	while (tab_cmd[i])
 	{
-		if (tab_cmd[i][0] == '<' || tab_cmd[i][0] == '>')
+		if (tab_cmd[i + 1] && (tab_cmd[i][0] == '<' || tab_cmd[i][0] == '>'))
 			i += 2;
 		else
 		{
@@ -64,7 +65,7 @@ static t_exec	*get_cmd(t_exec *exec, char *cmd, char **envp)
 	return (tmp);
 }
 
-static t_exec	*change_fds(t_data *data, t_exec *dtt, char **tab, char *cmd)
+static t_exec	*change_fds(t_exec *dtt, char *cmd)
 {
 	int		i;
 	t_exec	*tmp;
@@ -75,7 +76,7 @@ static t_exec	*change_fds(t_data *data, t_exec *dtt, char **tab, char *cmd)
 	{
 		if (cmd[i] && cmd[i] == '<')
 		{
-			tmp = left_chevrons(data, tmp, tab, &cmd[i]);
+			tmp = left_chevrons(tmp, &cmd[i]);
 			if (tmp->fd_in == -1)
 				return (tmp);
 			if (cmd[i] && cmd[i + 1] == '<')
@@ -92,7 +93,21 @@ static t_exec	*change_fds(t_data *data, t_exec *dtt, char **tab, char *cmd)
 	return (tmp);
 }
 
-t_exec	*refile_exec(t_data *data, t_exec *dtt, char **tab, char *cmd)
+static int	check_heredoc(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] && is_rdir(str[i]) && is_rdir(str[i + 1]))
+			return (0);
+		i++;
+	}
+	return (1);
+}
+
+t_exec	*refile_exec(t_data *data, t_exec *dtt, char **tab, char **cmd)
 {	
 	t_exec	*tmp;
 
@@ -102,8 +117,10 @@ t_exec	*refile_exec(t_data *data, t_exec *dtt, char **tab, char *cmd)
 	tmp->abs_path = NULL;
 	tmp->cmd = NULL;
 	tmp->full_cmd = NULL;
-	if (check_chevrons(cmd) == 1)
-		tmp = change_fds(data, tmp, tab, cmd);
+	if (!check_heredoc(*cmd))
+		tmp = heredoc_call(data, tmp, tab, *cmd);	
+	if (check_chevrons(*cmd) && g_status != 130)
+		tmp = change_fds(tmp, *cmd);
 	tmp = get_cmd(tmp, cmd, data->envp);
 	return (tmp);
 }

@@ -6,17 +6,17 @@
 /*   By: axcallet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 10:42:51 by axcallet          #+#    #+#             */
-/*   Updated: 2023/05/19 11:30:07 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/05/30 16:20:32 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../inc/minishell.h"
 
 static void	inheritance_rdir(char *cmd, char *new_cmd, int *i, int *j)
 {
-	if (*i > 0 && cmd[*i - 1] != ' ' && !is_rdir(cmd[*i - 1])
-		&& cmd[*i - 1] != '|')
-		new_cmd[*j++] = ' ';
-	new_cmd[*j++] = cmd[*i++];
+	if (*i > 0 && cmd[(*i) - 1] != ' ' && !is_rdir(cmd[(*i) - 1])
+		&& cmd[(*i) - 1] != '|')
+		new_cmd[(*j)++] = ' ';
+	new_cmd[(*j)++] = cmd[(*i)++];
 }
 
 char	*add_spaces_rdir(char *cmd)
@@ -89,7 +89,10 @@ char	*remove_spaces_pipes(char *cmd)
 void	input_restructure(t_data *data)
 {
 	data->input = replace_variables(data);
-	data->input = remove_extra_spaces(data->input);
-	data->input = add_spaces_rdir(data->input);
-	data->input = remove_spaces_pipes(data->input);
+	if (data->input)
+	{
+		data->input = remove_extra_spaces(data->input);
+		data->input = add_spaces_rdir(data->input);
+		data->input = remove_spaces_pipes(data->input);
+	}
 }

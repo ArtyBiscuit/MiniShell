@@ -6,13 +6,13 @@
 /*   By: axcallet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 11:35:54 by axcallet          #+#    #+#             */
-/*   Updated: 2023/05/24 17:22:58 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/05/30 10:46:19 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../inc/minishell.h"
 #include "libft/libft.h"
 
-static char	*get_file(char *str)
+char	*get_file(char *str)
 {
 	int		i;
 	int		j;
@@ -26,8 +26,14 @@ static char	*get_file(char *str)
 		i++;
 		count++;
 	}
-	j = ft_strlen(&str[i]);
-	res = ft_substr(str, i, (j - i));
+	if (str[i] && str[i] == ' ')
+		i++;
+	j = i;
+	while (is_rdir(str[i]))
+		i++;
+	while (!is_separator(str[i]))
+		i++;
+	res = ft_substr(str, j, (i - j));
 	return (res);
 }
 
@@ -50,7 +56,7 @@ int	is_rdir(char c)
 	return (c == '<' || c == '>');
 }
 
-t_exec	*left_chevrons(t_data *data, t_exec *dtt, char **tab, char *cmd)
+t_exec	*left_chevrons(t_exec *dtt, char *cmd)
 {
 	int		i;
 	char	*file;
@@ -60,19 +66,22 @@ t_exec	*left_chevrons(t_data *data, t_exec *dtt, char **tab, char *cmd)
 	tmp = dtt;
 	if (tmp->fd_in > 2)
 		close(tmp->fd_in);
+	file = get_file(&cmd[i]);
 	if (cmd[i + 1] == '<')
 	{
-		file = get_file(&cmd[i]);
-		tmp = heredoc(data, tmp, tab, file);
+		free(file);
+		return (tmp);
 	}
 	else
 	{
-		file = get_file(&cmd[i]);
 		tmp->fd_in = open(file, O_RDONLY);
 		if (tmp->fd_in == -1)
+		{
 			printf("minishell: %s: No such file or directory\n", file);
-		free(file);
+			g_status = 1;
+		}
 	}
+	free(file);
 	return (tmp);
 }
 
@@ -86,17 +95,11 @@ t_exec	*right_chevrons(t_exec *dtt, char *cmd)
 	tmp = dtt;
 	if (tmp->fd_out > 2)
 		close (tmp->fd_out);
+	file = get_file(&cmd[i]);
 	if (cmd[i] && cmd[i + 1] == '>')
-	{
-		file = get_file(&cmd[i]);
 		tmp->fd_out = open(file, O_CREAT | O_WRONLY, 0644);
-		free(file);
-	}
 	else
-	{
-		file = get_file(&cmd[i]);
 		tmp->fd_out = open(file, O_CREAT | O_WRONLY | O_TRUNC, 0644);
-		free(file);
-	}
+	free(file);
 	return (tmp);
 }
