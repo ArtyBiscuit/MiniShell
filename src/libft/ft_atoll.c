@@ -6,11 +6,10 @@
 /*   By: axcallet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 11:05:14 by axcallet          #+#    #+#             */
-/*   Updated: 2023/05/31 14:30:00 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/05/31 14:40:15 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "libft.h"
-#include <limits.h>
 
 static long long	ft_atoll_end(char *cmd, int i, int n, long long p)
 {
