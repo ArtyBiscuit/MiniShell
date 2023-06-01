@@ -6,7 +6,7 @@
 /*   By: axcallet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 15:30:39 by axcallet          #+#    #+#             */
-/*   Updated: 2023/05/31 09:55:40 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/06/01 17:51:38 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../inc/minishell.h"
@@ -26,7 +26,6 @@ static void	minishell_process(t_data *data)
 		{
 			add_history(data->input);
 			input_restructure(data);
-			printf("%s\n", data->input);
 			if (!data->input)
 				continue ;
 			if (check_syntax(data->input))
@@ -36,7 +35,6 @@ static void	minishell_process(t_data *data)
 				free(data->input);
 				continue ;
 			}
-			//input_restructure(data);
 			data = dtt_init(data);
 			data = dtt_refile(data);
 			DB_print_dtt(data);

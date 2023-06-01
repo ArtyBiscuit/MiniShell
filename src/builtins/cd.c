@@ -6,7 +6,7 @@
 /*   By: axcallet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 13:30:42 by axcallet          #+#    #+#             */
-/*   Updated: 2023/05/31 10:33:32 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/06/01 17:08:35 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../../inc/minishell.h"
@@ -25,24 +25,32 @@ static int	cd_errors(t_exec *ptr)
 int	ft_cd(t_data *data, t_exec *dtt)
 {
 	char	pwd[PATH_MAX];
+	char	**tmp;
 	t_exec	*ptr;
 
+	tmp = malloc(sizeof(char*) * 3);
+	tmp[0] = ft_strdup("export");
+	tmp[2] = NULL;
 	ptr = dtt;
 	if (!cd_errors(ptr))
 	{
 		getcwd(pwd, sizeof(pwd));
-		ft_unset(&data->envp, "OLDPWD");
-		ft_export(&data->envp, ft_strjoin("OLDPWD=", pwd));
+		tmp[1] = ft_strjoin("OLDPWD=", pwd);
+		ft_export(&data->envp, tmp);
+		free(tmp[1]);
 		if (chdir(ptr->full_cmd[1]))
 		{
 			perror(ptr->full_cmd[1]);
+			free_tab(tmp);
 			g_status = 1;
 			return (1);
 		}
 		getcwd(pwd, sizeof(pwd));
-		ft_unset(&data->envp, "PWD");
-		ft_export(&data->envp, ft_strjoin("PWD=", pwd));
+		tmp[1] = ft_strjoin("PWD=", pwd);
+		ft_export(&data->envp, tmp);
+		free_tab(tmp);
 		return (0);
 	}
+	free_tab(tmp);
 	return (1);
 }

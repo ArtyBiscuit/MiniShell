@@ -6,7 +6,7 @@
 /*   By: axcallet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 16:48:51 by axcallet          #+#    #+#             */
-/*   Updated: 2023/05/30 09:56:21 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/05/31 15:55:05 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../inc/minishell.h"
@@ -20,7 +20,6 @@ t_exec	*heredoc_call(t_data *data, t_exec *dtt, char **tab, char *cmd)
  
 	i = 0;
 	file = get_file(&cmd[i]);
-	printf("%s\n", file);
 	tmp = dtt;
 	tmp = heredoc(data, tmp, tab, file);
 	free(file);
@@ -34,6 +33,8 @@ static t_exec	*write_heredoc(t_data *data, t_exec *dtt, char **tab, char *word)
 
 	tmp = dtt;
 	signals_heredoc();
+	if (!word)
+		word = ft_strdup("\0");
 	new_input = readline("> ");
 	while (new_input && ft_strncmp(new_input, word, ft_strlen(word) + 1))
 	{

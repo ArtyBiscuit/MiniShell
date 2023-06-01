@@ -6,7 +6,7 @@
 /*   By: axcallet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/11 11:08:58 by axcallet          #+#    #+#             */
-/*   Updated: 2023/04/11 11:11:04 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/05/31 17:13:45 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../../inc/minishell.h"
@@ -20,6 +20,8 @@ int	get_chars_number(char *str, char c)
 	res = 0;
 	while (str[i])
 	{
+		if (str[i] && (str[i] == '\'' || str[i] == '\"'))
+			i += skip_argument(&str[i]);
 		if (str[i] && str[i] == c)
 			res++;
 		i++;

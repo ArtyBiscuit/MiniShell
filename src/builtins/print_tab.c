@@ -6,19 +6,19 @@
 /*   By: arforgea <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 14:05:10 by arforgea          #+#    #+#             */
-/*   Updated: 2023/05/16 17:18:03 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/06/01 17:30:21 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../../inc/minishell.h"
 
-void	print_tab(char **arrey)
+void	print_tab(char **array)
 {
 	int index;
 
 	index = 0;
-	while (arrey[index])
+	while (array[index])
 	{
-		printf("declare -x %s\n", arrey[index]);
+		printf("declare -x %s\n", array[index]);
 		index++;
 	}
 	return ;

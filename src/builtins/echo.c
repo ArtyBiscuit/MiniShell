@@ -6,7 +6,7 @@
 /*   By: arforgea <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 16:17:37 by arforgea          #+#    #+#             */
-/*   Updated: 2023/05/31 10:17:58 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/06/01 17:02:53 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../../inc/minishell.h"
@@ -26,9 +26,11 @@ void	ft_echo(char **tab)
 	while (tab[i])
 	{
 		printf("%s", tab[i]);
-		printf(" ");
+		if (tab[i + 1])
+			printf(" ");
 		i++;
 	}
 	if (f != 1)
 		printf("\n");
+	g_status = 0;
 }

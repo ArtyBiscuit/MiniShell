@@ -6,10 +6,26 @@
 /*   By: axcallet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 18:19:37 by axcallet          #+#    #+#             */
-/*   Updated: 2023/05/30 16:39:13 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/06/01 13:41:43 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../inc/minishell.h"
+
+int	char_is_valid(char c)
+{
+	int		i;
+	char	*tab;
+
+	i = 0;
+	tab = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_";
+	while (tab[i])
+	{
+		if (tab[i] == c)
+			return (0);
+		i++;
+	}
+	return (1);
+}
 
 static char	*get_variable(t_data *data, int index)
 {
@@ -20,17 +36,13 @@ static char	*get_variable(t_data *data, int index)
 
 	i = -1;
 	j = -1;
+	if (data->input[index + 1] == '?')
+		return (ft_itoa(g_status));
 	while (data->input[index + ++i])
 	{
-		if (data->input[index + i] && (is_separator(data->input[index + i + 1])
-				|| data->input[index + i + 1] == '$'))
+		if (data->input[index + i] && char_is_valid(data->input[index + i + 1]))
 		{
 			var = ft_substr(data->input, index + 1, i);
-			if (var[0] == '?')
-			{
-				free(var);
-				return (ft_itoa(g_status));
-			}
 			while (data->envp[++j])
 			{
 				tmp = ft_strnstr(data->envp[j], var, i);
@@ -43,7 +55,6 @@ static char	*get_variable(t_data *data, int index)
 			}
 			if (data->envp[j] == NULL)
 			{
-				//return (var);
 				free(var);
 				return (NULL);
 			}

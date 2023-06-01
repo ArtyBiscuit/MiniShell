@@ -6,7 +6,7 @@
 /*   By: axcallet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/07 14:02:37 by axcallet          #+#    #+#             */
-/*   Updated: 2023/05/26 13:28:56 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/05/31 17:04:07 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../inc/minishell.h"
@@ -49,6 +49,8 @@ static t_exec	*get_cmd(t_exec *exec, char **cmd, char **envp)
 	{
 		if (tab_cmd[i + 1] && (tab_cmd[i][0] == '<' || tab_cmd[i][0] == '>'))
 			i += 2;
+		else if (!tab_cmd[i + 1] && (tab_cmd[i][0] == '<' || tab_cmd[i][0] == '>'))
+			i++;
 		else
 		{
 			new_tab[j] = ft_strdup(tab_cmd[i]);

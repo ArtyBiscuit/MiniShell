@@ -6,7 +6,7 @@
 /*   By: arforgea <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 08:28:36 by arforgea          #+#    #+#             */
-/*   Updated: 2023/05/26 13:33:45 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/06/01 10:41:00 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../inc/minishell.h"
@@ -85,7 +85,10 @@ static int	fork_exec(t_data *data, t_exec *dtt, int *fds, int fd_in)
 		{
 			all_dup2(dtt, fds, fd_in);
 			if (!check_after_fork(data, dtt) && dtt->cmd)
+			{
+				g_status = 0;
 				execve(dtt->abs_path, dtt->full_cmd, data->envp);
+			}
 			if (data->input)
 				free(data->input);
 			if (data->envp)
@@ -94,7 +97,7 @@ static int	fork_exec(t_data *data, t_exec *dtt, int *fds, int fd_in)
 			if (data)
 				free(data);
 		}
-		exit (0);
+		exit (g_status);
 	}
 	return (pid);
 }
@@ -140,18 +143,7 @@ static int	check_exec(char *str)
 	}
 	return (0);
 }
-/*
-static int	check_command(t_data *data, t_exec *ptr)
-{
-	if (!ptr->abs_path && !check_before_fork(data, ptr))
-	{
-		printf("Command '%s' not found\n", ptr->cmd);
-		g_status = 127;
-		return (1);
-	}
-	return (0);
-}
-*/
+
 int	exec_pipeline(t_data *data)
 {
 	int		i;
@@ -168,8 +160,6 @@ int	exec_pipeline(t_data *data)
 			ft_exit(data, data->dtt);
 		else if (check_exec(ptr->cmd))
 			tab_pid[i] = 0;
-	//	else if (check_command(data, ptr))
-	//		tab_pid[i] = 0;
 		else if (!check_before_fork(data, ptr) && ptr->fd_in != -1)
 		{	
 			fd_in = ft_pipe(data, ptr, &tab_pid[i], fd_in);
