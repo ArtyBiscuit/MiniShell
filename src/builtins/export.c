@@ -6,19 +6,17 @@
 /*   By: arforgea <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 14:05:00 by arforgea          #+#    #+#             */
-/*   Updated: 2023/06/01 17:44:40 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/06/02 15:58:14 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../../inc/minishell.h"
-#include <stdio.h>
-#include <stdlib.h>
 
 static char	*get_format_var(char *var)
 {
 	char	*new_var;
 	int		i;
 	int		j;
-	
+
 	new_var = malloc(sizeof(char) * get_var_size(var) + 1);
 	i = 0;
 	j = 0;
@@ -37,23 +35,7 @@ static char	*get_format_var(char *var)
 	return (new_var);
 }
 
-static int	is_var(char **envp, char *var)
-{
-	int	i;
-	int	var_size;
-
-	i = 0;
-	var_size = get_name_var_size(var);
-	while (envp[i])
-	{
-		if (!ft_strncmp(var, envp[i], var_size))
-			return (1);
-		i++;
-	}
-	return (0);
-}
-
-static char	**add_var(char **envp,char *var)
+static char	**change_var(char **envp, char *var)
 {
 	char	**new_envp;
 	int		var_size;
@@ -62,12 +44,11 @@ static char	**add_var(char **envp,char *var)
 
 	envp_size = get_env_size(envp);
 	var_size = get_name_var_size(var);
-	if (is_var(envp, var))
-		new_envp = malloc(sizeof(char *) * (envp_size + 1));
-	else
-		new_envp = malloc(sizeof(char *) * (envp_size + 2));
+	if (!ft_strchr(var, '='))
+		return (ft_tab_dup(envp));
+	new_envp = malloc(sizeof(char *) * (envp_size + 1));
 	i = 0;
-	while(i < envp_size)
+	while (i < envp_size)
 	{
 		if (!ft_strncmp(var, envp[i], var_size))
 			new_envp[i] = get_format_var(var);
@@ -75,26 +56,41 @@ static char	**add_var(char **envp,char *var)
 			new_envp[i] = ft_strdup(envp[i]);
 		i++;
 	}
-	if (is_var(envp, var))
-		new_envp[i] = NULL;
-	else
-	{
-		new_envp[i] = get_format_var(var);
-		new_envp[i + 1] = NULL;
-	}
+	new_envp[i] = NULL;
 	return (new_envp);
 }
 
-static int check(char *str)
+static char	**add_var(char **envp, char *var)
 {
-	int i;
+	char	**new_envp;
+	int		var_size;
+	int		envp_size;
+	int		i;
+
+	envp_size = get_env_size(envp);
+	var_size = get_name_var_size(var);
+	new_envp = malloc(sizeof(char *) * (envp_size + 2));
+	i = 0;
+	while (i < envp_size)
+	{
+		new_envp[i] = ft_strdup(envp[i]);
+		i++;
+	}
+	new_envp[i] = get_format_var(var);
+	new_envp[i + 1] = NULL;
+	return (new_envp);
+}
+
+static int	check(char *str)
+{
+	int	i;
 
 	i = 0;
 	while (str[i] && str[i] != '=')
 	{
 		if (str[i] == '-')
 		{
-			printf("bash: `%c%c' invalid option\n", str[i], str[i+1]);
+			printf("bash: `%c%c' invalid option\n", str[i], str[i + 1]);
 			g_status = 2;
 			return (1);
 		}
@@ -124,7 +120,10 @@ int	ft_export(char ***envp, char **tab_cmd)
 	{
 		if (!check(tab_cmd[index]))
 		{
-			new_envp = add_var(*envp, tab_cmd[index]);
+			if (is_var(*envp, tab_cmd[index]))
+				new_envp = change_var(*envp, tab_cmd[index]);
+			else
+				new_envp = add_var(*envp, tab_cmd[index]);
 			free_tab(*envp);
 			*envp = new_envp;
 		}

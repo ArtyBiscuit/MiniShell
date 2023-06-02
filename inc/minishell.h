@@ -6,7 +6,7 @@
 /*   By: arforgea <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 14:22:32 by arforgea          #+#    #+#             */
-/*   Updated: 2023/06/01 14:19:52 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/06/02 15:49:13 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,12 +116,15 @@ int		ft_export(char ***envp, char **tab_cmd);
 int		ft_exit(t_data *data, t_exec *dtt);
 int		check_after_fork(t_data *data, t_exec *dtt);
 int		check_before_fork(t_data *data, t_exec *dtt);
+int 	check_builtins(char *cmd);
 
 //	other...
 
-int	char_is_valid(char c);
+int		is_var(char **envp, char *var);
 
-int	get_name_var_size(char *var);
+int		char_is_valid(char c);
+
+int		get_name_var_size(char *var);
 
 t_exec	*heredoc_call(t_data *data, t_exec *dtt, char **tab, char *cmd);
 

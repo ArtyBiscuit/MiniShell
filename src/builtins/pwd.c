@@ -6,7 +6,7 @@
 /*   By: axcallet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 17:23:52 by axcallet          #+#    #+#             */
-/*   Updated: 2023/06/01 17:53:17 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/06/02 15:41:31 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../../inc/minishell.h"
@@ -14,7 +14,7 @@
 int	ft_pwd(t_exec *dtt)
 {
 	char	pwd[PATH_MAX];	
-	
+
 	if (dtt->full_cmd[1])
 	{
 		ft_putstr_fd("pwd: too many arguments\n", 2);

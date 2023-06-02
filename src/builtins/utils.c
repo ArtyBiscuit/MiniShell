@@ -6,7 +6,7 @@
 /*   By: arforgea <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 14:05:20 by arforgea          #+#    #+#             */
-/*   Updated: 2023/06/01 14:10:11 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/06/02 15:48:45 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../../inc/minishell.h"
@@ -51,7 +51,23 @@ int	get_name_var_size(char *var)
 	return (size);
 }
 
-int get_env_size(char **envp)
+int	is_var(char **envp, char *var)
+{
+	int	i;
+	int	var_size;
+
+	i = 0;
+	var_size = get_name_var_size(var);
+	while (envp[i])
+	{
+		if (!ft_strncmp(var, envp[i], var_size))
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
+int	get_env_size(char **envp)
 {
 	int	index;
 

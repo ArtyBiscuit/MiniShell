@@ -6,7 +6,7 @@
 /*   By: axcallet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 10:42:51 by axcallet          #+#    #+#             */
-/*   Updated: 2023/05/30 16:20:32 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/06/02 14:38:06 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../inc/minishell.h"
@@ -70,12 +70,12 @@ char	*remove_spaces_pipes(char *cmd)
 		return (NULL);
 	while (cmd && cmd[++i])
 	{
-		if (cmd[i] == '\"' || cmd[i] == '\'')
+		if (cmd[i] && (cmd[i] == '\"' || cmd[i] == '\''))
 		{
 			add_no_spaces(cmd, res, &i, &j);
 			j++;
 		}
-		else if (cmd[i] == '|')
+		else if (cmd[i] && cmd[i] == '|')
 			inheritance_pipes(cmd, res, &i, &j);
 		else
 			res[j++] = cmd[i];

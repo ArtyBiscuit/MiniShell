@@ -6,7 +6,7 @@
 /*   By: arforgea <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 14:05:25 by arforgea          #+#    #+#             */
-/*   Updated: 2023/06/01 17:27:19 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/06/02 12:14:36 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../../inc/minishell.h"
@@ -45,7 +45,7 @@ static int remove_string(char ***arr, char *str)
 		j++;
 		i++;
 	}
-	new_envp[get_env_size((*arr)) - 1] = NULL;
+	new_envp[get_env_size(*arr) - 1] = NULL;
 	free_tab((*arr));
 	*arr = new_envp;
 	return (0);
@@ -79,10 +79,8 @@ int	ft_unset(char ***envp, char **tab_cmd)
 {
 	int		i;
 	int		index;
-	int		good;
 
 	index = 1;
-	good = -1;
 	if (!tab_cmd[1])
 	{
 		printf("unset: not enough arguments");
@@ -90,16 +88,19 @@ int	ft_unset(char ***envp, char **tab_cmd)
 	}
 	while (tab_cmd[index])
 	{
-		check(tab_cmd[index]);
-		i = 0;
-		while ((*envp)[i])
+		if (!check(tab_cmd[index]))
 		{
-			if (compare(tab_cmd[index], (*envp)[i]))
-				good = 1;
-			i++;
+			i = 0;
+			while ((*envp)[i])
+			{
+				if (compare(tab_cmd[index], (*envp)[i]))
+				{
+					remove_string(envp, tab_cmd[index]);
+					break ;
+				}
+				i++;
+			}
 		}
-		if (good == 1)
-			remove_string(envp, tab_cmd[index]);
 		index++;
 	}
 	return (0);

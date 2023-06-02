@@ -6,10 +6,11 @@
 /*   By: axcallet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/07 14:02:37 by axcallet          #+#    #+#             */
-/*   Updated: 2023/05/31 17:04:07 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/06/02 10:05:57 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../inc/minishell.h"
+#include "libft/libft.h"
 
 static int	get_good_nb_word(char **tab_cmd)
 {
@@ -61,7 +62,10 @@ static t_exec	*get_cmd(t_exec *exec, char **cmd, char **envp)
 	new_tab[j] = NULL;
 	tmp->full_cmd = ft_tab_dup(new_tab);
 	tmp->cmd = ft_strdup(new_tab[0]);
-	tmp->abs_path = get_abs_path(new_tab[0], envp);
+	if (!check_builtins(tmp->cmd))
+		tmp->abs_path = get_abs_path(new_tab[0], envp);
+	else if (check_builtins(tmp->cmd))
+		tmp->abs_path = ft_strdup(tmp->cmd);
 	free_tab(tab_cmd);
 	free_tab(new_tab);
 	return (tmp);
