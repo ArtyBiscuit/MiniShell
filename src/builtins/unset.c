@@ -6,14 +6,14 @@
 /*   By: arforgea <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 14:05:25 by arforgea          #+#    #+#             */
-/*   Updated: 2023/06/02 12:14:36 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/06/03 16:16:34 by arforgea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../../inc/minishell.h"
 
 static int	compare(char *s1, char *s2)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (s1[i] && s2[i] != '=' && s2[i] == s1[i])
@@ -23,7 +23,7 @@ static int	compare(char *s1, char *s2)
 	return (0);
 }
 
-static int remove_string(char ***arr, char *str)
+static int	remove_string(char ***arr, char *str)
 {
 	char	**new_envp;
 	int		i;
@@ -39,7 +39,7 @@ static int remove_string(char ***arr, char *str)
 		if (compare(str, (*arr)[i]))
 		{
 			i++;
-			continue;
+			continue ;
 		}
 		new_envp[j] = ft_strdup((*arr)[i]);
 		j++;
@@ -51,7 +51,7 @@ static int remove_string(char ***arr, char *str)
 	return (0);
 }
 
-static int check(char *str)
+static int	check(char *str)
 {
 	int		i;
 

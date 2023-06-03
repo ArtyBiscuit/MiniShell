@@ -6,7 +6,7 @@
 /*   By: axcallet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 18:19:37 by axcallet          #+#    #+#             */
-/*   Updated: 2023/06/01 13:41:43 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/06/03 16:13:45 by arforgea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../inc/minishell.h"
@@ -131,7 +131,7 @@ char	*replace_variables(t_data *data)
 			return (new);
 		}
 		else if (data->input[i] == '$' && !check_heredoc(data->input, i))
-			continue;
+			continue ;
 		i++;
 	}
 	if (data->input)

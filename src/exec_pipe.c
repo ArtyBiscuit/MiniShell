@@ -6,7 +6,7 @@
 /*   By: arforgea <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 08:28:36 by arforgea          #+#    #+#             */
-/*   Updated: 2023/06/01 10:41:00 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/06/03 16:06:29 by arforgea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../inc/minishell.h"
@@ -60,7 +60,7 @@ static void	wait_all_pid(t_data *data, int *tab_pid)
 static int	fork_exec(t_data *data, t_exec *dtt, int *fds, int fd_in)
 {
 	pid_t	pid;
-	
+
 	signal(SIGINT, SIG_IGN);
 	pid = fork();
 	signal(SIGINT, mini_sigint_fork);
@@ -120,7 +120,6 @@ static int	ft_pipe(t_data *data, t_exec *dtt, int *pid, int fd_in)
 	if (fd_in > 0)
 		close(fd_in);
 	return (fds[0]);
-
 }
 
 static int	check_exec(char *str)

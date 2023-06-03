@@ -61,9 +61,6 @@ struct s_data
 	char	**envp;
 	t_exec	*dtt;
 };
-//	**********	 DEBUG ! **********
-void	DB_print_dtt(t_data *data);
-void	DB_print_tab(char **tab);
 //	########## FONCTIONS ##########
 
 //	lst-init

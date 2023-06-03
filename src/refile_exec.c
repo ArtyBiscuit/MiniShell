@@ -6,7 +6,7 @@
 /*   By: axcallet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/07 14:02:37 by axcallet          #+#    #+#             */
-/*   Updated: 2023/06/02 10:05:57 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/06/03 16:12:50 by arforgea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../inc/minishell.h"
@@ -124,7 +124,7 @@ t_exec	*refile_exec(t_data *data, t_exec *dtt, char **tab, char **cmd)
 	tmp->cmd = NULL;
 	tmp->full_cmd = NULL;
 	if (!check_heredoc(*cmd))
-		tmp = heredoc_call(data, tmp, tab, *cmd);	
+		tmp = heredoc_call(data, tmp, tab, *cmd);
 	if (check_chevrons(*cmd) && g_status != 130)
 		tmp = change_fds(tmp, *cmd);
 	tmp = get_cmd(tmp, cmd, data->envp);

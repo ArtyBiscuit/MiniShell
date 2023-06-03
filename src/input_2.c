@@ -6,22 +6,22 @@
 /*   By: axcallet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/22 14:58:12 by axcallet          #+#    #+#             */
-/*   Updated: 2023/06/02 14:39:50 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/06/03 16:05:37 by arforgea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../inc/minishell.h"
 
 char	*remove_extra_spaces(char *cmd)
 {
-    int 	i;
+	int		i;
 	int		j;
 	char	tmp;
-    char	*res;
+	char	*res;
 
 	i = 0;
 	j = 0;
 	res = malloc(sizeof(char) * (ft_strlen(cmd) + 2));
-    while (cmd && cmd[i])
+	while (cmd && cmd[i])
 	{
 		if (cmd[i] && (cmd[i] == '\'' || cmd[i] == '\"'))
 		{
@@ -31,14 +31,14 @@ char	*remove_extra_spaces(char *cmd)
 				res[j++] = cmd[i++];
 		}
 		if (cmd[i] && (cmd[i] != ' ' || (i > 0 && cmd[i - 1] != ' ')))
-            res[j++] = cmd[i];
+			res[j++] = cmd[i];
 		if (cmd[i])
 			i++;
-    }
-    res[j] = '\0';
+	}
+	res[j] = '\0';
 	if (cmd)
 		free(cmd);
-    return (res);
+	return (res);
 }
 
 void	add_no_spaces(char *cmd, char *new_cmd, int *i, int *j)
@@ -58,4 +58,3 @@ void	add_no_spaces(char *cmd, char *new_cmd, int *i, int *j)
 	if (cmd[*i] && cmd[*i] == tmp)
 		new_cmd[*j] = tmp;
 }
-
