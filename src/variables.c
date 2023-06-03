@@ -6,7 +6,7 @@
 /*   By: axcallet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 18:19:37 by axcallet          #+#    #+#             */
-/*   Updated: 2023/06/03 16:13:45 by arforgea         ###   ########.fr       */
+/*   Updated: 2023/06/03 18:57:44 by arforgea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../inc/minishell.h"
@@ -25,6 +25,13 @@ int	char_is_valid(char c)
 		i++;
 	}
 	return (1);
+}
+
+static char *final_variable(char *var, t_data *data, int j, int i)
+{
+	free(var);
+	return (ft_substr(data->envp[j], i + 1,
+	ft_strlen(data->envp[j]) - i));
 }
 
 static char	*get_variable(t_data *data, int index)
@@ -47,17 +54,10 @@ static char	*get_variable(t_data *data, int index)
 			{
 				tmp = ft_strnstr(data->envp[j], var, i);
 				if (tmp != NULL)
-				{
-					free(var);
-					return (ft_substr(data->envp[j], i + 1,
-							ft_strlen(data->envp[j]) - i));
-				}
+					return (final_variable(var, data, j, i));
 			}
 			if (data->envp[j] == NULL)
-			{
-				free(var);
-				return (NULL);
-			}
+				break ;
 		}
 	}
 	free(var);

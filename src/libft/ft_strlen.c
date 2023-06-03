@@ -6,7 +6,7 @@
 /*   By: axcallet <axcallet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 13:15:30 by axcallet          #+#    #+#             */
-/*   Updated: 2023/05/05 10:50:43 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/06/03 17:54:32 by arforgea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ size_t	ft_strlen(const char *s)
 {
 	size_t	i;
 
+	if (!s)
+		return (0);
 	i = 0;
 	while (s && s[i] != '\0')
 	{

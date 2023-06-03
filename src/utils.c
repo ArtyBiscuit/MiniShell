@@ -6,7 +6,7 @@
 /*   By: axcallet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/24 09:53:43 by axcallet          #+#    #+#             */
-/*   Updated: 2023/06/01 10:21:17 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/06/03 17:54:10 by arforgea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../inc/minishell.h"
@@ -70,10 +70,8 @@ char	*ft_secur_cat(char *s1, char *s2)
 	s_s2 = 0;
 	if (!s1 && !s2)
 		return (NULL);
-	if (s1)
-		s_s1 = ft_strlen(s1);
-	if (s2)
-		s_s2 = ft_strlen(s2);
+	s_s1 = ft_strlen(s1);
+	s_s2 = ft_strlen(s2);
 	f_str = malloc(sizeof(char) * (s_s1 + s_s2) + 1);
 	if (s1)
 	{

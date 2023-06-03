@@ -6,11 +6,12 @@
 /*   By: arforgea <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 08:28:36 by arforgea          #+#    #+#             */
-/*   Updated: 2023/06/03 16:06:29 by arforgea         ###   ########.fr       */
+/*   Updated: 2023/06/03 16:56:49 by arforgea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../inc/minishell.h"
 #include "libft/libft.h"
+#include <stdlib.h>
 
 static void	all_dup2(t_exec *dtt, int *fds, int fd_in)
 {
@@ -57,6 +58,17 @@ static void	wait_all_pid(t_data *data, int *tab_pid)
 	signal(SIGINT, mini_sigint);
 }
 
+static void	free_fork(t_data *data)
+{
+	if (data->input)
+		free(data->input);
+	if (data->envp)
+		free_tab(data->envp);
+	lst_destroy(data->dtt);
+	if (data)
+		free(data);
+}
+
 static int	fork_exec(t_data *data, t_exec *dtt, int *fds, int fd_in)
 {
 	pid_t	pid;
@@ -72,31 +84,15 @@ static int	fork_exec(t_data *data, t_exec *dtt, int *fds, int fd_in)
 		if (!dtt->abs_path && dtt->cmd)
 		{
 			printf("Command '%s' not found\n", dtt->cmd);
-			if (data->input)
-				free(data->input);
-			if (data->envp)
-				free_tab(data->envp);
-			lst_destroy(data->dtt);
-			if (data)
-				free(data);
+			free_fork(data);
 			exit (127);
 		}
-		else
-		{
-			all_dup2(dtt, fds, fd_in);
-			if (!check_after_fork(data, dtt) && dtt->cmd)
-			{
-				g_status = 0;
-				execve(dtt->abs_path, dtt->full_cmd, data->envp);
-			}
-			if (data->input)
-				free(data->input);
-			if (data->envp)
-				free_tab(data->envp);
-			lst_destroy(data->dtt);
-			if (data)
-				free(data);
-		}
+		all_dup2(dtt, fds, fd_in);
+		if (!check_after_fork(data, dtt) && dtt->cmd)
+			g_status = 0;
+		if (!check_after_fork(data, dtt) && dtt->cmd)
+			execve(dtt->abs_path, dtt->full_cmd, data->envp);
+		free_fork(data);
 		exit (g_status);
 	}
 	return (pid);
@@ -143,30 +139,41 @@ static int	check_exec(char *str)
 	return (0);
 }
 
+static void	exec_core(int **tab_pid, t_data *data, int fd_in, int i)
+{
+	t_exec	*ptr;
+
+	ptr = data->dtt;
+	if (!ft_strncmp(ptr->cmd, "exit", 4))
+		ft_exit(data, data->dtt);
+	else if (check_exec(ptr->cmd))
+		tab_pid[i] = 0;
+	else if (!check_before_fork(data, ptr) && ptr->fd_in != -1)
+	{	
+		fd_in = ft_pipe(data, ptr, tab_pid[i], fd_in);
+		if (g_status != 130)
+			g_status = 0;
+	}
+	else
+		tab_pid[i] = 0;
+}
+
 int	exec_pipeline(t_data *data)
 {
 	int		i;
 	int		fd_in;
-	int		tab_pid[data->nb_cmd];
+	int		*tab_pid;
 	t_exec	*ptr;
 
 	i = 0;
 	ptr = data->dtt;
 	fd_in = ptr->fd_in;
+	tab_pid = malloc(sizeof(int) * data->nb_cmd);
+	if (!tab_pid)
+		return (1);
 	while (ptr)
 	{
-		if (!ft_strncmp(ptr->cmd, "exit", 4))
-			ft_exit(data, data->dtt);
-		else if (check_exec(ptr->cmd))
-			tab_pid[i] = 0;
-		else if (!check_before_fork(data, ptr) && ptr->fd_in != -1)
-		{	
-			fd_in = ft_pipe(data, ptr, &tab_pid[i], fd_in);
-			if (g_status != 130)
-				g_status = 0;
-		}
-		else
-			tab_pid[i] = 0;
+		exec_core(&tab_pid, data, fd_in, i);
 		ptr = ptr->next;
 		i++;
 	}

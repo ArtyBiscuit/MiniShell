@@ -6,7 +6,7 @@
 /*   By: axcallet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 16:48:51 by axcallet          #+#    #+#             */
-/*   Updated: 2023/06/03 16:03:06 by arforgea         ###   ########.fr       */
+/*   Updated: 2023/06/03 16:31:04 by arforgea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../inc/minishell.h"
@@ -24,6 +24,18 @@ t_exec	*heredoc_call(t_data *data, t_exec *dtt, char **tab, char *cmd)
 	tmp = heredoc(data, tmp, tab, file);
 	free(file);
 	return (tmp);
+}
+
+static void	free_w_heredoc(t_data *data, t_exec *dtt, char **tab)
+{
+	lst_destroy(dtt);
+	free_tab(tab);
+	if (data->input)
+		free(data->input);
+	if (data->envp)
+		free_tab(data->envp);
+	if (data)
+		free(data);
 }
 
 t_exec	*write_heredoc(t_data *data, t_exec *dtt, char **tab, char *word)
@@ -44,22 +56,12 @@ t_exec	*write_heredoc(t_data *data, t_exec *dtt, char **tab, char *word)
 		new_input = readline("> ");
 	}
 	if (!new_input && g_status != 3)
-	{
-		ft_putstr_fd("warning: here-document ", 2);
-		ft_putstr_fd("delimited by end-of-file\n", 2);
-	}
+		ft_putstr_fd("warning: here-document delimited by end-of-file\n", 2);
 	else
 		free(new_input);
 	close(tmp->fd_in);
 	free(word);
-	lst_destroy(dtt);
-	free_tab(tab);
-	if (data->input)
-		free(data->input);
-	if (data->envp)
-		free_tab(data->envp);
-	if (data)
-		free(data);
+	free_w_heredoc(data, dtt, tab);
 	if (g_status == 3)
 		exit (130);
 	exit(0);
