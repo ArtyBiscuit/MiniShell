@@ -6,7 +6,7 @@
 /*   By: arforgea <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 14:22:32 by arforgea          #+#    #+#             */
-/*   Updated: 2023/06/02 15:49:13 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/06/05 18:47:26 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,10 +57,14 @@ struct	s_exec
 struct s_data
 {
 	int		nb_cmd;
+	pid_t	*tab_pid;
 	char	*input;
 	char	**envp;
 	t_exec	*dtt;
 };
+//	**********	 DEBUG ! **********
+void	DB_print_dtt(t_data *data);
+void	DB_print_tab(char **tab);
 //	########## FONCTIONS ##########
 
 //	lst-init
@@ -91,6 +95,7 @@ int		main(int argc, char **argv, char **envp);
 
 //	signals
 
+void	signal_exec(void);
 void	signals_heredoc(void);
 void	signals_disabled(void);
 void	mini_sigint(int signal);
@@ -170,6 +175,14 @@ t_exec	*right_chevrons(t_exec *dtt, char *cmd);
 void	free_tab(char **tab);
 
 void	echo(char *str, char *flags);
+
+int		char_is_valid(char c);
+
+int		check_flag(int flag, char c);
+
+int		check_var_heredoc(char *str, int i);
+
+
 
 //	execution
 

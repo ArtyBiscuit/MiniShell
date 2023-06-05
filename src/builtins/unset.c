@@ -6,7 +6,7 @@
 /*   By: arforgea <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 14:05:25 by arforgea          #+#    #+#             */
-/*   Updated: 2023/06/03 16:16:34 by arforgea         ###   ########.fr       */
+/*   Updated: 2023/06/05 17:52:14 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../../inc/minishell.h"
@@ -80,28 +80,26 @@ int	ft_unset(char ***envp, char **tab_cmd)
 	int		i;
 	int		index;
 
-	index = 1;
+	index = 0;
 	if (!tab_cmd[1])
 	{
 		printf("unset: not enough arguments");
 		return (1);
 	}
-	while (tab_cmd[index])
+	while (tab_cmd[++index])
 	{
 		if (!check(tab_cmd[index]))
 		{
-			i = 0;
-			while ((*envp)[i])
+			i = -1;
+			while ((*envp)[++i])
 			{
 				if (compare(tab_cmd[index], (*envp)[i]))
 				{
 					remove_string(envp, tab_cmd[index]);
 					break ;
 				}
-				i++;
 			}
 		}
-		index++;
 	}
 	return (0);
 }

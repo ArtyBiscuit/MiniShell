@@ -6,7 +6,7 @@
 /*   By: axcallet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/07 14:02:37 by axcallet          #+#    #+#             */
-/*   Updated: 2023/06/03 16:12:50 by arforgea         ###   ########.fr       */
+/*   Updated: 2023/06/05 18:53:53 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../inc/minishell.h"
@@ -32,34 +32,46 @@ static int	get_good_nb_word(char **tab_cmd)
 	return (res);
 }
 
-static t_exec	*get_cmd(t_exec *exec, char **cmd, char **envp)
+static char	**cmd_core(char **t_cmd)
 {
 	int		i;
 	int		j;
 	char	**new_tab;
-	char	**tab_cmd;
-	t_exec	*tmp;
 
 	i = 0;
 	j = 0;
-	*cmd = add_spaces_rdir(*cmd);
-	tab_cmd = turbo_split(*cmd, ' ');
-	tmp = exec;
-	new_tab = malloc(sizeof(char *) * (get_good_nb_word(tab_cmd) + 1));
-	while (tab_cmd[i])
+	new_tab = malloc(sizeof(char *) * (get_good_nb_word(t_cmd) + 1));
+	if (!new_tab)
+		return (NULL);
+	while (t_cmd[i])
 	{
-		if (tab_cmd[i + 1] && (tab_cmd[i][0] == '<' || tab_cmd[i][0] == '>'))
+		if (t_cmd[i + 1] && (t_cmd[i][0] == '<' || t_cmd[i][0] == '>'))
 			i += 2;
-		else if (!tab_cmd[i + 1] && (tab_cmd[i][0] == '<' || tab_cmd[i][0] == '>'))
+		else if (!t_cmd[i + 1] && (t_cmd[i][0] == '<' || t_cmd[i][0] == '>'))
 			i++;
 		else
 		{
-			new_tab[j] = ft_strdup(tab_cmd[i]);
+			new_tab[j] = ft_strdup(t_cmd[i]);
 			j++;
 			i++;
 		}
 	}
 	new_tab[j] = NULL;
+	return (new_tab);
+}
+
+static t_exec	*get_cmd(t_exec *exec, char **cmd, char **envp)
+{
+	char	**new_tab;
+	char	**tab_cmd;
+	t_exec	*tmp;
+
+	*cmd = add_spaces_rdir(*cmd);
+	tab_cmd = turbo_split(*cmd, ' ');
+	tmp = exec;
+	new_tab = cmd_core(tab_cmd);
+	if (!new_tab)
+		return (NULL);
 	tmp->full_cmd = ft_tab_dup(new_tab);
 	tmp->cmd = ft_strdup(new_tab[0]);
 	if (!check_builtins(tmp->cmd))
@@ -85,7 +97,7 @@ static t_exec	*change_fds(t_exec *dtt, char *cmd)
 			tmp = left_chevrons(tmp, &cmd[i]);
 			if (tmp->fd_in == -1)
 				return (tmp);
-			if (cmd[i] && cmd[i + 1] == '<')
+			while (cmd[i] && cmd[i] == '<')
 				i++;
 		}
 		else if (cmd[i] && cmd[i] == '>')

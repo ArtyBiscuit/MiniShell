@@ -6,12 +6,10 @@
 /*   By: arforgea <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 08:28:36 by arforgea          #+#    #+#             */
-/*   Updated: 2023/06/03 16:56:49 by arforgea         ###   ########.fr       */
+/*   Updated: 2023/06/05 17:49:11 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../inc/minishell.h"
-#include "libft/libft.h"
-#include <stdlib.h>
 
 static void	all_dup2(t_exec *dtt, int *fds, int fd_in)
 {
@@ -62,6 +60,8 @@ static void	free_fork(t_data *data)
 {
 	if (data->input)
 		free(data->input);
+	if (data->tab_pid)
+		free(data->tab_pid);
 	if (data->envp)
 		free_tab(data->envp);
 	lst_destroy(data->dtt);
@@ -73,10 +73,8 @@ static int	fork_exec(t_data *data, t_exec *dtt, int *fds, int fd_in)
 {
 	pid_t	pid;
 
-	signal(SIGINT, SIG_IGN);
+	signal_exec();
 	pid = fork();
-	signal(SIGINT, mini_sigint_fork);
-	signal(SIGQUIT, mini_sigquit_fork);
 	if (pid < 0)
 		perror("fork");
 	if (!pid)
@@ -89,9 +87,10 @@ static int	fork_exec(t_data *data, t_exec *dtt, int *fds, int fd_in)
 		}
 		all_dup2(dtt, fds, fd_in);
 		if (!check_after_fork(data, dtt) && dtt->cmd)
+		{
 			g_status = 0;
-		if (!check_after_fork(data, dtt) && dtt->cmd)
 			execve(dtt->abs_path, dtt->full_cmd, data->envp);
+		}
 		free_fork(data);
 		exit (g_status);
 	}
@@ -139,46 +138,41 @@ static int	check_exec(char *str)
 	return (0);
 }
 
-static void	exec_core(int **tab_pid, t_data *data, int fd_in, int i)
+void	exec_core(t_data *data, t_exec *ptr, int *fd_in, int i)
 {
-	t_exec	*ptr;
-
-	ptr = data->dtt;
 	if (!ft_strncmp(ptr->cmd, "exit", 4))
 		ft_exit(data, data->dtt);
 	else if (check_exec(ptr->cmd))
-		tab_pid[i] = 0;
+		data->tab_pid[i] = 0;
 	else if (!check_before_fork(data, ptr) && ptr->fd_in != -1)
 	{	
-		fd_in = ft_pipe(data, ptr, tab_pid[i], fd_in);
+		*fd_in = ft_pipe(data, ptr, &data->tab_pid[i], *fd_in);
 		if (g_status != 130)
-			g_status = 0;
+		g_status = 0;
 	}
 	else
-		tab_pid[i] = 0;
+		data->tab_pid[i] = 0;
 }
 
 int	exec_pipeline(t_data *data)
 {
 	int		i;
 	int		fd_in;
-	int		*tab_pid;
 	t_exec	*ptr;
 
 	i = 0;
 	ptr = data->dtt;
 	fd_in = ptr->fd_in;
-	tab_pid = malloc(sizeof(int) * data->nb_cmd);
-	if (!tab_pid)
-		return (1);
+	data->tab_pid = malloc(sizeof(pid_t) * data->nb_cmd);
 	while (ptr)
 	{
-		exec_core(&tab_pid, data, fd_in, i);
+		exec_core(data, ptr, &fd_in, i);
 		ptr = ptr->next;
 		i++;
 	}
-	wait_all_pid(data, tab_pid);
+	wait_all_pid(data, data->tab_pid);
 	if (fd_in > 0)
 		close(fd_in);
+	free(data->tab_pid);
 	return (0);
 }

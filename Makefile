@@ -6,7 +6,7 @@
 #    By: axcallet <axcallet@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/13 13:47:21 by axcallet          #+#    #+#              #
-#    Updated: 2023/06/03 17:46:49 by arforgea         ###   ########.fr        #
+#    Updated: 2023/06/05 18:48:16 by axcallet         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -65,7 +65,10 @@ SRC			= src/builtins/cd.c							\
 			src/split.c									\
 			src/utils.c									\
 			src/input_to_tab.c							\
+			src/DEBUG/print_tab.c						\
+			src/DEBUG/print_dtt.c						\
 			src/variables.c								\
+			src/variables_utils.c
 
 HEADER		= inc/minishell.h
 

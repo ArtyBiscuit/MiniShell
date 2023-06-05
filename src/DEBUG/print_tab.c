@@ -1,25 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   print_tab.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: axcallet <axcallet@student.42.fr>          +#+  +:+       +#+        */
+/*   By: arforgea <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/26 13:15:30 by axcallet          #+#    #+#             */
-/*   Updated: 2023/05/05 10:50:43 by axcallet         ###   ########.fr       */
+/*   Created: 2023/04/20 18:58:18 by arforgea          #+#    #+#             */
+/*   Updated: 2023/04/21 13:46:23 by arforgea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../../inc/minishell.h"
 
-size_t	ft_strlen(const char *s)
+void	DB_print_tab(char **tab)
 {
-	size_t	i;
+	unsigned int	index;
 
-	i = 0;
-	while (s && s[i] != '\0')
+	index = 0;
+		printf("***** DEBUG *****\n");
+	while(tab[index])
 	{
-		i++;
+		printf("%s\n", tab[index]);
+		index++;
 	}
-	return (i);
+		printf("***** DEBUG *****\n");
 }

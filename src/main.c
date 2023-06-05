@@ -6,33 +6,31 @@
 /*   By: axcallet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 15:30:39 by axcallet          #+#    #+#             */
-/*   Updated: 2023/06/03 17:03:14 by arforgea         ###   ########.fr       */
+/*   Updated: 2023/06/05 18:52:11 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../inc/minishell.h"
-#include <stdlib.h>
-#include <unistd.h>
 
 int	g_status;
 
 static void	minishell_process(t_data *data)
 {
-	data->input = readline("MiniShell $: ");
-	if (!data->input)
-		data->input = ft_strdup("exit");
-	if (data->input)
+	while (1)
 	{
+		data->input = readline("MiniShell $: ");
+		if (!data->input)
+			data->input = ft_strdup("exit");
 		add_history(data->input);
 		if (check_syntax(data->input))
 		{
 			printf("Syntax error\n");
 			g_status = 2;
 			free(data->input);
-			return ;
+			continue ;
 		}
 		input_restructure(data);
-			if (!data->input)
-				return ;
+		if (!data->input)
+			continue ;
 		data = dtt_init(data);
 		data = dtt_refile(data);
 		exec_pipeline(data);
@@ -40,7 +38,6 @@ static void	minishell_process(t_data *data)
 		if (data->input)
 			free(data->input);
 	}
-	return ;
 }
 
 char	**ft_tab_dup(char **tab)
@@ -84,9 +81,6 @@ int	main(int argc, char **argv, char **envp)
 	g_status = 0;
 	signal(SIGINT, mini_sigint);
 	signal(SIGQUIT, SIG_IGN);
-	while (1)
-	{
-		minishell_process(data);
-	}
+	minishell_process(data);
 	return (0);
 }

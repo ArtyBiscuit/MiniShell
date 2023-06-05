@@ -6,7 +6,7 @@
 /*   By: arforgea <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 14:41:40 by arforgea          #+#    #+#             */
-/*   Updated: 2023/05/19 14:57:27 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/06/05 15:23:36 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../inc/minishell.h"
@@ -16,9 +16,9 @@ static int	str_is_blank(char *str)
 	int	i;
 
 	i = 0;
-	if (str[i + 1])
+	if (str[i] && str[i + 1])
 		i++;
-	while (str[i])
+	while (str[i] && str[i] != '|')
 	{
 		if (str[i] && !is_space(str[i]))
 			return (0);
@@ -42,6 +42,8 @@ static int	check_chevrons_syntax(char *str)
 				return (1);
 			if (str[i + 1] && str[i + 2]
 				&& is_rdir(str[i + 1]) && is_rdir(str[i + 2]))
+				return (1);
+			if (str[i + 1] && is_rdir(str[i + 1]) && str_is_blank(&str[i + 2]))
 				return (1);
 			if (str_is_blank(&str[i]))
 				return (1);
