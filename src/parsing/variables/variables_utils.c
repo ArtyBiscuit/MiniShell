@@ -6,10 +6,9 @@
 /*   By: axcallet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 18:49:28 by axcallet          #+#    #+#             */
-/*   Updated: 2023/06/06 13:13:47 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/06/06 14:55:57 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 #include "../../../inc/minishell.h"
 
 int	char_is_valid(char c)

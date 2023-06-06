@@ -6,10 +6,9 @@
 /*   By: axcallet <axcallet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 10:29:59 by axcallet          #+#    #+#             */
-/*   Updated: 2023/06/06 13:19:53 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/06/06 14:56:21 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 #include "../../inc/minishell.h"
 
 char	**ft_tab_dup(char **tab)
