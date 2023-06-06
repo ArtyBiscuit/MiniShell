@@ -6,7 +6,7 @@
 /*   By: arforgea <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 14:41:40 by arforgea          #+#    #+#             */
-/*   Updated: 2023/06/06 11:48:31 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/06/06 17:01:33 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../../../inc/minishell.h"
@@ -18,7 +18,7 @@ static int	str_is_blank(char *str)
 	i = 0;
 	if (str[i] && str[i + 1])
 		i++;
-	while (str[i] && str[i] != '|')
+	while (str[i] && str[i] != '|' && !is_rdir(str[i]))
 	{
 		if (str[i] && !is_space(str[i]))
 			return (0);

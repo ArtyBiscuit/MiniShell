@@ -6,7 +6,7 @@
 /*   By: arforgea <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/20 18:13:28 by arforgea          #+#    #+#             */
-/*   Updated: 2023/06/06 13:05:28 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/06/06 17:40:58 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../../../inc/minishell.h"
@@ -45,10 +45,11 @@ static char	*refactor_str(char *str)
 	{
 		if (str[i] && (str[i] == '\"' || str[i] == '\''))
 		{
-			tmp = str[i++];
+			tmp = str[i];
+			res[j++] = str[i++];
 			while (str[i] && str[i] != tmp)
 				res[j++] = str[i++];
-			i++;
+			res[j++] = str[i++];
 		}
 		else
 			res[j++] = str[i++];
