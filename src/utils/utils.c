@@ -3,13 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: axcallet <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: axcallet <axcallet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/24 09:53:43 by axcallet          #+#    #+#             */
-/*   Updated: 2023/06/03 17:54:10 by arforgea         ###   ########.fr       */
+/*   Updated: 2023/06/06 13:18:50 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "../inc/minishell.h"
+#include "../../inc/minishell.h"
 
 int	is_separator(char c)
 {
@@ -25,6 +25,11 @@ int	strlen_word(char *str)
 	while (str[i] && str[i] != ' ' && str[i] != '\t')
 		i++;
 	return (i);
+}
+
+int	is_space(char c)
+{
+	return (c == ' ' || c == '\t' || c == '\n');
 }
 
 char	*get_next_word(char *str)
@@ -53,37 +58,4 @@ char	*get_next_word(char *str)
 		}
 	}
 	return (NULL);
-}
-
-int	is_space(char c)
-{
-	return (c == ' ' || c == '\t' || c == '\n');
-}
-
-char	*ft_secur_cat(char *s1, char *s2)
-{
-	int		s_s1;
-	int		s_s2;
-	char	*f_str;
-
-	s_s1 = 0;
-	s_s2 = 0;
-	if (!s1 && !s2)
-		return (NULL);
-	s_s1 = ft_strlen(s1);
-	s_s2 = ft_strlen(s2);
-	f_str = malloc(sizeof(char) * (s_s1 + s_s2) + 1);
-	if (s1)
-	{
-		ft_strlcpy(f_str, s1, s_s1 + 1);
-		free(s1);
-		s1 = NULL;
-	}
-	if (s2)
-	{
-		ft_strlcpy(f_str + s_s1, s2, s_s2 + 1);
-		free(s2);
-		s2 = NULL;
-	}
-	return (f_str);
 }

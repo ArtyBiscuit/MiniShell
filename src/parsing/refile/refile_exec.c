@@ -6,31 +6,10 @@
 /*   By: axcallet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/07 14:02:37 by axcallet          #+#    #+#             */
-/*   Updated: 2023/06/05 18:53:53 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/06/06 14:05:39 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "../inc/minishell.h"
-#include "libft/libft.h"
-
-static int	get_good_nb_word(char **tab_cmd)
-{
-	int	i;
-	int	res;
-
-	i = 0;
-	res = 0;
-	while (tab_cmd[i])
-	{
-		if (tab_cmd[i + 1] && (tab_cmd[i][0] == '<' || tab_cmd[i][0] == '>'))
-			i += 2;
-		else
-		{
-			i++;
-			res++;
-		}
-	}
-	return (res);
-}
+#include "../../../inc/minishell.h"
 
 static char	**cmd_core(char **t_cmd)
 {
@@ -90,7 +69,7 @@ static t_exec	*change_fds(t_exec *dtt, char *cmd)
 
 	i = 0;
 	tmp = dtt;
-	while (cmd[i])
+	while (cmd && cmd[i])
 	{
 		if (cmd[i] && cmd[i] == '<')
 		{
@@ -106,23 +85,10 @@ static t_exec	*change_fds(t_exec *dtt, char *cmd)
 			if (cmd[i] && cmd[i + 1] == '>')
 				i++;
 		}
-		i++;
+		if (cmd[i])
+			i++;
 	}
 	return (tmp);
-}
-
-static int	check_heredoc(char *str)
-{
-	int	i;
-
-	i = 0;
-	while (str[i])
-	{
-		if (str[i] && is_rdir(str[i]) && is_rdir(str[i + 1]))
-			return (0);
-		i++;
-	}
-	return (1);
 }
 
 t_exec	*refile_exec(t_data *data, t_exec *dtt, char **tab, char **cmd)

@@ -6,7 +6,7 @@
 #    By: axcallet <axcallet@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/13 13:47:21 by axcallet          #+#    #+#              #
-#    Updated: 2023/06/05 18:48:16 by axcallet         ###   ########.fr        #
+#    Updated: 2023/06/06 13:35:33 by axcallet         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,43 +32,44 @@ OBJ_DIR		= obj
 BIN_DIR		= bin
 
 MAKEFLAGS	+= --no-print-directory
-SRC			= src/builtins/cd.c							\
-			src/builtins/check_builtins.c				\
-			src/builtins/echo.c							\
-			src/builtins/env.c							\
-			src/builtins/exit.c							\
-			src/builtins/export.c						\
-			src/builtins/print_tab.c					\
-			src/builtins/pwd.c							\
-			src/builtins/unset.c						\
-			src/builtins/utils.c						\
-			src/get_everything_nbr/char_number.c		\
-			src/get_everything_nbr/chevron_number.c		\
-			src/get_everything_nbr/pipes_number.c		\
-			src/lst/data_tree/dtt_init.c				\
-			src/lst/data_tree/dtt_refile.c				\
-			src/lst/exec_lst_init.c						\
-			src/lst/lst_free_utils.c					\
-			src/check_syntax.c							\
-			src/chevrons.c								\
-			src/exec_pipe.c								\
-			src/free.c									\
-			src/get_abs_path.c							\
-			src/heredoc.c								\
-			src/input.c									\
-			src/input_2.c								\
-			src/main.c									\
-			src/refile_exec.c							\
-			src/signals.c								\
-			src/signals_2.c								\
-			src/skip_argument.c							\
-			src/split.c									\
-			src/utils.c									\
-			src/input_to_tab.c							\
-			src/DEBUG/print_tab.c						\
-			src/DEBUG/print_dtt.c						\
-			src/variables.c								\
-			src/variables_utils.c
+SRC			= src/builtins/cd.c								\
+			src/builtins/check_builtins.c					\
+			src/builtins/echo.c								\
+			src/builtins/env.c								\
+			src/builtins/exit.c								\
+			src/builtins/export.c							\
+			src/builtins/print_tab.c						\
+			src/builtins/pwd.c								\
+			src/builtins/unset.c							\
+			src/builtins/utils.c							\
+			src/execution/exec_pipe.c						\
+			src/execution/exec_pipe_utils.c					\
+			src/heredoc/heredoc.c							\
+			src/lst/data_tree/dtt_init.c					\
+			src/lst/data_tree/dtt_refile.c					\
+			src/lst/exec_lst_init.c							\
+			src/lst/lst_free_utils.c						\
+			src/parsing/input/check_syntax.c				\
+			src/parsing/input/chevrons.c					\
+			src/parsing/input/input.c						\
+			src/parsing/input/input_2.c						\
+			src/parsing/input/input_to_tab.c				\
+			src/parsing/input/split.c						\
+			src/parsing/refile/get_abs_path.c				\
+			src/parsing/refile/refile_exec.c				\
+			src/parsing/refile/refile_exec_utils.c			\
+			src/parsing/utils/skip_argument.c				\
+			src/parsing/variables/variables.c				\
+			src/parsing/variables/variables_utils.c			\
+			src/signals/signals.c							\
+			src/signals/signals_2.c							\
+			src/utils/free.c								\
+			src/utils/get_everything_nbr/char_number.c		\
+			src/utils/get_everything_nbr/chevron_number.c	\
+			src/utils/get_everything_nbr/pipes_number.c		\
+			src/utils/utils.c								\
+			src/utils/utils_2.c								\
+			src/main.c							
 
 HEADER		= inc/minishell.h
 

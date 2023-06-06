@@ -6,10 +6,10 @@
 /*   By: axcallet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 10:42:51 by axcallet          #+#    #+#             */
-/*   Updated: 2023/06/02 14:38:06 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/06/06 11:54:02 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "../inc/minishell.h"
+#include "../../../inc/minishell.h"
 
 static void	inheritance_rdir(char *cmd, char *new_cmd, int *i, int *j)
 {

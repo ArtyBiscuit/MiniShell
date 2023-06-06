@@ -1,27 +1,46 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free.c                                             :+:      :+:    :+:   */
+/*   refile_exec_utils.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: axcallet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/14 15:23:42 by axcallet          #+#    #+#             */
-/*   Updated: 2023/05/24 18:16:40 by axcallet         ###   ########.fr       */
+/*   Created: 2023/06/06 09:44:03 by axcallet          #+#    #+#             */
+/*   Updated: 2023/06/06 13:09:20 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "../inc/minishell.h"
+#include "../../../inc/minishell.h"
 
-void	free_tab(char **tab)
+int	check_heredoc(char *str)
 {
 	int	i;
 
 	i = 0;
-	while (tab[i])
+	while (str[i])
 	{
-		free(tab[i]);
-		tab[i] = NULL;
+		if (str[i] && is_rdir(str[i]) && is_rdir(str[i + 1]))
+			return (0);
 		i++;
 	}
-	free(tab);
-	tab = NULL;
+	return (1);
+}
+
+int	get_good_nb_word(char **tab_cmd)
+{
+	int	i;
+	int	res;
+
+	i = 0;
+	res = 0;
+	while (tab_cmd[i])
+	{
+		if (tab_cmd[i + 1] && (tab_cmd[i][0] == '<' || tab_cmd[i][0] == '>'))
+			i += 2;
+		else
+		{
+			i++;
+			res++;
+		}
+	}
+	return (res);
 }

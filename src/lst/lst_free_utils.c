@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   lst_free_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arforgea <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: axcallet <axcallet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/26 11:37:47 by arforgea          #+#    #+#             */
-/*   Updated: 2023/05/23 13:30:50 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/06/06 10:49:11 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../../inc/minishell.h"
 
-void	cmd_link_value_free(t_exec *ptr)
+static void	cmd_link_value_free(t_exec *ptr)
 {
 	if (!ptr)
 		return ;

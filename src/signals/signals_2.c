@@ -1,30 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   char_number.c                                      :+:      :+:    :+:   */
+/*   signals_2.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: axcallet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/11 11:08:58 by axcallet          #+#    #+#             */
-/*   Updated: 2023/05/31 17:13:45 by axcallet         ###   ########.fr       */
+/*   Created: 2023/05/09 17:17:37 by axcallet          #+#    #+#             */
+/*   Updated: 2023/06/06 13:15:47 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../../inc/minishell.h"
 
-int	get_chars_number(char *str, char c)
+void	signals_disabled(void)
 {
-	int	i;
-	int	res;
+	signal(SIGINT, SIG_IGN);
+	signal(SIGQUIT, SIG_IGN);
+}
 
-	i = 0;
-	res = 0;
-	while (str[i])
-	{
-		if (str[i] && (str[i] == '\'' || str[i] == '\"'))
-			i += skip_argument(&str[i]);
-		if (str[i] && str[i] == c)
-			res++;
-		i++;
-	}
-	return (res);
+void	signals_heredoc(void)
+{
+	signal(SIGINT, mini_sigint_heredoc);
+	signal(SIGQUIT, SIG_IGN);
+}
+
+void	signal_exec(void)
+{
+	signal(SIGINT, SIG_IGN);
+	signal(SIGINT, mini_sigint_fork);
+	signal(SIGQUIT, mini_sigquit_fork);
 }

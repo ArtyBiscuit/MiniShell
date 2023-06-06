@@ -6,10 +6,10 @@
 /*   By: arforgea <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/20 18:13:28 by arforgea          #+#    #+#             */
-/*   Updated: 2023/05/25 09:23:55 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/06/06 13:05:28 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "../inc/minishell.h"
+#include "../../../inc/minishell.h"
 
 static int	get_new_size(char *str)
 {

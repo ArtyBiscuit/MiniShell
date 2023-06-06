@@ -6,10 +6,10 @@
 /*   By: axcallet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 18:19:37 by axcallet          #+#    #+#             */
-/*   Updated: 2023/06/05 18:49:24 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/06/06 14:25:56 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "../inc/minishell.h"
+#include "../../../inc/minishell.h"
 
 static char	*final_variable(char *var, t_data *data, int j, int i)
 {
@@ -68,7 +68,7 @@ static void	skip_flag_replace(t_data *data, char **new, int *i, int *j)
 
 	flag = check_flag(flag, data->input[*i]);
 	if (data->input[*i] == '\'' && flag == 1)
-		i += (skip_argument(&data->input[*i]) - 1);
+		*i += (skip_argument(&data->input[*i]) - 1);
 	else if (data->input[*i] == '$' && !check_var_heredoc(data->input, *i))
 		change_variables(data, new, i, j);
 }

@@ -6,10 +6,10 @@
 /*   By: axcallet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 13:47:39 by axcallet          #+#    #+#             */
-/*   Updated: 2023/05/26 09:26:14 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/06/06 13:15:13 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "../inc/minishell.h"
+#include "../../inc/minishell.h"
 
 void	mini_sigint(int signal)
 {

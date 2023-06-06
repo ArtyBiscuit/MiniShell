@@ -1,33 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipes_number.c                                     :+:      :+:    :+:   */
+/*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: axcallet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/28 11:00:01 by axcallet          #+#    #+#             */
-/*   Updated: 2023/04/05 10:15:12 by axcallet         ###   ########.fr       */
+/*   Created: 2023/03/14 15:23:42 by axcallet          #+#    #+#             */
+/*   Updated: 2023/06/06 13:18:27 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../../inc/minishell.h"
 
-int	get_pipes_number(char *cmd)
+void	free_tab(char **tab)
 {
 	int	i;
-	int	res;
 
 	i = 0;
-	res = 0;
-	while (cmd[i])
+	while (tab[i])
 	{
-		if (cmd[i] && (cmd[i] == '\"' || cmd[i] == '\''))
-		{
-			if (skip_argument(&cmd[i]))
-				i += skip_argument(&cmd[i]);
-		}
-		if (cmd[i] && cmd[i] == '|')
-			res++;
+		free(tab[i]);
+		tab[i] = NULL;
 		i++;
 	}
-	return (res + 1);
+	free(tab);
+	tab = NULL;
 }

@@ -3,14 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: axcallet <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: axcallet <axcallet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 16:48:51 by axcallet          #+#    #+#             */
-/*   Updated: 2023/06/03 16:31:04 by arforgea         ###   ########.fr       */
+/*   Updated: 2023/06/06 11:45:32 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "../inc/minishell.h"
-#include <stdlib.h>
+#include "../../inc/minishell.h"
 
 t_exec	*heredoc_call(t_data *data, t_exec *dtt, char **tab, char *cmd)
 {

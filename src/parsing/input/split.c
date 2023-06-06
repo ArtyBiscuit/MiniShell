@@ -6,10 +6,10 @@
 /*   By: axcallet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/05 09:39:12 by axcallet          #+#    #+#             */
-/*   Updated: 2023/05/31 17:05:03 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/06/06 13:06:58 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "../inc/minishell.h"
+#include "../../../inc/minishell.h"
 
 static char	*get_str(char *str, int *index, int *j, char c)
 {

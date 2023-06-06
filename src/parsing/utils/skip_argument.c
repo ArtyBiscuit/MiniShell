@@ -1,27 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print_tab.c                                        :+:      :+:    :+:   */
+/*   skip_argument.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: arforgea <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/20 18:58:18 by arforgea          #+#    #+#             */
-/*   Updated: 2023/04/21 13:46:23 by arforgea         ###   ########.fr       */
+/*   Created: 2023/03/28 10:18:14 by arforgea          #+#    #+#             */
+/*   Updated: 2023/06/06 13:11:58 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+#include "../../../inc/minishell.h"
 
-#include "../../inc/minishell.h"
-
-void	DB_print_tab(char **tab)
+int	skip_argument(char *c)
 {
-	unsigned int	index;
+	int		index;
+	char	temple;
 
-	index = 0;
-		printf("***** DEBUG *****\n");
-	while(tab[index])
+	index = 1;
+	temple = *c;
+	while (c)
 	{
-		printf("%s\n", tab[index]);
+		if (temple == c[index])
+			return (index);
 		index++;
 	}
-		printf("***** DEBUG *****\n");
+	return (-1);
 }

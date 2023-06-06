@@ -6,11 +6,10 @@
 /*   By: axcallet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 15:24:03 by axcallet          #+#    #+#             */
-/*   Updated: 2023/05/24 09:49:30 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/06/06 13:08:08 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "../inc/minishell.h"
-#include "libft/libft.h"
+#include "../../../inc/minishell.h"
 
 static char	*get_good_path(char *cmd, char **envp_path)
 {

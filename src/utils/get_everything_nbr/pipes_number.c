@@ -1,31 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   signals_2.c                                        :+:      :+:    :+:   */
+/*   pipes_number.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: axcallet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/09 17:17:37 by axcallet          #+#    #+#             */
-/*   Updated: 2023/06/05 16:10:24 by axcallet         ###   ########.fr       */
+/*   Created: 2023/03/28 11:00:01 by axcallet          #+#    #+#             */
+/*   Updated: 2023/06/06 13:17:33 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "../inc/minishell.h"
+#include "../../../inc/minishell.h"
 
-void	signals_disabled(void)
+int	get_pipes_number(char *cmd)
 {
-	signal(SIGINT, SIG_IGN);
-	signal(SIGQUIT, SIG_IGN);
-}
+	int	i;
+	int	res;
 
-void	signals_heredoc(void)
-{
-	signal(SIGINT, mini_sigint_heredoc);
-	signal(SIGQUIT, SIG_IGN);
-}
-
-void	signal_exec(void)
-{
-	signal(SIGINT, SIG_IGN);
-	signal(SIGINT, mini_sigint_fork);
-	signal(SIGQUIT, mini_sigquit_fork);
+	i = 0;
+	res = 0;
+	while (cmd[i])
+	{
+		if (cmd[i] && (cmd[i] == '\"' || cmd[i] == '\''))
+		{
+			if (skip_argument(&cmd[i]))
+				i += skip_argument(&cmd[i]);
+		}
+		if (cmd[i] && cmd[i] == '|')
+			res++;
+		i++;
+	}
+	return (res + 1);
 }

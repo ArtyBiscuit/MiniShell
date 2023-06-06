@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: axcallet <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: axcallet <axcallet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 15:30:39 by axcallet          #+#    #+#             */
-/*   Updated: 2023/06/05 18:52:11 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/06/06 10:49:57 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../inc/minishell.h"
@@ -38,32 +38,6 @@ static void	minishell_process(t_data *data)
 		if (data->input)
 			free(data->input);
 	}
-}
-
-char	**ft_tab_dup(char **tab)
-{
-	int		i;
-	char	**new;
-
-	i = 0;
-	new = malloc(sizeof(char *) * (get_env_size(tab) + 1));
-	if (!new)
-	{
-		free(new);
-		return (NULL);
-	}
-	while (tab[i])
-	{
-		new[i] = ft_strdup(tab[i]);
-		if (!new[i])
-		{
-			free_tab(new);
-			return (NULL);
-		}
-		i++;
-	}
-	new[i] = NULL;
-	return (new);
 }
 
 int	main(int argc, char **argv, char **envp)

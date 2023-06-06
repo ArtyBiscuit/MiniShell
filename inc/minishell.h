@@ -6,7 +6,7 @@
 /*   By: arforgea <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 14:22:32 by arforgea          #+#    #+#             */
-/*   Updated: 2023/06/05 18:47:26 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/06/06 14:50:40 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,63 +35,116 @@
 # include <termios.h>
 
 //	########## GLOBAL ##########
-	
+
 extern int	g_status;
 
 //	########## STRCTURE ##########
 
-typedef struct s_exec	t_exec;
-typedef struct s_data	t_data;
-
-struct	s_exec
+typedef struct s_exec
 {
-	int		fd_in;
-	int		fd_out;
-	char	*abs_path;
-	char	**full_cmd;
-	char	*cmd;
-	t_exec	*next;
-	t_exec	*back;
-};
+	int				fd_in;
+	int				fd_out;
+	char			*abs_path;
+	char			**full_cmd;
+	char			*cmd;
+	struct s_exec	*next;
+	struct s_exec	*back;
+}				t_exec;
 
-struct s_data
+typedef struct s_data
 {
 	int		nb_cmd;
 	pid_t	*tab_pid;
 	char	*input;
 	char	**envp;
 	t_exec	*dtt;
-};
-//	**********	 DEBUG ! **********
-void	DB_print_dtt(t_data *data);
-void	DB_print_tab(char **tab);
+}				t_data;
+
 //	########## FONCTIONS ##########
 
-//	lst-init
+//	builtins
+
+void	ft_echo(char **tab);
+int		ft_pwd(t_exec *dtt);
+int		check_builtins(char *cmd);
+int		ft_env(t_exec *dtt, char **envp);
+int		ft_cd(t_data *data, t_exec *dtt);
+int		ft_exit(t_data *data, t_exec *dtt);
+int		ft_unset(char ***envp, char **tab_cmd);
+int		ft_export(char ***envp, char **tab_cmd);
+int		check_after_fork(t_data *data, t_exec *dtt);
+int		check_before_fork(t_data *data, t_exec *dtt);
+
+void	print_tab(char **arrey);
+void	print_tab_sort(char **tab);
+
+int		get_var_size(char *str);
+int		get_env_size(char **envp);
+int		get_name_var_size(char *var);
+int		is_var(char **envp, char *var);
+
+//	execution
+
+int		check_exec(char *str);
+void	free_fork(t_data *data);
+int		exec_pipeline(t_data *data);
+void	wait_all_pid(t_data *data, int *tab_pid);
+
+//	heredoc
+
+t_exec	*heredoc(t_data *data, t_exec *dtt, char **tab, char *cmd);
+t_exec	*heredoc_call(t_data *data, t_exec *dtt, char **tab, char *cmd);
+t_exec	*write_heredoc(t_data *data, t_exec *dtt, char **tab, char *word);
+
+//	lst
 
 t_exec	*exec_lst_init(int nb);
 t_data	*dtt_init(t_data *data);
 void	lst_destroy(t_exec *ptr);
 t_data	*dtt_refile(t_data *data);
 void	exec_lst_free(t_exec *ptr);
-t_exec	*refile_exec(t_data *data, t_exec *dtt, char **tab, char **cmd);
-
-//	input restructuration
-
-char	*replace_variables(t_data *data);
-void	input_restructure(t_data *data);
-void	add_no_spaces(char *cmd, char *new_cmd, int *i, int *j); 
 
 //	parsing
 
+//	input
+
+int		check_syntax(char *str);
+
 int		is_rdir(char c);
-int		parsing(char *input);
-int		strlen_word(char *str);
+char	*get_file(char *str);
 int		check_chevrons(char *str);
+t_exec	*left_chevrons(t_exec *dtt, char *cmd);
+t_exec	*right_chevrons(t_exec *dtt, char *cmd);
+
+char	*add_spaces_rdir(char *str);
+void	input_restructure(t_data *data);
+char	*remove_spaces_pipes(char *cmd);
+char	*remove_extra_spaces(char *cmd);
+void	add_no_spaces(char *cmd, char *new_cmd, int *i, int *j);
+
 char	**input_to_tab(char *input);
-int		get_pipes_number(char *cmd);
-int		get_chevrons_number(char *cmd);
-int		main(int argc, char **argv, char **envp);
+
+char	**turbo_split(char *input, char c);
+
+//	refile
+
+char	*get_abs_path(char *cmd, char **envp);
+
+t_exec	*refile_exec(t_data *data, t_exec *dtt, char **tab, char **cmd);
+
+int		check_heredoc(char *str);
+int		get_good_nb_word(char **tab_cmd);
+
+//	utils
+
+int		skip_argument(char *c);
+
+//	variables
+
+int		char_is_valid(char c);
+int		check_flag(int flag, char c);
+char	*replace_variables(t_data *data);
+int		check_var_heredoc(char *str, int i);
 
 //	signals
 
@@ -103,90 +156,26 @@ void	mini_sigint_fork(int signal);
 void	mini_sigquit_fork(int signal);
 void	mini_sigint_heredoc(int signal);
 
-//	heredoc
+//	utils
 
-t_exec	*heredoc(t_data *data, t_exec *dtt, char **tab, char *cmd);
+//	get_everything_nbr
 
-//	builtins
-
-void	ft_echo(char **tab);
-int		ft_pwd(t_exec *dtt);
-int 	ft_env(t_exec *dtt, char **envp);
-int		ft_cd(t_data *data, t_exec *dtt);
-int		ft_unset(char ***envp, char **tab_cmd);
-int		ft_export(char ***envp, char **tab_cmd);
-int		ft_exit(t_data *data, t_exec *dtt);
-int		check_after_fork(t_data *data, t_exec *dtt);
-int		check_before_fork(t_data *data, t_exec *dtt);
-int 	check_builtins(char *cmd);
-
-//	other...
-
-int		is_var(char **envp, char *var);
-
-int		char_is_valid(char c);
-
-int		get_name_var_size(char *var);
-
-t_exec	*heredoc_call(t_data *data, t_exec *dtt, char **tab, char *cmd);
-
-char	*get_file(char *str);
-
-char	**ft_tab_dup(char **tab);
-
-void	print_tab(char **arrey);
-
-void	print_tab_sort(char **tab);
-
-int		get_var_size(char *str);
-
-int 	get_env_size(char **envp);
-
-char	*get_abs_path(char *cmd, char **envp);
-
-char	*add_spaces_rdir(char *str);
-
-//char	*input_mod_var(t_data *data);
-
-char	*remove_extra_spaces(char *cmd);
-
-char	*remove_spaces_pipes(char *cmd);
-
-char    *ft_secur_cat(char *s1, char *s2);
-
-int		is_space(char c);
-
-int		is_separator(char c);
-
-int		check_syntax(char *str);
-
+int		get_pipes_number(char *cmd);
+int		get_chevrons_number(char *cmd);
 int		get_chars_number(char *str, char c);
-
-char	**turbo_split(char *input, char c);
-
-char	*get_next_word(char *str);
-
-int		skip_argument(char *c);
-
-t_exec	*left_chevrons(t_exec *dtt, char *cmd);
-
-t_exec	*right_chevrons(t_exec *dtt, char *cmd);
 
 void	free_tab(char **tab);
 
-void	echo(char *str, char *flags);
+int		is_space(char c);
+int		is_separator(char c);
+int		strlen_word(char *str);
+char	**ft_tab_dup(char **tab);
+char	*get_next_word(char *str);
+char	*ft_secur_cat(char *s1, char *s2);
 
-int		char_is_valid(char c);
+// main
 
-int		check_flag(int flag, char c);
-
-int		check_var_heredoc(char *str, int i);
-
-
-
-//	execution
-
-int	exec_pipeline(t_data *data);
+int		main(int argc, char **argv, char **envp);
 
 //	########## END ##########
 

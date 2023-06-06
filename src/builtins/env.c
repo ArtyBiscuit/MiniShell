@@ -6,7 +6,7 @@
 /*   By: axcallet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 17:04:56 by axcallet          #+#    #+#             */
-/*   Updated: 2023/06/02 15:42:33 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/06/06 14:44:14 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../../inc/minishell.h"
@@ -34,9 +34,9 @@ int	ft_env(t_exec *dtt, char **envp)
 	{
 		perror(dtt->full_cmd[1]);
 		if (dtt->full_cmd[1][0] == '-')
-			g_status = 127;
-		else
 			g_status = 125;
+		else
+			g_status = 127;
 		return (1);
 	}
 	while (envp[i])
