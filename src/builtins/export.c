@@ -3,12 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arforgea <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: axcallet <axcallet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 14:05:00 by arforgea          #+#    #+#             */
-/*   Updated: 2023/06/02 15:58:14 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/06/09 10:02:26 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "../../inc/minishell.h"
 
 static char	*get_format_var(char *var)
@@ -86,21 +87,23 @@ static int	check(char *str)
 	int	i;
 
 	i = 0;
-	while (str[i] && str[i] != '=')
+	if (str[i] == '-')
 	{
-		if (str[i] == '-')
+		g_status = 2;
+		printf("bash: export: %s: invalid option\n", str);
+		return (1);
+	}
+	while (str[i])
+	{
+		if (i > 0 && str[i] == '=')
+			break ;
+		if (str[0] == '=' || (str[i] && (!ft_isalpha(str[i]) && str[i] != '_')))
 		{
-			printf("bash: `%c%c' invalid option\n", str[i], str[i + 1]);
-			g_status = 2;
+			g_status = 1;
+			printf("bash: export: `%s': not a valid identifier\n", str);
 			return (1);
 		}
 		i++;
-	}
-	if (!ft_isalpha(str[0]) && str[0] != '_')
-	{
-		printf("bash: export: `%s': not a valid identifier\n", str);
-		g_status = 1;
-		return (1);
 	}
 	return (0);
 }

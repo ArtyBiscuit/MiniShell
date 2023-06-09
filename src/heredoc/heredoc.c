@@ -6,22 +6,36 @@
 /*   By: axcallet <axcallet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 16:48:51 by axcallet          #+#    #+#             */
-/*   Updated: 2023/06/06 11:45:32 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/06/09 17:16:20 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "../../inc/minishell.h"
 
 t_exec	*heredoc_call(t_data *data, t_exec *dtt, char **tab, char *cmd)
 {
 	int		i;
-	char	*file;
+	char	*word;
 	t_exec	*tmp;
 
 	i = 0;
-	file = get_file(&cmd[i]);
 	tmp = dtt;
-	tmp = heredoc(data, tmp, tab, file);
-	free(file);
+	while(cmd[i])
+	{
+		if (cmd[i] && cmd[i + 1]
+			&& cmd[i] == '<' && cmd[i + 1] == '<')
+		{
+			if (tmp->fd_in > 2)
+				close (tmp->fd_in);
+			word = get_file(&cmd[i]);
+			tmp = heredoc(data, tmp, tab, word);
+			free(word);
+			i++;
+		}
+		if (g_status == 130)
+			break ;
+		i++;
+	}
 	return (tmp);
 }
 

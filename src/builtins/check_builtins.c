@@ -3,12 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   check_builtins.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: axcallet <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: axcallet <axcallet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 09:41:07 by axcallet          #+#    #+#             */
-/*   Updated: 2023/06/02 15:43:02 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/06/08 10:26:24 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "../../inc/minishell.h"
 
 int	check_after_fork(t_data *data, t_exec *dtt)
@@ -16,7 +17,7 @@ int	check_after_fork(t_data *data, t_exec *dtt)
 	if (!ft_strncmp(dtt->cmd, "echo", 5))
 		ft_echo(dtt->full_cmd);
 	else if (!ft_strncmp(dtt->cmd, "pwd", 4))
-		ft_pwd(dtt);
+		ft_pwd();
 	else if (!ft_strncmp(dtt->cmd, "env", 4))
 		ft_env(dtt, data->envp);
 	else if (!ft_strncmp(dtt->cmd, "cd", 3))

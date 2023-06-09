@@ -3,12 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   variables.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: axcallet <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: axcallet <axcallet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 18:19:37 by axcallet          #+#    #+#             */
-/*   Updated: 2023/06/06 14:25:56 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/06/08 16:13:47 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "../../../inc/minishell.h"
 
 static char	*final_variable(char *var, t_data *data, int j, int i)
@@ -64,11 +65,12 @@ static void	change_variables(t_data *data, char **new, int *i, int *j)
 
 static void	skip_flag_replace(t_data *data, char **new, int *i, int *j)
 {
-	static int	flag;
-
-	flag = check_flag(flag, data->input[*i]);
-	if (data->input[*i] == '\'' && flag == 1)
-		*i += (skip_argument(&data->input[*i]) - 1);
+	data->flag = check_flag(data->flag, data->input[*i]);
+	if (data->input[*i] && data->input[*i] == '$'
+		&& check_just_dollar(&data->input[*i]))
+			(*i)++;
+	if (data->input[*i] == '\'' && data->flag == 1)
+		(*i) += (skip_argument(&data->input[*i]));
 	else if (data->input[*i] == '$' && !check_var_heredoc(data->input, *i))
 		change_variables(data, new, i, j);
 }
@@ -82,6 +84,7 @@ char	*replace_variables(t_data *data)
 	i = 0;
 	j = 0;
 	new = NULL;
+	data->flag = 0;
 	while (data->input[i])
 	{
 		skip_flag_replace(data, &new, &i, &j);

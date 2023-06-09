@@ -3,31 +3,37 @@
 /*                                                        :::      ::::::::   */
 /*   exec_pipe_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: axcallet <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: axcallet <axcallet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 09:56:28 by axcallet          #+#    #+#             */
-/*   Updated: 2023/06/06 11:42:49 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/06/09 14:21:24 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "../../inc/minishell.h"
 
 int	check_exec(char *str)
 {
-	int		i;
-	char	*exec;
+	int	i;
 
 	i = 0;
-	if (str && ft_strlen(str) > 2)
+	if (str && !ft_strncmp(str, "./", 2))
 	{
-		exec = ft_substr(str, 2, strlen_word(&str[2]));
-		if (open(exec, O_DIRECTORY) != -1)
+		if (open(str, O_RDONLY) == -1)
+		{
+			perror(str);
+			if (access(str, F_OK) == -1)
+				g_status = 127;
+			else
+				g_status = 126;
+			return (1);
+		}
+		if (open(str, O_DIRECTORY) != -1)
 		{
 			printf("minishell: %s: Is a directory\n", str);
 			g_status = 126;
-			free(exec);
 			return (1);
 		}
-		free(exec);
 	}
 	return (0);
 }

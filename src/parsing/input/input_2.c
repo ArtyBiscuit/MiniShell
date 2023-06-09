@@ -3,12 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   input_2.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: axcallet <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: axcallet <axcallet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/22 14:58:12 by axcallet          #+#    #+#             */
-/*   Updated: 2023/06/06 12:59:01 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/06/07 18:34:55 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "../../../inc/minishell.h"
 
 char	*remove_extra_spaces(char *cmd)

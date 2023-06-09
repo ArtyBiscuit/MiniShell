@@ -3,12 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   signals_2.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: axcallet <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: axcallet <axcallet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 17:17:37 by axcallet          #+#    #+#             */
-/*   Updated: 2023/06/06 13:15:47 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/06/08 15:02:07 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "../../inc/minishell.h"
 
 void	signals_disabled(void)

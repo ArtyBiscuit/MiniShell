@@ -3,12 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   get_abs_path.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: axcallet <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: axcallet <axcallet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 15:24:03 by axcallet          #+#    #+#             */
-/*   Updated: 2023/06/06 13:08:08 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/06/08 14:53:16 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "../../../inc/minishell.h"
 
 static char	*get_good_path(char *cmd, char **envp_path)
@@ -47,8 +48,6 @@ char	*get_abs_path(char *cmd, char **envp)
 
 	if (!cmd || !envp)
 		return (NULL);
-	if (!access(cmd, F_OK))
-		return (NULL);
 	i = 0;
 	while (ft_strncmp(envp[i], "PATH=", 5))
 	{
@@ -57,6 +56,12 @@ char	*get_abs_path(char *cmd, char **envp)
 		i++;
 	}
 	envp_path = ft_split(envp[i], ':');
-	path_bin = get_good_path(cmd, envp_path);
+	if (!access(cmd, X_OK))
+	{
+		free_tab(envp_path);
+		path_bin = ft_strdup(cmd);
+	}
+	else
+		path_bin = get_good_path(cmd, envp_path);
 	return (path_bin);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arforgea <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: axcallet <axcallet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 14:22:32 by arforgea          #+#    #+#             */
-/*   Updated: 2023/06/06 14:50:40 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/06/08 16:09:53 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ typedef struct s_exec
 typedef struct s_data
 {
 	int		nb_cmd;
+	int		flag;
 	pid_t	*tab_pid;
 	char	*input;
 	char	**envp;
@@ -64,8 +65,8 @@ typedef struct s_data
 
 //	builtins
 
+int		ft_pwd(void);
 void	ft_echo(char **tab);
-int		ft_pwd(t_exec *dtt);
 int		check_builtins(char *cmd);
 int		ft_env(t_exec *dtt, char **envp);
 int		ft_cd(t_data *data, t_exec *dtt);
@@ -143,6 +144,7 @@ int		skip_argument(char *c);
 
 int		char_is_valid(char c);
 int		check_flag(int flag, char c);
+int		check_just_dollar(char *str);
 char	*replace_variables(t_data *data);
 int		check_var_heredoc(char *str, int i);
 
@@ -176,6 +178,10 @@ char	*ft_secur_cat(char *s1, char *s2);
 // main
 
 int		main(int argc, char **argv, char **envp);
+
+// DEBUG
+
+void	DB_print_dtt(t_data *data);
 
 //	########## END ##########
 

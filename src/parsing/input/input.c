@@ -3,12 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   input.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: axcallet <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: axcallet <axcallet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 10:42:51 by axcallet          #+#    #+#             */
-/*   Updated: 2023/06/06 11:54:02 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/06/09 10:03:39 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "../../../inc/minishell.h"
 
 static void	inheritance_rdir(char *cmd, char *new_cmd, int *i, int *j)
@@ -36,8 +37,8 @@ char	*add_spaces_rdir(char *cmd)
 			add_no_spaces(cmd, new_cmd, &i, &j);
 		if (cmd[i] && is_rdir(cmd[i]))
 			inheritance_rdir(cmd, new_cmd, &i, &j);
-		if (cmd[i] && i > 0 && !is_space(cmd[i])
-			&& !is_rdir(cmd[i]) && is_rdir(cmd[i - 1]))
+		if (cmd[i] && i > 0 && !is_space(cmd[i]) && !is_rdir(cmd[i])
+			&& is_rdir(cmd[i - 1]) && cmd[i] != '\'' && cmd[i] != '\"')
 			new_cmd[j++] = ' ';
 		if (cmd[i])
 			new_cmd[j++] = cmd[i++];

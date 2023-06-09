@@ -3,12 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   check_syntax.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arforgea <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: axcallet <axcallet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 14:41:40 by arforgea          #+#    #+#             */
-/*   Updated: 2023/06/06 17:01:33 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/06/07 18:11:38 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "../../../inc/minishell.h"
 
 static int	str_is_blank(char *str)
@@ -16,7 +17,9 @@ static int	str_is_blank(char *str)
 	int	i;
 
 	i = 0;
-	if (str[i] && str[i + 1])
+	if (is_rdir(str[i]))
+		i++;
+	if (is_rdir(str[i]))
 		i++;
 	while (str[i] && str[i] != '|' && !is_rdir(str[i]))
 	{
@@ -64,6 +67,8 @@ static int	check_pipes_syntax(char *str)
 		return (1);
 	while (str[i])
 	{
+		if (str[i] && (str[i] == '\'' || str[i] == '\"'))
+			i += skip_argument(&str[i]);
 		if (str[i] == '|')
 		{
 			i++;

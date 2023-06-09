@@ -3,24 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: axcallet <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: axcallet <axcallet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 17:23:52 by axcallet          #+#    #+#             */
-/*   Updated: 2023/06/02 15:41:31 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/06/08 10:26:26 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "../../inc/minishell.h"
 
-int	ft_pwd(t_exec *dtt)
+int	ft_pwd(void)
 {
-	char	pwd[PATH_MAX];	
+	char	pwd[PATH_MAX];
 
-	if (dtt->full_cmd[1])
-	{
-		ft_putstr_fd("pwd: too many arguments\n", 2);
-		g_status = 0;
-		return (1);
-	}
 	getcwd(pwd, sizeof(pwd));
 	ft_putstr_fd(pwd, 1);
 	ft_putstr_fd("\n", 1);

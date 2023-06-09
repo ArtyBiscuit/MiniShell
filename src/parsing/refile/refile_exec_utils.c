@@ -3,12 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   refile_exec_utils.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: axcallet <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: axcallet <axcallet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 09:44:03 by axcallet          #+#    #+#             */
-/*   Updated: 2023/06/06 13:09:20 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/06/07 18:13:50 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "../../../inc/minishell.h"
 
 int	check_heredoc(char *str)
@@ -18,7 +19,9 @@ int	check_heredoc(char *str)
 	i = 0;
 	while (str[i])
 	{
-		if (str[i] && is_rdir(str[i]) && is_rdir(str[i + 1]))
+		if (str[i] && (str[i] == '\'' || str[i] == '\"'))
+			i += skip_argument(&str[i]);
+		if (str[i] && str[i] == '<' && str[i + 1] == '<')
 			return (0);
 		i++;
 	}

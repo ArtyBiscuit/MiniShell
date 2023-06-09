@@ -3,33 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   input_to_tab.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arforgea <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: axcallet <axcallet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/20 18:13:28 by arforgea          #+#    #+#             */
-/*   Updated: 2023/06/06 17:40:58 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/06/08 15:21:10 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "../../../inc/minishell.h"
-
-static int	get_new_size(char *str)
-{
-	unsigned int	index;
-	unsigned int	s_size;
-
-	index = 0;
-	s_size = 0;
-	while (str[index])
-	{
-		if (str[index] == '"')
-			index++;
-		else
-		{
-			index++;
-			s_size++;
-		}
-	}
-	return (s_size);
-}
 
 static char	*refactor_str(char *str)
 {
@@ -40,7 +21,7 @@ static char	*refactor_str(char *str)
 
 	i = 0;
 	j = 0 ;
-	res = malloc(sizeof(char) * (get_new_size(str) + 1));
+	res = malloc(sizeof(char) * (ft_strlen(str) + 1));
 	while (str[i])
 	{
 		if (str[i] && (str[i] == '\"' || str[i] == '\''))

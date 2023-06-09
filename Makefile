@@ -6,7 +6,7 @@
 #    By: axcallet <axcallet@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/13 13:47:21 by axcallet          #+#    #+#              #
-#    Updated: 2023/06/06 13:35:33 by axcallet         ###   ########.fr        #
+#    Updated: 2023/06/07 15:37:30 by axcallet         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -69,7 +69,8 @@ SRC			= src/builtins/cd.c								\
 			src/utils/get_everything_nbr/pipes_number.c		\
 			src/utils/utils.c								\
 			src/utils/utils_2.c								\
-			src/main.c							
+			src/main.c										\
+			src/print_dtt.c
 
 HEADER		= inc/minishell.h
 

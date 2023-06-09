@@ -3,23 +3,42 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arforgea <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: axcallet <axcallet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 16:17:37 by arforgea          #+#    #+#             */
-/*   Updated: 2023/06/06 18:00:20 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/06/07 17:38:26 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "../../inc/minishell.h"
+
+void	print_word(char *str)
+{
+	int		i;
+	char	tmp;
+
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] && (str[i] == '\'' || str[i] == '\"'))
+		{
+			tmp = str[i];
+			i++;
+			while (str[i] && str[i] != tmp)
+				ft_putchar_fd(str[i++], 1);
+		}
+		else if (str[i] && (str[i] != '\'' && str[i] != '\"'))
+			ft_putchar_fd(str[i], 1);
+		i++;
+	}
+}
 
 void	ft_echo(char **tab)
 {
 	int		i;
-	int		j;
 	int		f;
-	char	tmp;
 
 	i = 1;
-	j = 0;
 	f = 0;
 	while (!ft_strncmp(tab[i], "-n", 2))
 	{
@@ -28,21 +47,9 @@ void	ft_echo(char **tab)
 	}
 	while (tab[i])
 	{
-		j = 0;
-		while (tab[i][j])
-		{
-			if (tab[i][j] && (tab[i][j] == '\'' || tab[i][j] == '\"'))
-			{
-				tmp = tab[i][j];
-				j++;
-				while (tab[i][j] && tab[i][j] != tmp)
-					ft_putchar_fd(tab[i][j++], 1);
-			}
-			else if (tab[i][j] && (tab[i][j] != '\'' && tab[i][j] != '\"'))
-				ft_putchar_fd(tab[i][j], 1);
-			j++;
-		}
-		ft_putchar_fd(' ', 1);
+		print_word(tab[i]);
+		if (tab[i + 1])
+			ft_putchar_fd(' ', 1);
 		i++;
 	}
 	if (f != 1)

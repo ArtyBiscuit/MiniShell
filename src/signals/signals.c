@@ -3,12 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: axcallet <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: axcallet <axcallet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 13:47:39 by axcallet          #+#    #+#             */
-/*   Updated: 2023/06/06 13:15:13 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/06/08 15:02:58 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "../../inc/minishell.h"
 
 void	mini_sigint(int signal)
@@ -44,6 +45,7 @@ void	mini_sigint_heredoc(int signal)
 	if (signal == SIGINT)
 	{
 		close(0);
+		ft_putchar_fd('\n', 1);
 		g_status = 3;
 	}
 }

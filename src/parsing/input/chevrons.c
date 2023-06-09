@@ -3,12 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   chevrons.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: axcallet <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: axcallet <axcallet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 11:35:54 by axcallet          #+#    #+#             */
-/*   Updated: 2023/06/06 17:23:30 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/06/09 17:01:25 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "../../../inc/minishell.h"
 
 char	*get_file(char *str)
@@ -19,20 +20,22 @@ char	*get_file(char *str)
 	char	*res;
 
 	i = 0;
+	j = 0;
 	count = 0;
-	while (str[i] && (str[i] == '<' || str[i] == '>') && count < 2)
-	{
+	res = malloc(sizeof(char) * ft_strlen(str) + 1);
+	while (str[i] && (str[i] == '<' || str[i] == '>') && count++ < 2)
 		i++;
-		count++;
-	}
 	if (str[i] && str[i] == ' ')
 		i++;
-	j = i;
-	while (is_rdir(str[i]))
-		i++;
-	while (!is_separator(str[i]))
-		i++;
-	res = ft_substr(str, j, (i - j));
+	while (str[i] && (!is_space(str[i]) && str[i] != ' '
+			&& str[i] != '\0' && str[i] != '|'))
+	{
+		if (str[i] && (str[i] == '\'' || str[i] == '\"'))
+			i++;
+		else
+			res[j++] = str[i++];
+	}
+	res[j] = '\0';
 	return (res);
 }
 
@@ -65,8 +68,8 @@ t_exec	*left_chevrons(t_exec *dtt, char *cmd)
 
 	i = 0;
 	tmp = dtt;
-	if (tmp->fd_in > 2)
-		close(tmp->fd_in);
+	// if (tmp->fd_in > 2)
+	// 	close(tmp->fd_in);
 	file = get_file(&cmd[i]);
 	if (cmd[i + 1] == '<')
 	{

@@ -3,12 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   exec_pipe.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arforgea <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: axcallet <axcallet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 08:28:36 by arforgea          #+#    #+#             */
-/*   Updated: 2023/06/06 11:41:49 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/06/09 16:02:29 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "../../inc/minishell.h"
 
 static void	all_dup2(t_exec *dtt, int *fds, int fd_in)
@@ -92,7 +93,7 @@ static void	exec_core(t_data *data, t_exec *ptr, int *fd_in, int i)
 	else if (check_exec(ptr->cmd))
 		data->tab_pid[i] = 0;
 	else if (!check_before_fork(data, ptr) && ptr->fd_in != -1)
-	{	
+	{
 		*fd_in = ft_pipe(data, ptr, &data->tab_pid[i], *fd_in);
 		if (g_status != 130)
 		g_status = 0;

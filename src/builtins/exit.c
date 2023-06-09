@@ -3,12 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: axcallet <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: axcallet <axcallet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 09:23:01 by axcallet          #+#    #+#             */
-/*   Updated: 2023/06/05 16:28:30 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/06/08 13:14:30 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "../../inc/minishell.h"
 
 static int	check_is_numeric(char *num)
@@ -16,7 +17,7 @@ static int	check_is_numeric(char *num)
 	int	i;
 
 	i = 0;
-	if (num[i] == '-')
+	if (num[i] == '-' || num[i] == '+')
 		i++;
 	while (num[i])
 	{
