@@ -6,7 +6,7 @@
 /*   By: axcallet <axcallet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 16:17:37 by arforgea          #+#    #+#             */
-/*   Updated: 2023/06/13 10:28:44 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/06/13 14:14:05 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,8 @@ void	ft_echo(char **tab)
 	f = 0;
 	while (tab[i])
 	{
+		if (!check_option(tab[i]))
+			f = 1;
 		if (check_option(tab[i]))
 			break ;
 		i++;

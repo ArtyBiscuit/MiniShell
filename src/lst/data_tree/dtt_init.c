@@ -6,7 +6,7 @@
 /*   By: axcallet <axcallet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/05 09:49:35 by axcallet          #+#    #+#             */
-/*   Updated: 2023/06/13 13:16:55 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/06/13 14:08:44 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ t_data	*dtt_init(t_data *data)
 	tmp = dtt;
 	set_values(tmp);
 	cmp = 0;
-	while (cmp++ < get_pipes_number(data->input))
+	while (++cmp < get_pipes_number(data->input))
 	{
 		tmp->next = malloc(sizeof(t_exec));
 		set_values(tmp->next);
