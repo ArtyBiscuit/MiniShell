@@ -3,12 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: axcallet <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: axcallet <axcallet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 17:04:56 by axcallet          #+#    #+#             */
-/*   Updated: 2023/06/06 14:44:14 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/06/13 13:19:25 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "../../inc/minishell.h"
 
 static int	check_char_equal(char *str)

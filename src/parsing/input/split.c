@@ -3,12 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   split.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: axcallet <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: axcallet <axcallet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/05 09:39:12 by axcallet          #+#    #+#             */
-/*   Updated: 2023/06/06 13:06:58 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/06/13 13:20:34 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "../../../inc/minishell.h"
 
 static char	*get_str(char *str, int *index, int *j, char c)

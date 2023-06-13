@@ -6,9 +6,10 @@
 /*   By: axcallet <axcallet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 10:29:59 by axcallet          #+#    #+#             */
-/*   Updated: 2023/06/06 14:56:21 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/06/13 11:04:16 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "../../inc/minishell.h"
 
 char	**ft_tab_dup(char **tab)
@@ -63,4 +64,18 @@ char	*ft_secur_cat(char *s1, char *s2)
 		s2 = NULL;
 	}
 	return (f_str);
+}
+
+int	string_is_empty(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] && (str[i] != '\0' || str[i] != '\n'))
+			return (1);
+		i++;
+	}
+	return (0);
 }

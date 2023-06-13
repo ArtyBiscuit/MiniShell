@@ -6,7 +6,7 @@
 /*   By: axcallet <axcallet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 14:22:32 by arforgea          #+#    #+#             */
-/*   Updated: 2023/06/08 16:09:53 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/06/13 10:44:12 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -173,6 +173,7 @@ int		is_separator(char c);
 int		strlen_word(char *str);
 char	**ft_tab_dup(char **tab);
 char	*get_next_word(char *str);
+int		string_is_empty(char *str);
 char	*ft_secur_cat(char *s1, char *s2);
 
 // main

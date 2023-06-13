@@ -3,12 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   refile_exec.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: axcallet <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: axcallet <axcallet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/07 14:02:37 by axcallet          #+#    #+#             */
-/*   Updated: 2023/06/06 14:05:39 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/06/13 11:52:55 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "../../../inc/minishell.h"
 
 static char	**cmd_core(char **t_cmd)
@@ -92,15 +93,12 @@ static t_exec	*change_fds(t_exec *dtt, char *cmd)
 }
 
 t_exec	*refile_exec(t_data *data, t_exec *dtt, char **tab, char **cmd)
-{	
+{
 	t_exec	*tmp;
 
 	tmp = dtt;
 	tmp->fd_in = 0;
 	tmp->fd_out = 1;
-	tmp->abs_path = NULL;
-	tmp->cmd = NULL;
-	tmp->full_cmd = NULL;
 	if (!check_heredoc(*cmd))
 		tmp = heredoc_call(data, tmp, tab, *cmd);
 	if (check_chevrons(*cmd) && g_status != 130)

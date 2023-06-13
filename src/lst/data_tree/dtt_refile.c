@@ -3,12 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   dtt_refile.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: axcallet <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: axcallet <axcallet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/05 16:56:54 by axcallet          #+#    #+#             */
-/*   Updated: 2023/05/25 09:33:39 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/06/13 13:20:08 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "../../../inc/minishell.h"
 
 t_data	*dtt_refile(t_data *data)

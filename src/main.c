@@ -6,7 +6,7 @@
 /*   By: axcallet <axcallet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 15:30:39 by axcallet          #+#    #+#             */
-/*   Updated: 2023/06/09 17:15:40 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/06/13 10:44:58 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ static void	minishell_process(t_data *data)
 		data->input = readline("MiniShell $: ");
 		if (!data->input)
 			data->input = ft_strdup("exit");
-		add_history(data->input);
+		if (string_is_empty(data->input))
+			add_history(data->input);
 		if (check_syntax(data->input))
 		{
 			printf("Syntax error\n");
@@ -34,7 +35,6 @@ static void	minishell_process(t_data *data)
 			continue ;
 		data = dtt_init(data);
 		data = dtt_refile(data);
-		// DB_print_dtt(data);
 		exec_pipeline(data);
 		if (data->input)
 			free(data->input);

@@ -6,7 +6,7 @@
 /*   By: axcallet <axcallet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 18:19:37 by axcallet          #+#    #+#             */
-/*   Updated: 2023/06/08 16:13:47 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/06/13 13:16:05 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,12 +66,10 @@ static void	change_variables(t_data *data, char **new, int *i, int *j)
 static void	skip_flag_replace(t_data *data, char **new, int *i, int *j)
 {
 	data->flag = check_flag(data->flag, data->input[*i]);
-	if (data->input[*i] && data->input[*i] == '$'
-		&& check_just_dollar(&data->input[*i]))
-			(*i)++;
 	if (data->input[*i] == '\'' && data->flag == 1)
 		(*i) += (skip_argument(&data->input[*i]));
-	else if (data->input[*i] == '$' && !check_var_heredoc(data->input, *i))
+	else if (data->input[*i] == '$' && !check_var_heredoc(data->input, *i)
+		&& !check_just_dollar(&data->input[*i]))
 		change_variables(data, new, i, j);
 }
 
@@ -95,8 +93,9 @@ char	*replace_variables(t_data *data)
 			return (new);
 		}
 		else if (data->input[i] == '$' && !check_var_heredoc(data->input, i))
-			continue ;
-		i++;
+			i++ ;
+		else
+			i++;
 	}
 	free(data->input);
 	return (new);

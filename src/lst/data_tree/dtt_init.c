@@ -3,13 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   dtt_init.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: axcallet <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: axcallet <axcallet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/05 09:49:35 by axcallet          #+#    #+#             */
-/*   Updated: 2023/05/10 15:12:11 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/06/13 13:16:55 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "../../../inc/minishell.h"
+
+static void	set_values(t_exec *dtt)
+{
+	dtt->abs_path = NULL;
+	dtt->cmd = NULL;
+	dtt->full_cmd = NULL;
+}
 
 t_data	*dtt_init(t_data *data)
 {
@@ -23,15 +31,16 @@ t_data	*dtt_init(t_data *data)
 		return (NULL);
 	dtt->back = NULL;
 	tmp = dtt;
-	cmp = 1;
-	while (cmp < get_pipes_number(data->input))
+	set_values(tmp);
+	cmp = 0;
+	while (cmp++ < get_pipes_number(data->input))
 	{
 		tmp->next = malloc(sizeof(t_exec));
+		set_values(tmp->next);
 		if (!tmp->next)
 			return (NULL);
 		tmp->next->back = tmp;
 		tmp = tmp->next;
-		cmp++;
 	}
 	tmp->next = NULL;
 	data->dtt = dtt;

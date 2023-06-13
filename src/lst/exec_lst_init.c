@@ -3,12 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   exec_lst_init.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arforgea <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: axcallet <axcallet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/26 10:11:33 by arforgea          #+#    #+#             */
-/*   Updated: 2023/04/11 10:35:16 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/06/13 13:20:13 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "../../inc/minishell.h"
 
 static	t_exec	*exec_link_create(void)

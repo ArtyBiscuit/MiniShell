@@ -6,20 +6,37 @@
 /*   By: axcallet <axcallet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 14:05:10 by arforgea          #+#    #+#             */
-/*   Updated: 2023/06/06 10:47:27 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/06/13 11:05:07 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "../../inc/minishell.h"
 
 void	print_tab(char **array)
 {
-	int	index;
+	int	i;
+	int	j;
 
-	index = 0;
-	while (array[index])
+	i = 0;
+	while (array[i])
 	{
-		printf("declare -x %s\n", array[index]);
-		index++;
+		j = 0;
+		ft_putstr_fd("declare -X ", 1);
+		while (array[i][j])
+		{
+			if (array[i][j] == '=')
+			{
+				ft_putchar_fd(array[i][j], 1);
+				ft_putchar_fd('\"', 1);
+				while (array[i][j])
+					ft_putchar_fd(array[i][j++], 1);
+				ft_putchar_fd('\"', 1);
+			}
+			if (array[i][j])
+				ft_putchar_fd(array[i][j++], 1);
+		}
+		ft_putchar_fd('\n', 1);
+		i++;
 	}
 	return ;
 }

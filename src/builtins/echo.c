@@ -6,7 +6,7 @@
 /*   By: axcallet <axcallet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 16:17:37 by arforgea          #+#    #+#             */
-/*   Updated: 2023/06/07 17:38:26 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/06/13 10:28:44 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,24 @@ void	print_word(char *str)
 	}
 }
 
+static int	check_option(char *str)
+{
+	int	i;
+
+	i = 0;
+	if (str[i] == '-')
+		i++;
+	else
+		return (1);
+	while (str[i])
+	{
+		if (str[i] && str[i] != 'n')
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
 void	ft_echo(char **tab)
 {
 	int		i;
@@ -40,9 +58,10 @@ void	ft_echo(char **tab)
 
 	i = 1;
 	f = 0;
-	while (!ft_strncmp(tab[i], "-n", 2))
+	while (tab[i])
 	{
-		f = 1;
+		if (check_option(tab[i]))
+			break ;
 		i++;
 	}
 	while (tab[i])

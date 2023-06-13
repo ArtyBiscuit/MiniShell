@@ -6,7 +6,7 @@
 /*   By: axcallet <axcallet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 11:35:54 by axcallet          #+#    #+#             */
-/*   Updated: 2023/06/09 17:01:25 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/06/13 10:03:03 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,8 +68,6 @@ t_exec	*left_chevrons(t_exec *dtt, char *cmd)
 
 	i = 0;
 	tmp = dtt;
-	// if (tmp->fd_in > 2)
-	// 	close(tmp->fd_in);
 	file = get_file(&cmd[i]);
 	if (cmd[i + 1] == '<')
 	{
@@ -101,7 +99,7 @@ t_exec	*right_chevrons(t_exec *dtt, char *cmd)
 		close (tmp->fd_out);
 	file = get_file(&cmd[i]);
 	if (cmd[i] && cmd[i + 1] == '>')
-		tmp->fd_out = open(file, O_CREAT | O_WRONLY, 0644);
+		tmp->fd_out = open(file, O_CREAT | O_APPEND | O_WRONLY, 0644);
 	else
 		tmp->fd_out = open(file, O_CREAT | O_WRONLY | O_TRUNC, 0644);
 	free(file);

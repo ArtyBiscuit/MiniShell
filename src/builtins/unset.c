@@ -3,12 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arforgea <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: axcallet <axcallet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 14:05:25 by arforgea          #+#    #+#             */
-/*   Updated: 2023/06/05 17:52:14 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/06/13 13:19:41 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "../../inc/minishell.h"
 
 static int	compare(char *s1, char *s2)

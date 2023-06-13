@@ -6,7 +6,7 @@
 /*   By: axcallet <axcallet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 16:48:51 by axcallet          #+#    #+#             */
-/*   Updated: 2023/06/09 17:16:20 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/06/13 12:47:30 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ t_exec	*heredoc_call(t_data *data, t_exec *dtt, char **tab, char *cmd)
 
 	i = 0;
 	tmp = dtt;
-	while(cmd[i])
+	while (cmd[i])
 	{
 		if (cmd[i] && cmd[i + 1]
 			&& cmd[i] == '<' && cmd[i + 1] == '<')
@@ -41,6 +41,8 @@ t_exec	*heredoc_call(t_data *data, t_exec *dtt, char **tab, char *cmd)
 
 static void	free_w_heredoc(t_data *data, t_exec *dtt, char **tab)
 {
+	while (dtt->back)
+		dtt = dtt->back;
 	lst_destroy(dtt);
 	free_tab(tab);
 	if (data->input)
