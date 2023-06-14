@@ -6,7 +6,7 @@
 /*   By: axcallet <axcallet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 08:28:36 by arforgea          #+#    #+#             */
-/*   Updated: 2023/06/13 21:23:05 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/06/14 17:40:58 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,10 +52,11 @@ static int	fork_exec(t_data *data, t_exec *dtt, int *fds, int fd_in)
 		{
 			printf("Command '%s' not found\n", dtt->cmd);
 			free_fork(data);
+			close_all(fds, fd_in, dtt->fd_out);
 			exit (127);
 		}
 		all_dup2(dtt, fds, fd_in);
-		close_all(fds, fd_in);
+		close_all(fds, fd_in, dtt->fd_out);
 		if (!check_after_fork(data, dtt) && dtt->cmd)
 		{
 			g_status = 0;
@@ -91,6 +92,7 @@ static void	exec_core(t_data *data, t_exec *ptr, int *fd_in, int i)
 {
 	if (!ft_strncmp(ptr->cmd, "exit", 4))
 	{
+		close(*fd_in);
 		ft_exit(data, data->dtt);
 		data->tab_pid[i] = 0;
 	}
@@ -124,8 +126,7 @@ int	exec_pipeline(t_data *data)
 	}
 	wait_all_pid(data, data->tab_pid);
 	signal(SIGQUIT, SIG_IGN);
-	if (fd_in > 0)
-		close(fd_in);
+	close(fd_in);
 	free(data->tab_pid);
 	return (0);
 }

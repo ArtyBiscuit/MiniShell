@@ -6,7 +6,7 @@
 /*   By: axcallet <axcallet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 09:56:28 by axcallet          #+#    #+#             */
-/*   Updated: 2023/06/13 21:18:00 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/06/14 17:33:32 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,11 @@ int	check_exec(char *str)
 	return (0);
 }
 
-void	close_all(int *fds, int fd)
+void	close_all(int *fds, int fd_in, int fd_out)
 {
-	close(fd);
+	(void)fd_out;
+	close(fd_in);
+	// close(fd_out);
 	close(fds[0]);
 	close(fds[1]);
 }

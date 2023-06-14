@@ -6,7 +6,7 @@
 /*   By: axcallet <axcallet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 13:30:42 by axcallet          #+#    #+#             */
-/*   Updated: 2023/06/13 10:32:44 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/06/14 16:28:02 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,25 @@ static void	change_vars(char ***envp, char *var)
 	free_tab(tmp);
 }
 
+static char	*for_the_tild(char *str)
+{
+	char	*tmp;
+
+	if (str[1])
+	{
+		tmp = ft_substr(str, 1, ft_strlen(str));
+		free(str);
+		str = ft_strjoin(getenv("HOME"), tmp);
+		free(tmp);
+	}
+	else
+	{
+		free(str);
+		str = ft_strdup(getenv("HOME"));
+	}
+	return (str);
+}
+
 int	ft_cd(t_data *data, t_exec *dtt)
 {
 	t_exec	*ptr;
@@ -50,6 +69,8 @@ int	ft_cd(t_data *data, t_exec *dtt)
 	ptr = dtt;
 	if (!cd_errors(ptr))
 	{
+		if (ptr->full_cmd[1][0] == '~')
+			ptr->full_cmd[1] = for_the_tild(ptr->full_cmd[1]);
 		change_vars(&data->envp, "OLDPWD=");
 		if (chdir(ptr->full_cmd[1]))
 		{

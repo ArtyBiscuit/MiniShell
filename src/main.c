@@ -6,7 +6,7 @@
 /*   By: axcallet <axcallet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 15:30:39 by axcallet          #+#    #+#             */
-/*   Updated: 2023/06/13 21:15:16 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/06/14 14:40:55 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ static void	minishell_process(t_data *data)
 			continue ;
 		data = dtt_init(data);
 		data = dtt_refile(data);
+		DB_print_dtt(data);
 		exec_pipeline(data);
 		if (data->input)
 			free(data->input);

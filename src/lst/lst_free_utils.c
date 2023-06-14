@@ -6,7 +6,7 @@
 /*   By: axcallet <axcallet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/26 11:37:47 by arforgea          #+#    #+#             */
-/*   Updated: 2023/06/09 14:19:04 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/06/14 17:26:12 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,10 @@ static void	cmd_link_value_free(t_exec *ptr)
 		free(ptr->abs_path);
 	if (ptr->full_cmd)
 		free_tab(ptr->full_cmd);
+	if (ptr->fd_in > 2)
+		close(ptr->fd_in);
+	if (ptr->fd_out > 2)
+		close(ptr->fd_out);
 	return ;
 }
 
