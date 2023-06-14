@@ -6,7 +6,7 @@
 /*   By: axcallet <axcallet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/07 14:02:37 by axcallet          #+#    #+#             */
-/*   Updated: 2023/06/13 11:52:55 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/06/13 19:11:44 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,9 +53,9 @@ static t_exec	*get_cmd(t_exec *exec, char **cmd, char **envp)
 	if (!new_tab)
 		return (NULL);
 	tmp->full_cmd = ft_tab_dup(new_tab);
-	tmp->cmd = ft_strdup(new_tab[0]);
+	tmp->cmd = str_without_quotes(ft_strdup(new_tab[0]));
 	if (!check_builtins(tmp->cmd))
-		tmp->abs_path = get_abs_path(new_tab[0], envp);
+		tmp->abs_path = get_abs_path(tmp->cmd, envp);
 	else if (check_builtins(tmp->cmd))
 		tmp->abs_path = ft_strdup(tmp->cmd);
 	free_tab(tab_cmd);

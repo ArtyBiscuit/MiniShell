@@ -6,7 +6,7 @@
 /*   By: axcallet <axcallet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 14:05:00 by arforgea          #+#    #+#             */
-/*   Updated: 2023/06/09 10:02:26 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/06/13 18:33:40 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,6 +121,7 @@ int	ft_export(char ***envp, char **tab_cmd)
 	}
 	while (tab_cmd[index])
 	{
+		tab_cmd[index] = str_without_quotes(tab_cmd[index]);
 		if (!check(tab_cmd[index]))
 		{
 			if (is_var(*envp, tab_cmd[index]))

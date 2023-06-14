@@ -6,7 +6,7 @@
 /*   By: axcallet <axcallet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 14:05:10 by arforgea          #+#    #+#             */
-/*   Updated: 2023/06/13 11:05:07 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/06/13 21:09:43 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,17 +17,18 @@ void	print_tab(char **array)
 	int	i;
 	int	j;
 
-	i = 0;
-	while (array[i])
+	i = -1;
+	while (array[++i])
 	{
 		j = 0;
-		ft_putstr_fd("declare -X ", 1);
+		ft_putstr_fd("declare -x ", 1);
 		while (array[i][j])
 		{
 			if (array[i][j] == '=')
 			{
 				ft_putchar_fd(array[i][j], 1);
 				ft_putchar_fd('\"', 1);
+				j++;
 				while (array[i][j])
 					ft_putchar_fd(array[i][j++], 1);
 				ft_putchar_fd('\"', 1);
@@ -36,7 +37,6 @@ void	print_tab(char **array)
 				ft_putchar_fd(array[i][j++], 1);
 		}
 		ft_putchar_fd('\n', 1);
-		i++;
 	}
 	return ;
 }

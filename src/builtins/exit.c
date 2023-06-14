@@ -6,7 +6,7 @@
 /*   By: axcallet <axcallet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 09:23:01 by axcallet          #+#    #+#             */
-/*   Updated: 2023/06/08 13:14:30 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/06/13 19:24:57 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ static long long	exit_error(char **tab)
 	if (tab[2])
 	{
 		ft_putstr_fd("exit : too many arguments\n", 2);
+		g_status = 1;
 		return (1);
 	}
 	return (ft_atoll(tab[1]));
@@ -51,6 +52,8 @@ int	ft_exit(t_data *data, t_exec *dtt)
 
 	status = exit_error(dtt->full_cmd);
 	clear_history();
+	if (status == 1)
+		return (0);
 	if (data->input)
 		free(data->input);
 	if (data->tab_pid)

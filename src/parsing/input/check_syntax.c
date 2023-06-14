@@ -6,7 +6,7 @@
 /*   By: axcallet <axcallet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 14:41:40 by arforgea          #+#    #+#             */
-/*   Updated: 2023/06/07 18:11:38 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/06/13 17:46:49 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,11 +110,20 @@ static int	check_quotes(char *str)
 
 int	check_syntax(char *str)
 {
+	int	error;
+
+	error = 0;
 	if (check_quotes(str))
-		return (1);
+		error = 1;
 	if (check_pipes_syntax(str))
-		return (1);
+		error = 1;
 	if (check_chevrons_syntax(str))
+		error = 1;
+	if (error == 1)
+	{
+		printf("Syntax error\n");
+		g_status = 2;
 		return (1);
+	}
 	return (0);
 }

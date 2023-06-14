@@ -6,7 +6,7 @@
 /*   By: axcallet <axcallet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 15:24:03 by axcallet          #+#    #+#             */
-/*   Updated: 2023/06/08 14:53:16 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/06/13 21:14:33 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,20 @@ static char	*get_good_path(char *cmd, char **envp_path)
 	return (NULL);
 }
 
+static char	*r_place(char *str)
+{
+	char	*tmp;
+
+	if (!ft_strncmp(str, "PATH=", 5))
+	{
+		tmp = ft_substr(str, 5, (ft_strlen(str) - 5));
+		free(str);
+		return (tmp);
+	}
+	else
+		return (str);
+}
+
 char	*get_abs_path(char *cmd, char **envp)
 {
 	int		i;
@@ -56,6 +70,7 @@ char	*get_abs_path(char *cmd, char **envp)
 		i++;
 	}
 	envp_path = ft_split(envp[i], ':');
+	envp_path[0] = r_place(envp_path[0]);
 	if (!access(cmd, X_OK))
 	{
 		free_tab(envp_path);

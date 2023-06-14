@@ -6,7 +6,7 @@
 /*   By: axcallet <axcallet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 09:56:28 by axcallet          #+#    #+#             */
-/*   Updated: 2023/06/09 14:21:24 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/06/13 21:18:00 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,13 @@ int	check_exec(char *str)
 		}
 	}
 	return (0);
+}
+
+void	close_all(int *fds, int fd)
+{
+	close(fd);
+	close(fds[0]);
+	close(fds[1]);
 }
 
 void	free_fork(t_data *data)

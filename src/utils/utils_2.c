@@ -6,7 +6,7 @@
 /*   By: axcallet <axcallet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 10:29:59 by axcallet          #+#    #+#             */
-/*   Updated: 2023/06/13 11:04:16 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/06/13 17:43:12 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,20 @@ int	string_is_empty(char *str)
 	while (str[i])
 	{
 		if (str[i] && (str[i] != '\0' || str[i] != '\n'))
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
+int	str_is_empty(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] && !is_space(str[i]))
 			return (1);
 		i++;
 	}

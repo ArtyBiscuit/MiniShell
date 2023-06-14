@@ -6,9 +6,10 @@
 /*   By: axcallet <axcallet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/24 09:53:43 by axcallet          #+#    #+#             */
-/*   Updated: 2023/06/06 13:18:50 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/06/13 19:06:26 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "../../inc/minishell.h"
 
 int	is_separator(char c)
@@ -58,4 +59,32 @@ char	*get_next_word(char *str)
 		}
 	}
 	return (NULL);
+}
+
+char	*str_without_quotes(char *str)
+{
+	int		i;
+	int		j;
+	char	tmp;
+	char	*res;
+
+	i = 0;
+	j = 0;
+	res = malloc(sizeof(char) * (ft_strlen(str) + 1));
+	if (!res)
+		return (NULL);
+	while (str[i])
+	{
+		if (str[i] && (str[i] == '\"' || str[i] == '\''))
+		{
+			tmp = str[i++];
+			while (str[i] && str[i] != tmp)
+				res[j++] = str[i++];
+		}
+		else if (str[i])
+			res[j++] = str[i++];
+	}
+	res[j] = '\0';
+	free(str);
+	return (res);
 }

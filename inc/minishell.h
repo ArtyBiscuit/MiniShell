@@ -6,7 +6,7 @@
 /*   By: axcallet <axcallet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 14:22:32 by arforgea          #+#    #+#             */
-/*   Updated: 2023/06/13 10:44:12 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/06/13 21:22:54 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,7 @@ int		is_var(char **envp, char *var);
 
 int		check_exec(char *str);
 void	free_fork(t_data *data);
+void	close_all(int *fds, int fd);
 int		exec_pipeline(t_data *data);
 void	wait_all_pid(t_data *data, int *tab_pid);
 
@@ -171,9 +172,11 @@ void	free_tab(char **tab);
 int		is_space(char c);
 int		is_separator(char c);
 int		strlen_word(char *str);
+int		str_is_empty(char *str);
 char	**ft_tab_dup(char **tab);
 char	*get_next_word(char *str);
 int		string_is_empty(char *str);
+char	*str_without_quotes(char *str);
 char	*ft_secur_cat(char *s1, char *s2);
 
 // main

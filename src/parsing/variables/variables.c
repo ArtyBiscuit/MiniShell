@@ -6,7 +6,7 @@
 /*   By: axcallet <axcallet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 18:19:37 by axcallet          #+#    #+#             */
-/*   Updated: 2023/06/13 13:16:05 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/06/13 18:08:57 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,9 +93,8 @@ char	*replace_variables(t_data *data)
 			return (new);
 		}
 		else if (data->input[i] == '$' && !check_var_heredoc(data->input, i))
-			i++ ;
-		else
-			i++;
+			continue ;
+		i++;
 	}
 	free(data->input);
 	return (new);
