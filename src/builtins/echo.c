@@ -6,7 +6,7 @@
 /*   By: axcallet <axcallet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 16:17:37 by arforgea          #+#    #+#             */
-/*   Updated: 2023/06/13 14:14:05 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/06/16 11:27:31 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,10 @@ void	print_word(char *str)
 			tmp = str[i];
 			i++;
 			while (str[i] && str[i] != tmp)
-				ft_putchar_fd(str[i++], 1);
+				printf("%c", str[i++]);
 		}
 		else if (str[i] && (str[i] != '\'' && str[i] != '\"'))
-			ft_putchar_fd(str[i], 1);
+			printf("%c", str[i]);
 		i++;
 	}
 }
@@ -70,10 +70,10 @@ void	ft_echo(char **tab)
 	{
 		print_word(tab[i]);
 		if (tab[i + 1])
-			ft_putchar_fd(' ', 1);
+			printf(" ");
 		i++;
 	}
 	if (f != 1)
-		ft_putchar_fd('\n', 1);
+		printf("\n");
 	g_status = 0;
 }

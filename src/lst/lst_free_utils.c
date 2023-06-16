@@ -6,7 +6,7 @@
 /*   By: axcallet <axcallet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/26 11:37:47 by arforgea          #+#    #+#             */
-/*   Updated: 2023/06/14 17:26:12 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/06/16 15:38:30 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,8 @@ void	lst_destroy(t_exec *ptr)
 	while (current)
 	{
 		next = current->next;
-		cmd_link_value_free(current);
+		if (current->cmd)
+			cmd_link_value_free(current);
 		free(current);
 		current = next;
 	}

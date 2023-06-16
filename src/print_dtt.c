@@ -6,7 +6,7 @@
 /*   By: axcallet <axcallet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 15:04:46 by arforgea          #+#    #+#             */
-/*   Updated: 2023/06/07 15:38:01 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/06/16 15:41:19 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	DB_print_dtt(t_data *data)
 
 	index = 0;
 	tmp = data->dtt;
-	printf("***** DEBUG *****\n");
+	printf("\n***** DEBUG *****\n");
 	printf("dtt: %p\n", tmp);
 	while(tmp)
 	{
@@ -37,6 +37,7 @@ void	DB_print_dtt(t_data *data)
 		printf("cmd = %s\n", tmp->cmd);
 		printf("dtt_next = %p\n", tmp->next);
 		printf("dtt_back = %p\n", tmp->back);
+		printf("###############\n");
 		tmp = tmp->next;
 	}
 	printf("***** DEBUG *****\n");

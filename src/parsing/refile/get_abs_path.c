@@ -6,7 +6,7 @@
 /*   By: axcallet <axcallet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 15:24:03 by axcallet          #+#    #+#             */
-/*   Updated: 2023/06/13 21:14:33 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/06/16 14:34:48 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,26 +57,28 @@ static char	*r_place(char *str)
 char	*get_abs_path(char *cmd, char **envp)
 {
 	int		i;
+	int		fd;
 	char	*path_bin;
 	char	**envp_path;
 
 	if (!cmd || !envp)
 		return (NULL);
 	i = 0;
-	while (ft_strncmp(envp[i], "PATH=", 5))
-	{
-		if (!envp[i])
-			return (NULL);
+	while (envp[i] && ft_strncmp(envp[i], "PATH=", 5))
 		i++;
-	}
+	if (!envp[i])
+		return (NULL);
 	envp_path = ft_split(envp[i], ':');
 	envp_path[0] = r_place(envp_path[0]);
-	if (!access(cmd, X_OK))
+	fd = open(cmd, O_DIRECTORY);
+	if (!access(cmd, X_OK) && fd == -1)
 	{
 		free_tab(envp_path);
 		path_bin = ft_strdup(cmd);
 	}
 	else
 		path_bin = get_good_path(cmd, envp_path);
+	if (fd > 2)
+		close(fd);
 	return (path_bin);
 }

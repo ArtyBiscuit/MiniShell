@@ -6,7 +6,7 @@
 /*   By: axcallet <axcallet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 14:22:32 by arforgea          #+#    #+#             */
-/*   Updated: 2023/06/14 16:40:18 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/06/16 16:24:15 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ typedef struct s_data
 
 //	builtins
 
-int		ft_pwd(void);
+int		ft_pwd(t_exec *dtt);
 void	ft_echo(char **tab);
 int		check_builtins(char *cmd);
 int		ft_env(t_exec *dtt, char **envp);
@@ -89,7 +89,7 @@ int		is_var(char **envp, char *var);
 int		check_exec(char *str);
 void	free_fork(t_data *data);
 int		exec_pipeline(t_data *data);
-void	close_all(int *fds, int fd, int fd_out);
+void	close_all(int *fds, int fd);
 void	wait_all_pid(t_data *data, int *tab_pid);
 
 //	heredoc

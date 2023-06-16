@@ -6,7 +6,7 @@
 /*   By: axcallet <axcallet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 09:23:01 by axcallet          #+#    #+#             */
-/*   Updated: 2023/06/14 14:24:05 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/06/16 16:29:05 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,14 +46,8 @@ static long long	exit_error(char **tab)
 	return (ft_atoll(tab[1]));
 }
 
-int	ft_exit(t_data *data, t_exec *dtt)
+static void	free_data(t_data *data)
 {
-	long long	status;
-
-	status = exit_error(dtt->full_cmd);
-	clear_history();
-	if (status == 1)
-		return (0);
 	if (data->input)
 		free(data->input);
 	if (data->tab_pid)
@@ -62,6 +56,23 @@ int	ft_exit(t_data *data, t_exec *dtt)
 		free_tab(data->envp);
 	if (data)
 		free(data);
+}
+
+int	ft_exit(t_data *data, t_exec *dtt)
+{
+	long long	status;
+
+	if (!dtt->full_cmd[1])
+	{
+		free_data(data);
+		lst_destroy(dtt);
+		exit (g_status);
+	}
+	status = exit_error(dtt->full_cmd);
+	clear_history();
+	if (status == 1)
+		return (0);
+	free_data(data);
 	if ((status == -1 || status == 0) && ft_strlen(dtt->full_cmd[1]) > 2)
 	{
 		ft_putstr_fd("exit : numeric argument required\n", 2);

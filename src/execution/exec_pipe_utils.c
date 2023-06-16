@@ -6,20 +6,37 @@
 /*   By: axcallet <axcallet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 09:56:28 by axcallet          #+#    #+#             */
-/*   Updated: 2023/06/14 17:33:32 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/06/16 14:15:15 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
+static int	check_directory(char *str)
+{
+	int	fd;
+
+	fd = open(str, O_DIRECTORY);
+	if (fd != -1)
+	{
+		printf("minishell: %s: Is a directory\n", str);
+		g_status = 126;
+		close(fd);
+		return (1);
+	}
+	return (0);
+}
+
 int	check_exec(char *str)
 {
 	int	i;
+	int	fd;
 
 	i = 0;
 	if (str && !ft_strncmp(str, "./", 2))
 	{
-		if (open(str, O_RDONLY) == -1)
+		fd = open(str, O_RDONLY);
+		if (fd == -1)
 		{
 			perror(str);
 			if (access(str, F_OK) == -1)
@@ -28,21 +45,16 @@ int	check_exec(char *str)
 				g_status = 126;
 			return (1);
 		}
-		if (open(str, O_DIRECTORY) != -1)
-		{
-			printf("minishell: %s: Is a directory\n", str);
-			g_status = 126;
+		close(fd);
+		if (check_directory(str))
 			return (1);
-		}
 	}
 	return (0);
 }
 
-void	close_all(int *fds, int fd_in, int fd_out)
+void	close_all(int *fds, int fd_in)
 {
-	(void)fd_out;
 	close(fd_in);
-	// close(fd_out);
 	close(fds[0]);
 	close(fds[1]);
 }
@@ -66,15 +78,18 @@ void	wait_all_pid(t_data *data, int *tab_pid)
 	int	status;
 
 	i = 0;
-	while (i != data->nb_cmd)
+	if (tab_pid)
 	{
-		if (tab_pid[i] != 0)
-			waitpid(tab_pid[i], &status, 0);
-		if (g_status == 131)
-			ft_putstr_fd("Quit core dumped\n", 2);
-		if (tab_pid[i] && WIFEXITED(status))
-			g_status = WEXITSTATUS(status);
-		i++;
+		while (i != data->nb_cmd)
+		{
+			if (tab_pid[i] != 0)
+				waitpid(tab_pid[i], &status, 0);
+			if (g_status == 131)
+				ft_putstr_fd("Quit core dumped\n", 2);
+			if (tab_pid[i] && WIFEXITED(status))
+				g_status = WEXITSTATUS(status);
+			i++;
+		}
 	}
 	signal(SIGINT, mini_sigint);
 }

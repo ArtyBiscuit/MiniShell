@@ -6,7 +6,7 @@
 /*   By: axcallet <axcallet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 09:41:07 by axcallet          #+#    #+#             */
-/*   Updated: 2023/06/14 17:54:58 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/06/16 16:23:37 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,10 @@ int	check_after_fork(t_data *data, t_exec *dtt)
 {
 	if (!ft_strncmp(dtt->cmd, "echo", 5))
 		ft_echo(dtt->full_cmd);
+	else if (!ft_strncmp(dtt->cmd, "exit", 5))
+		ft_exit(data, dtt);
 	else if (!ft_strncmp(dtt->cmd, "pwd", 4))
-		ft_pwd();
+		ft_pwd(dtt);
 	else if (!ft_strncmp(dtt->cmd, "env", 4))
 		ft_env(dtt, data->envp);
 	else if (!ft_strncmp(dtt->cmd, "cd", 3))

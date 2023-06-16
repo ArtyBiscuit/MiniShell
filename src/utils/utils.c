@@ -6,7 +6,7 @@
 /*   By: axcallet <axcallet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/24 09:53:43 by axcallet          #+#    #+#             */
-/*   Updated: 2023/06/13 19:06:26 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/06/16 13:49:58 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,9 +70,9 @@ char	*str_without_quotes(char *str)
 
 	i = 0;
 	j = 0;
-	res = malloc(sizeof(char) * (ft_strlen(str) + 1));
-	if (!res)
+	if (!str)
 		return (NULL);
+	res = malloc(sizeof(char) * (ft_strlen(str) + 1));
 	while (str[i])
 	{
 		if (str[i] && (str[i] == '\"' || str[i] == '\''))

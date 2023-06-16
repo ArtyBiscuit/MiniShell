@@ -6,7 +6,7 @@
 /*   By: axcallet <axcallet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 11:35:54 by axcallet          #+#    #+#             */
-/*   Updated: 2023/06/13 10:03:03 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/06/16 16:48:43 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,25 +63,24 @@ int	is_rdir(char c)
 t_exec	*left_chevrons(t_exec *dtt, char *cmd)
 {
 	int		i;
+	int		fd_tmp;
 	char	*file;
 	t_exec	*tmp;
 
 	i = 0;
 	tmp = dtt;
 	file = get_file(&cmd[i]);
-	if (cmd[i + 1] == '<')
+	if (cmd[i + 1] != '<')
 	{
-		free(file);
-		return (tmp);
-	}
-	else
-	{
-		tmp->fd_in = open(file, O_RDONLY);
-		if (tmp->fd_in == -1)
+		if (tmp->fd_in > 2)
+			close (tmp->fd_in);
+		fd_tmp = open(file, O_RDONLY);
+		if (fd_tmp == -1)
 		{
 			printf("minishell: %s: No such file or directory\n", file);
 			g_status = 1;
 		}
+		tmp->fd_in = fd_tmp;
 	}
 	free(file);
 	return (tmp);
@@ -90,6 +89,7 @@ t_exec	*left_chevrons(t_exec *dtt, char *cmd)
 t_exec	*right_chevrons(t_exec *dtt, char *cmd)
 {
 	int		i;
+	int		fd_tmp;
 	char	*file;
 	t_exec	*tmp;
 
@@ -99,9 +99,10 @@ t_exec	*right_chevrons(t_exec *dtt, char *cmd)
 		close (tmp->fd_out);
 	file = get_file(&cmd[i]);
 	if (cmd[i] && cmd[i + 1] == '>')
-		tmp->fd_out = open(file, O_CREAT | O_APPEND | O_WRONLY, 0644);
+		fd_tmp = open(file, O_CREAT | O_APPEND | O_WRONLY, 0644);
 	else
-		tmp->fd_out = open(file, O_CREAT | O_WRONLY | O_TRUNC, 0644);
+		fd_tmp = open(file, O_CREAT | O_WRONLY | O_TRUNC, 0644);
 	free(file);
+	tmp->fd_out = fd_tmp;
 	return (tmp);
 }

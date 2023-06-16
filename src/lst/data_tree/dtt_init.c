@@ -6,7 +6,7 @@
 /*   By: axcallet <axcallet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/05 09:49:35 by axcallet          #+#    #+#             */
-/*   Updated: 2023/06/13 14:08:44 by axcallet         ###   ########.fr       */
+/*   Updated: 2023/06/16 10:34:27 by axcallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,6 @@ t_data	*dtt_init(t_data *data)
 	}
 	tmp->next = NULL;
 	data->dtt = dtt;
-	data->nb_cmd = get_pipes_number(data->input);
+	data->nb_cmd = 0;
 	return (data);
 }
